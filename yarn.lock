@@ -536,6 +536,11 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
+emojibase@^5.1.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/emojibase/-/emojibase-5.1.1.tgz#fe812023959cb60d0b1b6da16042b180c96c2b7c"
+  integrity sha512-qc/qfuzZ93xmYMhnVA15yP2k3t4zJvBbqCc8dpDXFf75eJ+IogbzJuWQur8fkwsZ0u7YvJDBh939F9DapQqktQ==
+
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"

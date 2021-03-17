@@ -2,6 +2,7 @@
   "name": "typeahead",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://tomocchino.com/typeahead",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,6 +11,7 @@
   "dependencies": {
     "next": "10.0.9",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "emojibase": "^5.1.0"
   }
 }
