@@ -1,5 +1,4 @@
-import React from "react";
-import {Component} from "react";
+import React, {Component} from "react";
 import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 

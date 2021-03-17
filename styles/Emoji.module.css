@@ -1,0 +1,34 @@
+.App {
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 1rem;
+}
+
+.Emoji_glyph {
+  /* From emojipedia.com */
+  font-family: apple color emoji, segoe ui emoji, noto color emoji,
+    android emoji, emojisymbols, emojione mozilla, twemoji mozilla,
+    segoe ui symbol;
+  font-size: 3rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.Emoji_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.Emoji_meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Emoji_tags {
+  color: #aaa;
+  font-size: 0.8rem;
+  padding-top: 5px;
+}
