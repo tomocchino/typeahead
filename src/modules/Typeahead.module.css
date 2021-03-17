@@ -1,0 +1,46 @@
+.Typeahead_root {
+  position: relative;
+  width: 100%;
+}
+
+.Typeahead_input {
+  border: 1px solid #ccc;
+  border-radius: 0;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  padding: 1rem;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+.Typeahead_input:focus {
+  border-color: #39c;
+  outline: none;
+}
+
+.Typeahead_input:focus + .Typeahead_results {
+  border-color: #39c;
+  border-top-color: #ddd;
+}
+
+.Typeahead_results {
+  border: 1px solid #ccc;
+  border-top-color: #ddd;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  margin-top: -1px;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 100%;
+}
+
+.Typeahead_result {
+  cursor: default;
+  padding: 0.5rem 1rem;
+}
+
+.Typeahead_result.highlighted {
+  background-color: #eee;
+}

@@ -1,0 +1,18 @@
+.App {
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 1rem;
+}
+
+.Select {
+  border-color: #ccc;
+  box-sizing: border-box;
+  margin-left: 1rem;
+}
+
+.Select:focus {
+  border-color: #39c;
+  outline: none;
+}
