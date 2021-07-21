@@ -3,7 +3,7 @@ import EmojiTypeahead from "../src/examples/EmojiTypeahead";
 
 import styles from "../styles/App.module.css";
 
-export default function App() {
+export default function Emoji() {
   return (
     <div>
       <Head>

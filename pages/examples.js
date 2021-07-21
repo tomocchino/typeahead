@@ -1,11 +1,11 @@
-import {useState} from "react";
+import { useState } from "react";
 import Head from "next/head";
 import Typeahead from "../src/modules/Typeahead";
 import actorsConfig from "../src/examples/actorsConfig";
 import citiesConfig from "../src/examples/citiesConfig";
 import statesConfig from "../src/examples/statesConfig";
 
-import styles from "../styles/Examples.module.css";
+import styles from "../styles/App.module.css";
 
 const CONFIG = {
   actors: actorsConfig,

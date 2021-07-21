@@ -1,11 +1,3 @@
-.App {
-  align-items: center;
-  display: flex;
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 1rem;
-}
-
 .Emoji_glyph {
   /* From emojipedia.com */
   font-family: apple color emoji, segoe ui emoji, noto color emoji,
