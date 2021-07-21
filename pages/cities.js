@@ -10,7 +10,7 @@ dataSource.setMaxResults(15);
 dataSource.addEntries(cities.map((text) => new DataSourceEntry(text)));
 
 let renderer = (entry) => {
-  return <span>{entry._text}</span>;
+  return <span>{entry.getText()}</span>;
 };
 
 export default function Cities() {

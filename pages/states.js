@@ -13,7 +13,7 @@ dataSource.addEntries(
 );
 
 let renderer = (entry) => {
-  return <span>{entry._text}</span>;
+  return <span>{entry.getText()}</span>;
 };
 
 export default function States() {
