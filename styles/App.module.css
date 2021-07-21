@@ -6,6 +6,30 @@
   padding: 1rem;
 }
 
+.Nav {
+  color: #999;
+  background: #eee;
+}
+
+.Nav ul {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.Nav li {
+  padding: 10px;
+}
+
+.Nav a:hover {
+  text-decoration: underline;
+}
+
+.Selected {
+  color: #000;
+}
+
 .Select {
   border-color: #ccc;
   box-sizing: border-box;

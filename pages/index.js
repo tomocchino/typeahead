@@ -1,5 +1,5 @@
-import Header from "../src/sections/Header";
+import Template from "../src/examples/Template";
 
 export default function App() {
-  return <Header />;
+  return <Template />;
 }

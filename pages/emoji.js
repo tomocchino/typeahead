@@ -1,10 +1,10 @@
-import Header from "../src/sections/Header";
+import Template from "../src/examples/Template";
 import EmojiTypeahead from "../src/examples/EmojiTypeahead";
 
 export default function Emoji() {
   return (
-    <Header title="Emoji Typeahead">
+    <Template title="Emoji Typeahead">
       <EmojiTypeahead />
-    </Header>
+    </Template>
   );
 }
