@@ -50,5 +50,4 @@ export default [
   { value: "WV", text: "West Virginia" },
   { value: "WI", text: "Wisconsin" },
   { value: "WY", text: "Wyoming" },
-  { value: "CC", text: "Chris Cox Senior" }
 ];

@@ -13,13 +13,14 @@
 
 .Nav ul {
   margin: 0;
+  padding: 0;
   list-style: none;
   display: flex;
   justify-content: center;
 }
 
 .Nav li {
-  padding: 10px;
+  padding: 1rem;
 }
 
 .Nav a:hover {
@@ -28,15 +29,4 @@
 
 .Selected {
   color: #000;
-}
-
-.Select {
-  border-color: #ccc;
-  box-sizing: border-box;
-  margin-left: 1rem;
-}
-
-.Select:focus {
-  border-color: #39c;
-  outline: none;
 }

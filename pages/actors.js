@@ -4,7 +4,7 @@ import Template from "../src/examples/Template";
 import Typeahead from "../src/modules/Typeahead";
 
 import actors from "../src/examples/actorsData";
-import styles from "../src/examples/actorsStyles.module.css";
+import styles from "../styles/Actors.module.css";
 
 let dataSource = new DataSource();
 dataSource.addEntries(
@@ -17,8 +17,8 @@ let renderer = (entry) => {
   let data = entry.getRawData();
   return (
     <span>
-      <span className={styles.name}>{data.name}</span>
-      <span className={styles.movie}>{data.movie}</span>
+      <span className={styles.Name}>{data.name}</span>
+      <span className={styles.Movie}>{data.movie}</span>
     </span>
   );
 };

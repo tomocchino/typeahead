@@ -18579,5 +18579,5 @@ export default [
   "Zuni",
   "Zurich",
   "Zwingle",
-  "Zwolle"
+  "Zwolle",
 ];

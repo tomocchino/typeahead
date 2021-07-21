@@ -1,3 +1,4 @@
+// prettier-ignore
 module.exports = [
   {id: "nm0000134", name: "Robert De Niro", movie: "Cape Fear"},
   {id: "nm0000197", name: "Jack Nicholson", movie: "Chinatown"},
@@ -998,5 +999,5 @@ module.exports = [
   {id: "nm0000885", name: "Ned Beatty", movie: "Network"},
   {id: "nm0000092", name: "John Cleese", movie: "A Fish Called Wanda"},
   {id: "nm0001806", name: "John Turturro", movie: "Barton Fink"},
-  {id: "nm0001471", name: "Jerry Lewis", movie: "The Nutty Professor"}
+  {id: "nm0001471", name: "Jerry Lewis", movie: "The Nutty Professor"},
 ];
