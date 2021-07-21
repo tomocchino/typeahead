@@ -3,7 +3,6 @@ import DataSourceEntry from "../src/modules/DataSourceEntry";
 import Header from "../src/sections/Header";
 import Typeahead from "../src/modules/Typeahead";
 
-import styles from "../styles/App.module.css";
 import actorStyles from "../src/examples/actorsStyles.module.css";
 
 import actors from "../src/examples/actorsData";
@@ -27,15 +26,12 @@ let renderer = (entry) => {
 
 export default function Actors() {
   return (
-    <>
-      <Header title="Simple Typeahead Example - Actors" />
-      <div className={styles.App}>
-        <Typeahead
-          placeholder={`${actors.length} actors`}
-          dataSource={dataSource}
-          renderer={renderer}
-        />
-      </div>
-    </>
+    <Header title="Actor Typeahead">
+      <Typeahead
+        placeholder={`${actors.length} actors`}
+        dataSource={dataSource}
+        renderer={renderer}
+      />
+    </Header>
   );
 }
