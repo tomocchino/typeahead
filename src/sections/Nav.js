@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "../../styles/Nav.module.css";
 
-let pages = ["examples", "emoji"];
+let pages = ["emoji", "actors"];
 
 export default function Nav() {
   let router = useRouter();

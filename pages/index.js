@@ -1,14 +1,5 @@
-import Head from "next/head";
-import Nav from "../src/modules/Nav";
+import Header from "../src/sections/Header";
 
 export default function App() {
-  return (
-    <div>
-      <Head>
-        <title>Typeahead</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Nav />
-    </div>
-  );
+  return <Header />;
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import Nav from "../src/modules/Nav";
+import Nav from "../src/sections/Nav";
 import Typeahead from "../src/modules/Typeahead";
 import actorsConfig from "../src/examples/actorsConfig";
 import citiesConfig from "../src/examples/citiesConfig";
