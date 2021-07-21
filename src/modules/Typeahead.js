@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
@@ -14,7 +14,7 @@ export default class Typeahead extends Component {
 
   handleResponse = (value, results) => {
     // results is a list of DataSourceEntry items
-    this.setState({results: results, highlightedIndex: 0});
+    this.setState({ results: results, highlightedIndex: 0 });
   };
 
   handleInput = (event) => {
@@ -44,7 +44,7 @@ export default class Typeahead extends Component {
         if (index > numResults - 1) {
           index = 0;
         }
-        this.setState({highlightedIndex: index});
+        this.setState({ highlightedIndex: index });
         event.preventDefault();
         break;
       case Keys.up:
@@ -52,7 +52,7 @@ export default class Typeahead extends Component {
         if (index < 0) {
           index = numResults - 1;
         }
-        this.setState({highlightedIndex: index});
+        this.setState({ highlightedIndex: index });
         event.preventDefault();
         break;
       case Keys.enter:
@@ -66,11 +66,11 @@ export default class Typeahead extends Component {
   handleMouseMove = (event) => {
     let node = event.target;
     let index = Array.from(node.parentNode.childNodes).indexOf(node);
-    this.setState({highlightedIndex: index});
+    this.setState({ highlightedIndex: index });
   };
 
   handleMouseLeave = (event) => {
-    this.setState({highlightedIndex: -1});
+    this.setState({ highlightedIndex: -1 });
   };
 
   handleSelection = (entry) => {
@@ -86,7 +86,7 @@ export default class Typeahead extends Component {
     if (input.value === inputValue) {
       input.value = entry.getText();
     }
-    this.setState({results: []});
+    this.setState({ results: [] });
   };
 
   render() {

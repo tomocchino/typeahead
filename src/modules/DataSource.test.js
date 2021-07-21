@@ -2,12 +2,12 @@ import DataSource from "./DataSource";
 import DataSourceEntry from "./DataSourceEntry";
 
 function flatten(results) {
-  return results.map(entry => entry.getText());
+  return results.map((entry) => entry.getText());
 }
 
 function createTestDataSource(entries) {
   let dataSource = new DataSource();
-  dataSource.addEntries(entries.map(text => new DataSourceEntry(text)));
+  dataSource.addEntries(entries.map((text) => new DataSourceEntry(text)));
   dataSource.setMaxResults(4);
   return dataSource;
 }
@@ -31,7 +31,7 @@ describe("DataSource", () => {
     "Alpha",
     "Bravo Alpha",
     "Bravo",
-    "Charlie Bravo Alpha"
+    "Charlie Bravo Alpha",
   ]);
 
   it("should not allow duplicate entries to be added (query = 'lake tahoe')", () => {
@@ -52,7 +52,7 @@ describe("DataSource", () => {
       "Chicago",
       "Creekside",
       "Chicago Creek",
-      "Creek Town"
+      "Creek Town",
     ]);
   });
 
@@ -62,7 +62,7 @@ describe("DataSource", () => {
       "Creekside",
       "Chicago Creek",
       "Creek Town",
-      "Buffalo Creek"
+      "Buffalo Creek",
     ]);
   });
 
@@ -72,7 +72,7 @@ describe("DataSource", () => {
       "Alpha",
       "Alpha Bravo",
       "Bravo Alpha",
-      "Alpha Bravo Charlie"
+      "Alpha Bravo Charlie",
     ]);
   });
 
@@ -82,7 +82,7 @@ describe("DataSource", () => {
       "Bravo",
       "Bravo Alpha",
       "Alpha Bravo",
-      "Alpha Bravo Charlie"
+      "Alpha Bravo Charlie",
     ]);
   });
 
