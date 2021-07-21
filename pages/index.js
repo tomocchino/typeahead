@@ -1,7 +1,5 @@
 import Head from "next/head";
-import EmojiTypeahead from "../src/examples/EmojiTypeahead";
-
-import styles from "../styles/App.module.css";
+import Nav from "../src/modules/Nav";
 
 export default function App() {
   return (
@@ -10,9 +8,7 @@ export default function App() {
         <title>Typeahead</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.App}>
-        <EmojiTypeahead />
-      </div>
+      <Nav />
     </div>
   );
 }

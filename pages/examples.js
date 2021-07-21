@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
+import Nav from "../src/modules/Nav";
 import Typeahead from "../src/modules/Typeahead";
 import actorsConfig from "../src/examples/actorsConfig";
 import citiesConfig from "../src/examples/citiesConfig";
@@ -23,9 +24,10 @@ export default function Examples() {
   return (
     <div>
       <Head>
-        <title>Typeahead Example</title>
+        <title>Simple Typeahead Examples</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Nav />
       <div className={styles.App}>
         <Typeahead
           placeholder={`${config.count} ${type}`}
