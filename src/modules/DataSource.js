@@ -3,7 +3,10 @@ import parseTokens from "../util/parseTokens";
 export default class DataSource {
   constructor() {
     this._maxResults = 10;
+    this._queryHandler = null;
     this._queryCallback = null;
+    this._previousQueries = new Set();
+    this._mostRecentQuery = null;
     this._entriesSet = new Set();
     this._entryBuckets = new Map();
   }
@@ -74,6 +77,11 @@ export default class DataSource {
         }
       }
     });
+
+    // When entries are added, invoke query again to append new results
+    if (this._mostRecentQuery) {
+      this.query(this._mostRecentQuery);
+    }
   }
 
   query(value) {
@@ -82,6 +90,7 @@ export default class DataSource {
     }
     let results = this.getQueryResults(value);
     this._queryCallback(value, results);
+    this._mostRecentQuery = value;
   }
 
   getQueryResults(value) {
@@ -102,6 +111,19 @@ export default class DataSource {
         }
       }
     }
+
+    if (
+      this._queryHandler &&
+      resultCount < this._maxResults &&
+      !this._previousQueries.has(value)
+    ) {
+      // Let the client know we don't have enough results so it can go to the
+      // network to add more entries if needed
+      this._previousQueries.add(value);
+      this._queryHandler(value);
+    }
+
+    // Respond synchronously with whatever we have in the cache already
     return Array.from(results);
   }
 
@@ -115,6 +137,10 @@ export default class DataSource {
 
   setQueryCallback(callback) {
     this._queryCallback = callback;
+  }
+
+  setQueryHandler(callback) {
+    this._queryHandler = callback;
   }
 
   getCount() {
