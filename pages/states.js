@@ -3,7 +3,7 @@ import DataSourceEntry from "../src/modules/DataSourceEntry";
 import Template from "../src/examples/Template";
 import Typeahead from "../src/modules/Typeahead";
 
-import states from "../src/examples/statesData";
+import states from "../src/examples/states/data";
 
 let dataSource = new DataSource();
 dataSource.addEntries(

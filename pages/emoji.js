@@ -10,7 +10,7 @@ import {
   fromCodepointToUnicode,
 } from "emojibase";
 
-import styles from "../styles/Emoji.module.css";
+import styles from "../src/examples/emoji/styles.module.css";
 
 function initEmojiDataSource(dataSource, data) {
   dataSource.addEntries(

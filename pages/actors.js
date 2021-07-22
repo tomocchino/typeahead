@@ -3,8 +3,8 @@ import DataSourceEntry from "../src/modules/DataSourceEntry";
 import Template from "../src/examples/Template";
 import Typeahead from "../src/modules/Typeahead";
 
-import actors from "../src/examples/actorsData";
-import styles from "../styles/Actors.module.css";
+import actors from "../src/examples/actors/data";
+import styles from "../src/examples/actors/styles.module.css";
 
 let dataSource = new DataSource();
 dataSource.addEntries(

@@ -3,7 +3,7 @@ import DataSourceEntry from "../src/modules/DataSourceEntry";
 import Template from "../src/examples/Template";
 import Typeahead from "../src/modules/Typeahead";
 
-import cities from "../src/examples/citiesData";
+import cities from "../src/examples/cities/data";
 
 let dataSource = new DataSource();
 dataSource.setMaxResults(15);
