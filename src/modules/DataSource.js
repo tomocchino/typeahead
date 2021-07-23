@@ -73,7 +73,9 @@ export default class DataSource {
           if (!this._entryBuckets.has(charCode)) {
             this._entryBuckets.set(charCode, []);
           }
-          this._entryBuckets.get(charCode).push(entry);
+          if (!this._entryBuckets.get(charCode).includes(entry)) {
+            this._entryBuckets.get(charCode).push(entry);
+          }
         }
       }
     });
