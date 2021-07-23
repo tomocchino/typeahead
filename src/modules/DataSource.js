@@ -6,9 +6,9 @@ export default class DataSource {
     this._queryHandler = null;
     this._queryCallback = null;
     this._mostRecentQuery = "";
-    this._previousQueries = new Set();
     this._entriesSet = new Set();
     this._entryBuckets = new Map();
+    this._previousQueries = new Set();
   }
 
   /**
@@ -21,8 +21,8 @@ export default class DataSource {
    *
    * We must preserve the initial `entries` sort order inside each bucket as
    * much as possible, but we can't just iterate over `entries` and push each
-   * result directly into its `this._entryBuckets[firstCharCode]` bucket. We
-   * have to insert based the number of tokens each entry has, to make sure
+   * result directly into its `this._entryBuckets.get(firstCharCode)` bucket.
+   * We have to insert based the number of tokens each entry has, to make sure
    * one-token matches always come before two-token matches, and so on.
    *   eg. {a: ["Alpha", "Arizona", "Alpha Bravo", ...}
    *
@@ -49,27 +49,25 @@ export default class DataSource {
   addEntries(entries) {
     let filteredEntries = [];
 
+    // Dedupe entries based on their `value` field, which must be unique,
+    // as we build up the filteredEntries data structure.
     entries.forEach((entry) => {
-      // Dedupe entries based on their `value` field, which must be unique
       let value = entry.getValue();
-      if (this._entriesSet.has(value)) {
-        return;
+      if (!this._entriesSet.has(value)) {
+        this._entriesSet.add(value);
+        let index = entry.getTokens().length - 1;
+        if (!filteredEntries[index]) {
+          filteredEntries[index] = [];
+        }
+        filteredEntries[index].push(entry);
       }
-      this._entriesSet.add(value);
-
-      let index = entry.getTokens().length - 1;
-      if (!filteredEntries[index]) {
-        filteredEntries[index] = [];
-      }
-      filteredEntries[index].push(entry);
     });
 
     filteredEntries.forEach((entryBucket, index) => {
       for (let ii = 0; ii <= index; ii++) {
         for (let jj = 0; jj < entryBucket.length; jj++) {
           let entry = entryBucket[jj];
-          let token = entry.getTokens()[ii];
-          let charCode = token.charCodeAt(0);
+          let charCode = entry.getTokens()[ii].charCodeAt(0);
           if (!this._entryBuckets.has(charCode)) {
             this._entryBuckets.set(charCode, new Set());
           }
@@ -107,30 +105,26 @@ export default class DataSource {
   }
 
   getQueryResults(value) {
-    let resultCount = 0;
     let results = new Set();
+    let resultsCount = 0;
     let queryTokens = parseTokens(value);
-    let eligibleEntries = this.getEligibleEntries(queryTokens[0]);
+    let firstCharCode = queryTokens[0].charCodeAt(0);
+    let eligibleEntries = this._entryBuckets.get(firstCharCode) || new Set();
 
     if (value !== "") {
       for (let entry of eligibleEntries) {
         let entryTokens = entry.getTokens();
         if (tokensMatch(queryTokens, entryTokens)) {
           results.add(entry);
-          resultCount++;
+          resultsCount++;
         }
-        if (resultCount === this._maxResults) {
+        if (resultsCount === this._maxResults) {
           break;
         }
       }
     }
 
     return Array.from(results);
-  }
-
-  // This is private…
-  getEligibleEntries(token) {
-    return this._entryBuckets.get(token.charCodeAt(0)) || new Set();
   }
 
   setMaxResults(maxResults) {
@@ -145,7 +139,7 @@ export default class DataSource {
     this._queryHandler = callback;
   }
 
-  getCount() {
+  getNumberOfEntries() {
     return this._entriesSet.size;
   }
 }
