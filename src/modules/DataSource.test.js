@@ -5,39 +5,50 @@ function flatten(results) {
   return results.map((entry) => entry.getText());
 }
 
-function createTestDataSource(entries) {
+function createTestDataSource(entries, maxResults) {
   let dataSource = new DataSource();
   dataSource.addEntries(entries.map((text) => new DataSourceEntry(text)));
-  dataSource.setMaxResults(4);
+  dataSource.setMaxResults(maxResults || 4);
   return dataSource;
 }
 
-describe("DataSource", () => {
+describe("The Tahoe tests", () => {
   let dataSource = createTestDataSource([
-    // Creek and C
-    "Buffalo Creek",
-    "Chicago Creek",
-    "Chicago",
-    "Creek Town",
-    "Creekside",
-    // Tahoe cases
     "Lake Tahoe",
     "Lake Tahoe",
     "South Lake Tahoe",
     "Tahoe",
-    // ABCs of tokens
-    "Alpha Bravo Charlie",
-    "Alpha Bravo",
-    "Alpha",
-    "Bravo Alpha",
-    "Bravo",
-    "Charlie Bravo Alpha",
   ]);
 
   it("should not allow duplicate entries to be added (query = 'lake tahoe')", () => {
     let results = dataSource.getQueryResults("lake tahoe");
     expect(results).toHaveLength(2); // Lake Tahoe, South Lake Tahoe
   });
+
+  it("should return entries with last word matching the query (query = 'tahoe')", () => {
+    let results = flatten(dataSource.getQueryResults("tahoe"));
+    expect(results).toEqual(["Tahoe", "Lake Tahoe", "South Lake Tahoe"]);
+  });
+
+  it("should return entries with middle word matching the query (query = 'lake')", () => {
+    let results = flatten(dataSource.getQueryResults("lake"));
+    expect(results).toEqual(["Lake Tahoe", "South Lake Tahoe"]);
+  });
+
+  it("should return entries with two words matching the query (query = 'lake tahoe')", () => {
+    let results = flatten(dataSource.getQueryResults("lake tahoe"));
+    expect(results).toEqual(["Lake Tahoe", "South Lake Tahoe"]);
+  });
+});
+
+describe("Creek and C cities tests", () => {
+  let dataSource = createTestDataSource([
+    "Buffalo Creek",
+    "Chicago Creek",
+    "Chicago",
+    "Creek Town",
+    "Creekside",
+  ]);
 
   it("should match correct number of words (query = 'c c')", () => {
     let results = flatten(dataSource.getQueryResults("c c"));
@@ -65,6 +76,17 @@ describe("DataSource", () => {
       "Buffalo Creek",
     ]);
   });
+});
+
+describe("The ABCs of tokens tests", () => {
+  let dataSource = createTestDataSource([
+    "Alpha Bravo Charlie",
+    "Alpha Bravo",
+    "Alpha",
+    "Bravo Alpha",
+    "Bravo",
+    "Charlie Bravo Alpha",
+  ]);
 
   it("should return matches in the right order (query = 'alpha')", () => {
     let results = flatten(dataSource.getQueryResults("alpha"));
@@ -85,46 +107,21 @@ describe("DataSource", () => {
       "Alpha Bravo Charlie",
     ]);
   });
-
-  it("should return entries with last word matching the query (query = 'tahoe')", () => {
-    let results = flatten(dataSource.getQueryResults("tahoe"));
-    expect(results).toEqual(["Tahoe", "Lake Tahoe", "South Lake Tahoe"]);
-  });
-
-  it("should return entries with middle word matching the query (query = 'lake')", () => {
-    let results = flatten(dataSource.getQueryResults("lake"));
-    expect(results).toEqual(["Lake Tahoe", "South Lake Tahoe"]);
-  });
-
-  it("should return entries with two words matching the query (query = 'lake tahoe')", () => {
-    let results = flatten(dataSource.getQueryResults("lake tahoe"));
-    expect(results).toEqual(["Lake Tahoe", "South Lake Tahoe"]);
-  });
 });
 
-describe("DataSource Movies Test", () => {
+describe("The titan tests", () => {
+  // Before 1c4dbef, this would fail because there were multiple 'The Titan'
+  // entries in the 't' entryBucket, causing the count to be off. It took so
+  // much debugging to figure that crap out, sigh.
   let dataSource = createTestDataSource([
-    "The Titan",
-    "Attack on Titan",
-    "Titan A.E.",
-    "Attack on Titan II: End of the World",
-    "Attack on Titan",
-    "Ray Harryhausen: Special Effects Titan",
-    "Sym-Bionic Titan",
     "Titan",
-    "Titan FC 70: Assis vs. OShea",
-    "Destination Titan",
-    "Titan Desert 2020",
-    "Teen Titans Go! See Space Jam",
-    "Last Call for Titan",
-    "Attack on Titan: The Roar of Awakening",
-    "The Mighty Mr. Titan",
-    "Titán Desert - Santi Millán",
-    "Attack on Titan: Wings of Freedom",
+    "The Titan",
+    "Two Titans",
+    "Attack on Titan II: The Roar of Awakening Some Long Thing",
   ]);
 
-  it("should return all of these entries for the query 'tita'", () => {
-    let results = dataSource.getQueryResults("tita");
-    expect(results).toHaveLength(17);
+  it("should return all of these entries for the query 'titan'", () => {
+    let results = dataSource.getQueryResults("titan");
+    expect(results).toHaveLength(4);
   });
 });
