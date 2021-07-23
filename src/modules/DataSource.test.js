@@ -101,3 +101,30 @@ describe("DataSource", () => {
     expect(results).toEqual(["Lake Tahoe", "South Lake Tahoe"]);
   });
 });
+
+describe("DataSource Movies Test", () => {
+  let dataSource = createTestDataSource([
+    "The Titan",
+    "Attack on Titan",
+    "Titan A.E.",
+    "Attack on Titan II: End of the World",
+    "Attack on Titan",
+    "Ray Harryhausen: Special Effects Titan",
+    "Sym-Bionic Titan",
+    "Titan",
+    "Titan FC 70: Assis vs. OShea",
+    "Destination Titan",
+    "Titan Desert 2020",
+    "Teen Titans Go! See Space Jam",
+    "Last Call for Titan",
+    "Attack on Titan: The Roar of Awakening",
+    "The Mighty Mr. Titan",
+    "Titán Desert - Santi Millán",
+    "Attack on Titan: Wings of Freedom",
+  ]);
+
+  it("should return all of these entries for the query 'tita'", () => {
+    let results = dataSource.getQueryResults("tita");
+    expect(results).toHaveLength(17);
+  });
+});
