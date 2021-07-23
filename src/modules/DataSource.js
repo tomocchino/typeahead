@@ -5,8 +5,8 @@ export default class DataSource {
     this._maxResults = 10;
     this._queryHandler = null;
     this._queryCallback = null;
+    this._mostRecentQuery = "";
     this._previousQueries = new Set();
-    this._mostRecentQuery = null;
     this._entriesSet = new Set();
     this._entryBuckets = new Map();
   }
@@ -78,19 +78,30 @@ export default class DataSource {
       }
     });
 
-    // When entries are added, invoke query again to append new results
-    if (this._mostRecentQuery) {
-      this.query(this._mostRecentQuery);
-    }
+    // Whenever entries are added, invoke query to append new results
+    this.query(this._mostRecentQuery);
   }
 
   query(value) {
     if (!this._queryCallback) {
-      return null;
+      return;
     }
+
+    // Respond synchronously with whatever we have in the cache already
     let results = this.getQueryResults(value);
     this._queryCallback(value, results);
     this._mostRecentQuery = value;
+
+    // If we have fewer than _maxResults, invoke the _queryHandler, if
+    // one is set, enabling the caller to fetch more results if needed
+    if (
+      this._queryHandler &&
+      results.length < this._maxResults &&
+      !this._previousQueries.has(value)
+    ) {
+      this._previousQueries.add(value);
+      this._queryHandler(value);
+    }
   }
 
   getQueryResults(value) {
@@ -112,18 +123,6 @@ export default class DataSource {
       }
     }
 
-    if (
-      this._queryHandler &&
-      resultCount < this._maxResults &&
-      !this._previousQueries.has(value)
-    ) {
-      // Let the client know we don't have enough results so it can go to the
-      // network to add more entries if needed
-      this._previousQueries.add(value);
-      this._queryHandler(value);
-    }
-
-    // Respond synchronously with whatever we have in the cache already
     return Array.from(results);
   }
 
