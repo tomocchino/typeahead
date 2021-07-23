@@ -37,7 +37,6 @@ export default [
   { value: "OK", text: "Oklahoma" },
   { value: "OR", text: "Oregon" },
   { value: "PA", text: "Pennsylvania" },
-  { value: "PR", text: "Puerto Rico" },
   { value: "RI", text: "Rhode Island" },
   { value: "SC", text: "South Carolina" },
   { value: "SD", text: "South Dakota" },

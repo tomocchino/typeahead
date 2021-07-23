@@ -17,10 +17,11 @@ let renderer = (entry) => {
 };
 
 export default function States() {
+  let numEntries = dataSource.getNumberOfEntries();
   return (
-    <Template title="States Typeahead">
+    <Template title="State Search">
       <Typeahead
-        placeholder={`${states.length} states`}
+        placeholder={`${numEntries.toLocaleString()} states`}
         dataSource={dataSource}
         renderer={renderer}
       />

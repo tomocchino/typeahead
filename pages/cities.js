@@ -14,10 +14,11 @@ let renderer = (entry) => {
 };
 
 export default function Cities() {
+  let numEntries = dataSource.getNumberOfEntries();
   return (
-    <Template title="Cities Typeahead">
+    <Template title="City Search">
       <Typeahead
-        placeholder={`${cities.length} cities`}
+        placeholder={`${numEntries.toLocaleString()} cities`}
         dataSource={dataSource}
         renderer={renderer}
       />

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import styles from "../../styles/App.module.css";
 
-let pages = ["actors", "cities", "emoji", "movies", "states", "strings"];
+let pages = ["states", "actors", "cities", "strings", "emoji", "movies"];
 
 function Nav() {
   let router = useRouter();

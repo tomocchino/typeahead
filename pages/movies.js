@@ -59,9 +59,9 @@ let renderer = (entry) => {
 
 export default function Movies() {
   return (
-    <Template title="Movies Typeahead">
+    <Template title="Movie Search">
       <Typeahead
-        placeholder="Search Movies"
+        placeholder="Movie Search (TMDB)"
         dataSource={dataSource}
         renderer={renderer}
       />

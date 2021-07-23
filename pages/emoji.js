@@ -63,9 +63,9 @@ export default function Emoji() {
   }, []);
 
   return (
-    <Template title="Emoji Typeahead">
+    <Template title="Emoji Search">
       <Typeahead
-        placeholder="Emoji Search"
+        placeholder="Emoji Search (Emojibase)"
         dataSource={dataSource}
         renderer={renderer}
         onSelect={onSelect}

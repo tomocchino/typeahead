@@ -24,10 +24,11 @@ let renderer = (entry) => {
 };
 
 export default function Actors() {
+  let numEntries = dataSource.getNumberOfEntries();
   return (
-    <Template title="Actors Typeahead">
+    <Template title="Actor Search">
       <Typeahead
-        placeholder={`${actors.length} actors`}
+        placeholder={`${numEntries.toLocaleString()} actors`}
         dataSource={dataSource}
         renderer={renderer}
       />

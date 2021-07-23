@@ -29,10 +29,11 @@ let renderer = (entry) => {
 };
 
 export default function Strings() {
+  let numEntries = dataSource.getNumberOfEntries();
   return (
-    <Template title="Random Strings Typeahead">
+    <Template title="Random String Search">
       <Typeahead
-        placeholder={`${dataSource.getNumberOfEntries()} strings`}
+        placeholder={`${numEntries.toLocaleString()} random strings`}
         dataSource={dataSource}
         renderer={renderer}
       />
