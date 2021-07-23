@@ -71,10 +71,10 @@ export default class DataSource {
           let token = entry.getTokens()[ii];
           let charCode = token.charCodeAt(0);
           if (!this._entryBuckets.has(charCode)) {
-            this._entryBuckets.set(charCode, []);
+            this._entryBuckets.set(charCode, new Set());
           }
-          if (!this._entryBuckets.get(charCode).includes(entry)) {
-            this._entryBuckets.get(charCode).push(entry);
+          if (!this._entryBuckets.get(charCode).has(entry)) {
+            this._entryBuckets.get(charCode).add(entry);
           }
         }
       }
@@ -128,8 +128,9 @@ export default class DataSource {
     return Array.from(results);
   }
 
+  // This is private…
   getEligibleEntries(token) {
-    return this._entryBuckets.get(token.charCodeAt(0)) || [];
+    return this._entryBuckets.get(token.charCodeAt(0)) || new Set();
   }
 
   setMaxResults(maxResults) {
