@@ -1,50 +1,48 @@
-import React, { Component } from "react";
+import { useEffect, useRef, useState } from "react";
 import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
-export default class Typeahead extends Component {
-  constructor(props) {
-    super(props);
-    this.props.dataSource.setQueryCallback(this.handleResponse);
-    this.state = {
-      results: [],
-      highlightedIndex: -1,
-    };
-  }
+export default function Typeahead(props) {
+  let [results, setResults] = useState([]);
+  let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-  handleResponse = (value, results) => {
+  const dataSource = props.dataSource;
+  const textInput = useRef(null);
+
+  let handleResponse = (value, results) => {
     // results is a list of DataSourceEntry items
-    this.setState({ results: results, highlightedIndex: 0 });
+    setResults(results);
+    setHighlightedIndex(0);
   };
 
-  handleInput = (event) => {
-    this.props.dataSource.query(event.target.value);
+  let handleInput = (event) => {
+    dataSource.query(event.target.value);
   };
 
-  handleClick = (event) => {
-    let numResults = this.state.results.length;
+  let handleClick = (event) => {
+    let numResults = results.length;
     if (numResults === 0) {
       return;
     }
 
-    let index = this.state.highlightedIndex;
-    this.handleSelection(this.state.results[index]);
+    let index = highlightedIndex;
+    handleSelection(results[index]);
   };
 
-  handleKeydown = (event) => {
-    let numResults = this.state.results.length;
+  let handleKeydown = (event) => {
+    let numResults = results.length;
     if (numResults === 0) {
       return;
     }
 
-    let index = this.state.highlightedIndex;
+    let index = highlightedIndex;
     switch (event.keyCode) {
       case Keys.down:
         index++;
         if (index > numResults - 1) {
           index = 0;
         }
-        this.setState({ highlightedIndex: index });
+        setHighlightedIndex(index);
         event.preventDefault();
         break;
       case Keys.up:
@@ -52,81 +50,84 @@ export default class Typeahead extends Component {
         if (index < 0) {
           index = numResults - 1;
         }
-        this.setState({ highlightedIndex: index });
+        setHighlightedIndex(index);
         event.preventDefault();
         break;
       case Keys.enter:
-        this.handleSelection(this.state.results[index]);
+        handleSelection(results[index]);
         break;
       default:
         break;
     }
   };
 
-  handleMouseMove = (event) => {
+  let handleMouseMove = (event) => {
     let node = event.target;
     let index = Array.from(node.parentNode.childNodes).indexOf(node);
-    this.setState({ highlightedIndex: index });
+    setHighlightedIndex(index);
   };
 
-  handleMouseLeave = (event) => {
-    this.setState({ highlightedIndex: -1 });
+  let handleMouseLeave = (event) => {
+    setHighlightedIndex(-1);
   };
 
-  handleSelection = (entry) => {
+  let handleSelection = (entry) => {
     if (!entry) {
       return;
     }
-    let input = this._inputRef.current;
+    let input = textInput.current;
     let inputValue = input.value;
-    if (this.props.onSelect) {
-      this.props.onSelect(entry, input);
+    if (props.onSelect) {
+      props.onSelect(entry, input);
     }
     // allow onSelect to change the value of the input
     if (input.value === inputValue) {
       input.value = entry.getText();
     }
-    this.setState({ results: [] });
+    setResults([]);
   };
 
-  render() {
-    this._inputRef = React.createRef();
+  useEffect(() => {
+    dataSource.setQueryCallback(handleResponse);
+    return function cleanup() {
+      dataSource.setQueryCallback(null);
+    };
+  }, [dataSource]);
 
-    return (
-      <div className={styles.Typeahead_root}>
-        <input
-          ref={this._inputRef}
-          autoFocus
-          type="text"
-          autoCorrect="off"
-          autoComplete="off"
-          autoCapitalize="off"
-          spellCheck="false"
-          placeholder={this.props.placeholder || "Search"}
-          className={styles.Typeahead_input}
-          onInput={this.handleInput}
-          onKeyDown={this.handleKeydown}
-        />
-        {this.state.results.length > 0 ? (
-          <ul
-            className={styles.Typeahead_results}
-            onClick={this.handleClick}
-            onMouseMove={this.handleMouseMove}
-            onMouseLeave={this.handleMouseLeave}>
-            {this.state.results.map((entry, index) => {
-              let className = styles.Typeahead_result;
-              if (index === this.state.highlightedIndex) {
-                className += " " + styles.highlighted;
-              }
-              return (
-                <li className={className} key={entry.getValue()}>
-                  {this.props.renderer(entry)}
-                </li>
-              );
-            })}
-          </ul>
-        ) : null}
-      </div>
-    );
-  }
+  return (
+    <div className={styles.Typeahead_root}>
+      <input
+        ref={textInput}
+        autoFocus
+        type="text"
+        autoCorrect="off"
+        autoComplete="off"
+        autoCapitalize="off"
+        spellCheck="false"
+        placeholder={props.placeholder || "Search"}
+        className={styles.Typeahead_input}
+        onInput={handleInput}
+        onKeyDown={handleKeydown}
+      />
+      {results.length > 0 ? (
+        <ul
+          className={styles.Typeahead_results}
+          onClick={handleClick}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}>
+          {results.map((entry, index) => {
+            let className = styles.Typeahead_result;
+            if (index === highlightedIndex) {
+              className += " " + styles.highlighted;
+            }
+            return (
+              <li className={className} key={entry.getValue()}>
+                {props.renderer(entry)}
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
 }
