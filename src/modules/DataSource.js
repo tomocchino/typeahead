@@ -90,7 +90,6 @@ export default class DataSource {
     // Respond synchronously with whatever we have in the cache already
     let results = this.getQueryResults(value);
     this._queryCallback(value, results);
-    this._mostRecentQuery = value;
 
     // If we have fewer than _maxResults, invoke the _queryHandler, if
     // one is set, enabling the caller to fetch more results if needed
@@ -124,6 +123,7 @@ export default class DataSource {
       }
     }
 
+    this._mostRecentQuery = value;
     return Array.from(results);
   }
 
