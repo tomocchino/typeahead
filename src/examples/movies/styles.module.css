@@ -1,0 +1,10 @@
+.Entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Year {
+  color: gray;
+  font-size: 0.8rem;
+}
