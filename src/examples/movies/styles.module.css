@@ -1,10 +1,30 @@
 .Entry {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+}
+
+.Poster {
+  height: 3rem;
+  width: 2rem;
+  background-color: #ccc;
+}
+
+.Poster img {
+  height: 3rem;
+  width: 2rem;
+  border: 1px solid #ccc;
+}
+
+.Text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.6rem;
+}
+
+.Title {
+  font-size: 1.2rem;
 }
 
 .Year {
   color: gray;
-  font-size: 0.8rem;
 }

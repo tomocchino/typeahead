@@ -1,4 +1,5 @@
-// Temporary static movies data from TMDB
+// Temporary static "top movie" data from TMDB, pulled from the top_rated API.
+// https://developers.themoviedb.org/3/movies/get-top-rated-movies
 
 let page1 = {
   page: 1,
