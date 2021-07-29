@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DataSource from "../src/modules/DataSource";
 import DataSourceEntry from "../src/modules/DataSourceEntry";
 import Template from "../src/examples/Template";
@@ -47,8 +48,8 @@ dataSource.setMaxResults(6);
 dataSource.setQueryHandler(searchForMovies);
 dataSource.addEntries(topMovies.map(createDataSourceEntry));
 
-let renderer = (entry) => {
-  let data = entry.getRawData();
+let renderer = (movie) => {
+  let data = movie.getRawData();
   let date = data.release_date;
   let year = date ? new Date(data.release_date).getFullYear() : "unknown";
   let poster = data.poster_path ? (
@@ -65,14 +66,31 @@ let renderer = (entry) => {
   );
 };
 
+function MovieDetails(props) {
+  return renderer(props.movie);
+}
+
 export default function Movies() {
+  let [movie, setMovie] = useState(null);
+
+  let onSelect = function (entry) {
+    setMovie(entry);
+  };
+
+  let onReset = function () {
+    setMovie(null);
+  };
+
   return (
     <Template title="Movie Search">
       <Typeahead
         placeholder="Movie Search (TMDB)"
         dataSource={dataSource}
         renderer={renderer}
+        onSelect={onSelect}
+        onReset={onReset}
       />
+      <div>{movie ? <MovieDetails movie={movie} /> : null}</div>
     </Template>
   );
 }
