@@ -16,7 +16,11 @@ export default function Typeahead(props) {
   };
 
   let handleInput = (event) => {
-    dataSource.query(event.target.value);
+    let value = event.target.value;
+    dataSource.query(value);
+    if (value == "" && props.onReset) {
+      props.onReset();
+    }
   };
 
   let handleClick = (event) => {
