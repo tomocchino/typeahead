@@ -1,30 +1,60 @@
+/* DataSourceEntry */
+
 .Entry {
   display: flex;
   align-items: center;
 }
 
-.Poster {
-  height: 3rem;
-  width: 2rem;
+.Entry_poster {
+  height: 48px;
+  width: 32px;
+  box-shadow: 0px 1px 4px #999;
   background-color: #ccc;
 }
 
-.Poster img {
-  height: 3rem;
-  width: 2rem;
-  border: 1px solid #ccc;
+.Entry_poster img {
+  height: 48px;
+  width: 32px;
 }
 
-.Text {
+.Entry_text {
   display: flex;
   flex-direction: column;
   margin-left: 0.6rem;
 }
 
-.Title {
+.Entry_title {
   font-size: 1.2rem;
 }
 
-.Year {
+.Entry_year {
+  color: gray;
+}
+
+/* MovieDetails */
+
+.Details {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.Details_poster {
+  width: 185px;
+  height: 278px;
+  box-shadow: 0px 1px 4px #999;
+  background-color: #ccc;
+}
+
+.Details_info {
+  margin-left: 1rem;
+}
+
+.Details_title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.Details_year {
+  font-weight: normal;
   color: gray;
 }

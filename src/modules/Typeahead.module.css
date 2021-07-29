@@ -26,6 +26,7 @@
 .Typeahead_results {
   border: 1px solid #ccc;
   border-top-color: #ddd;
+  background: #fff;
   left: 0;
   list-style: none;
   margin: 0;
