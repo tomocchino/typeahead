@@ -169,11 +169,10 @@ function tokensMatch(queryTokens, entryTokens) {
       // If we don't yet have the number of matched tokens we need, we mark the
       // current entry token as used and continue on to the next one.
       matchedEntryTokens[entryToken] = true;
-    } else {
-      // This entry token wasn't a match, but that doesn't mean we can break out just
-      // yet. We still need to check the rest of the entry tokens if there are more.
-      numEntryTokensChecked++;
     }
+    // Even if this entry token wasn't a match, that doesn't mean we can break out
+    // yet. We still need to check the rest of the entry tokens if there are more.
+    numEntryTokensChecked++;
   }
 
   return numQueryTokensMatched === numQueryTokens;
