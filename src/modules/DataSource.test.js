@@ -125,3 +125,12 @@ describe("The titan tests", () => {
     expect(results).toHaveLength(4);
   });
 });
+
+describe("Duplicated tokens don't match", () => {
+  let dataSource = createTestDataSource(["Alpha Bravo Alpha"]);
+
+  it("should match multiple instances of the same token", () => {
+    let results = dataSource.getQueryResults("alpha alpha");
+    expect(results).toHaveLength(1);
+  });
+});
