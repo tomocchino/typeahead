@@ -145,7 +145,6 @@ export default class DataSource {
 }
 
 function tokensMatch(queryTokens, entryTokens) {
-  let matchedEntryTokens = {};
   let numQueryTokensMatched = 0;
   let numEntryTokensChecked = 0;
   let numQueryTokens = queryTokens.length;
@@ -157,21 +156,17 @@ function tokensMatch(queryTokens, entryTokens) {
   ) {
     let queryToken = queryTokens[numQueryTokensMatched];
     let entryToken = entryTokens[numEntryTokensChecked];
-    // If we haven't used this entry token yet, and the text of the token starts with
-    // the query token's text, we have a match.
-    if (!matchedEntryTokens[entryToken] && entryToken.startsWith(queryToken)) {
+    // If the text of the token starts with the query token's text, it's a match.
+    if (entryToken.startsWith(queryToken)) {
       // Since we have a match, we'll increment the number of query tokens that have
       // been matched so far. If we now have the number we need, we can return true
       // for this entry without doing any additional work.
       if (++numQueryTokensMatched === numQueryTokens) {
         return true;
       }
-      // If we don't yet have the number of matched tokens we need, we mark the
-      // current entry token as used and continue on to the next one.
-      matchedEntryTokens[entryToken] = true;
     }
-    // Even if this entry token wasn't a match, that doesn't mean we can break out
-    // yet. We still need to check the rest of the entry tokens if there are more.
+    // Whether this entry was a match or not, we can't break out yet. We still need
+    // to check the rest of the entry tokens if there are more of them.
     numEntryTokensChecked++;
   }
 
