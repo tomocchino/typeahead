@@ -69,13 +69,8 @@ export default class DataSource {
       for (let ii = 0; ii <= index; ii++) {
         for (let jj = 0; jj < entryBucket.length; jj++) {
           let entry = entryBucket[jj];
-          let charCode = entry.getTokens()[ii].charCodeAt(0);
-          if (!this._entryBuckets.has(charCode)) {
-            this._entryBuckets.set(charCode, new Set());
-          }
-          if (!this._entryBuckets.get(charCode).has(entry)) {
-            this._entryBuckets.get(charCode).add(entry);
-          }
+          let key = entry.getTokens()[ii].charCodeAt(0);
+          insertEntry(this._entryBuckets, key, entry);
         }
       }
     });
@@ -143,6 +138,15 @@ export default class DataSource {
 
   getNumberOfEntries() {
     return this._entriesSet.size;
+  }
+}
+
+function insertEntry(entryBuckets, key, entry) {
+  if (!entryBuckets.has(key)) {
+    entryBuckets.set(key, new Set());
+  }
+  if (!entryBuckets.get(key).has(entry)) {
+    entryBuckets.get(key).add(entry);
   }
 }
 
