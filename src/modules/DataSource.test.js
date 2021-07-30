@@ -142,6 +142,34 @@ describe("The Titan movie tests", () => {
   });
 });
 
+describe("Duplicate entry tests", () => {
+  let dataSource = new DataSource();
+  dataSource.addEntries([
+    new DataSourceEntry("A Star Is Born", "asib2018"),
+    new DataSourceEntry("A Star Is Born", "asib1954"),
+    new DataSourceEntry("A Star Is Born", "asib1976"),
+    new DataSourceEntry("A Star Is Born", "asib1937"),
+    new DataSourceEntry("A Star Is Born", "asib2010"),
+    new DataSourceEntry("Stars Are Nice", "asib2018"), // Duplicate!
+    new DataSourceEntry("Hey Look At Me", "asib2018"), // Duplicate!
+  ]);
+
+  it("should allow duplicate entries with unique values (query = 'A Star Is Born')", () => {
+    let results = flatten(dataSource.getQueryResults("A Star Is Born"));
+    expect(results).toHaveLength(5);
+  });
+
+  it("should only accept the first entry for a given value (query = 'star')", () => {
+    let results = flatten(dataSource.getQueryResults("star"));
+    expect(results).toHaveLength(5);
+  });
+
+  it("should only accept the first entry for a particular value (query = 'look')", () => {
+    let results = flatten(dataSource.getQueryResults("look"));
+    expect(results).toHaveLength(0);
+  });
+});
+
 describe("Keywords tests", () => {
   let dataSource = new DataSource();
   dataSource.setMaxResults(4);
