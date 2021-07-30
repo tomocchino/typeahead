@@ -141,3 +141,35 @@ describe("The Titan movie tests", () => {
     expect(results).toHaveLength(4);
   });
 });
+
+describe("Keywords tests", () => {
+  let dataSource = new DataSource();
+  dataSource.setMaxResults(4);
+  dataSource.addEntries([
+    new DataSourceEntry("one", "one", { keywords: ["first", "worst"] }),
+    new DataSourceEntry("two", "two", { keywords: ["second", "best"] }),
+    new DataSourceEntry("three", "three", { keywords: ["third"] }),
+    new DataSourceEntry("four", "four", { keywords: ["fourth"] }),
+    new DataSourceEntry("five", "five", { keywords: ["fifth"] }),
+  ]);
+
+  it("should return matches based on keywords (query = 'worst')", () => {
+    let results = flatten(dataSource.getQueryResults("worst"));
+    expect(results).toEqual(["one"]); // 'one' matches on keyword 'worst'
+  });
+
+  it("should return matches based on keywords (query = 'best')", () => {
+    let results = flatten(dataSource.getQueryResults("best"));
+    expect(results).toEqual(["two"]); // 'two' matches on keyword 'best'
+  });
+
+  it("should return only one instance of each match (query = 't')", () => {
+    let results = flatten(dataSource.getQueryResults("t"));
+    expect(results).toEqual(["two", "three"]); // 't' matches both 'three' and 'third'
+  });
+
+  it("should return text matches before keyword matches (query = 'f')", () => {
+    let results = flatten(dataSource.getQueryResults("f"));
+    expect(results).toEqual(["four", "five", "one"]); // 'one' matches on keyword 'first'
+  });
+});
