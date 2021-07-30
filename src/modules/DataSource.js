@@ -34,8 +34,8 @@ export default class DataSource {
    * Given the following entries:
    *   ["Alpha", "Bravo", "Bravo Alpha", "Alpha Bravo", "Arizona", "Alpha"]
    *
-   * The `filteredEntries` intermediate variable will be the following:
-   *   filteredEntries = [
+   * The `intermediateEntryBuckets` variable will be the following:
+   *   intermediateEntryBuckets = [
    *     ["Alpha", "Bravo", "Arizona"],
    *     ["Bravo Alpha", "Alpha Bravo"],
    *   ];
@@ -47,23 +47,25 @@ export default class DataSource {
    *   };
    */
   addEntries(entries) {
-    let filteredEntries = [];
+    let intermediateEntryBuckets = [];
 
     // Dedupe entries based on their `value` field, which must be unique,
-    // as we build up the filteredEntries data structure.
+    // as we build up the intermediateEntryBuckets data structure.
     entries.forEach((entry) => {
       let value = entry.getValue();
       if (!this._entriesSet.has(value)) {
         this._entriesSet.add(value);
         let index = entry.getTokens().length - 1;
-        if (!filteredEntries[index]) {
-          filteredEntries[index] = [];
+        if (!intermediateEntryBuckets[index]) {
+          intermediateEntryBuckets[index] = [];
         }
-        filteredEntries[index].push(entry);
+        intermediateEntryBuckets[index].push(entry);
       }
     });
 
-    filteredEntries.forEach((entryBucket, index) => {
+    // Now that we've created our intermediate sorted data structure, we have
+    // to actually get all these entries inserted into this._entryBuckets.
+    intermediateEntryBuckets.forEach((entryBucket, index) => {
       for (let ii = 0; ii <= index; ii++) {
         for (let jj = 0; jj < entryBucket.length; jj++) {
           let entry = entryBucket[jj];
