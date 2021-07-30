@@ -47,6 +47,7 @@ export default class DataSource {
    *   };
    */
   addEntries(entries) {
+    let uniqueEntries = [];
     let intermediateEntryBuckets = [];
 
     // Dedupe entries based on their `value` field, which must be unique,
@@ -54,6 +55,7 @@ export default class DataSource {
     entries.forEach((entry) => {
       let value = entry.getValue();
       if (!this._entriesSet.has(value)) {
+        uniqueEntries.push(entry);
         this._entriesSet.add(value);
         let index = entry.getTokens().length - 1;
         if (!intermediateEntryBuckets[index]) {
@@ -72,6 +74,17 @@ export default class DataSource {
           let key = entry.getTokens()[ii].charCodeAt(0);
           insertEntry(this._entryBuckets, key, entry);
         }
+      }
+    });
+
+    // Finally, we need to append entries based on their keywords if present.
+    // This step has to happen last to ensure keyword matches are at the end.
+    uniqueEntries.forEach((entry) => {
+      let keywords = entry.getKeywords();
+      if (keywords.length > 0) {
+        keywords.forEach((keyword) => {
+          insertEntry(this._entryBuckets, keyword.charCodeAt(0), entry);
+        });
       }
     });
 
@@ -109,7 +122,7 @@ export default class DataSource {
 
     if (value !== "") {
       for (let entry of eligibleEntries) {
-        let entryTokens = entry.getTokens();
+        let entryTokens = entry.getTokens().concat(entry.getKeywords());
         if (tokensMatch(queryTokens, entryTokens)) {
           results.add(entry);
           resultsCount++;
