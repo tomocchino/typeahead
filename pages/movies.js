@@ -5,8 +5,6 @@ import Template from "../src/examples/Template";
 import Typeahead from "../src/modules/Typeahead";
 
 import styles from "../src/examples/movies/styles.module.css";
-import API_KEY from "../src/examples/movies/API_KEY.js";
-
 import topMovies from "../src/examples/movies/data";
 import tmdbConfig from "../src/examples/movies/config";
 
@@ -23,14 +21,11 @@ function getImagePath(path, sizeIndex) {
 }
 
 function getSearchPath(query) {
-  let params = new URLSearchParams({
-    page: 1,
-    langauge: "un-US",
-    include_adult: false,
-    api_key: API_KEY,
-    query: query,
-  });
-  return "https://api.themoviedb.org/3/search/movie?" + params.toString();
+  let server =
+    process.env.NODE_ENV !== "production"
+      ? "http://localhost:3000"
+      : "https://tomocchino.com/typeahead";
+  return `${server}/api/movies/search?query=${encodeURIComponent(query)}`;
 }
 
 async function searchForMovies(value) {
