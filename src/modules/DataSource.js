@@ -156,17 +156,14 @@ function tokensMatch(queryTokens, entryTokens) {
   ) {
     let queryToken = queryTokens[numQueryTokensMatched];
     let entryToken = entryTokens[numEntryTokensChecked];
-    // If the text of the token starts with the query token's text, it's a match.
-    if (entryToken.startsWith(queryToken)) {
-      // Since we have a match, we'll increment the number of query tokens that have
-      // been matched so far. If we now have the number we need, we can return true
-      // for this entry without doing any additional work.
-      if (++numQueryTokensMatched === numQueryTokens) {
-        return true;
-      }
+    // If the entry token starts with the query token, it's a match. Increment
+    // matched query token count and return true if we have the number we need.
+    if (
+      entryToken.startsWith(queryToken) &&
+      ++numQueryTokensMatched === numQueryTokens
+    ) {
+      return true;
     }
-    // Whether this entry was a match or not, we can't break out yet. We still need
-    // to check the rest of the entry tokens if there are more of them.
     numEntryTokensChecked++;
   }
 
