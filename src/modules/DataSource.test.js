@@ -12,7 +12,7 @@ function createTestDataSource(entries, maxResults) {
   return dataSource;
 }
 
-describe("The Tahoe tests", () => {
+describe("Lake Tahoe tests", () => {
   let dataSource = createTestDataSource([
     "Lake Tahoe",
     "Lake Tahoe",
@@ -39,9 +39,14 @@ describe("The Tahoe tests", () => {
     let results = flatten(dataSource.getQueryResults("lake tahoe"));
     expect(results).toEqual(["Lake Tahoe", "South Lake Tahoe"]);
   });
+
+  it("should return only entries that have a prefix match (query = 'ake')", () => {
+    let results = dataSource.getQueryResults("ake");
+    expect(results).toHaveLength(0);
+  });
 });
 
-describe("Creek and C cities tests", () => {
+describe("Buffalo Creek tests", () => {
   let dataSource = createTestDataSource([
     "Buffalo Creek",
     "Chicago Creek",
@@ -50,7 +55,7 @@ describe("Creek and C cities tests", () => {
     "Creekside",
   ]);
 
-  it("should match correct number of words (query = 'c c')", () => {
+  it("should match the correct number of words (query = 'c c')", () => {
     let results = flatten(dataSource.getQueryResults("c c"));
     expect(results).toContain("Chicago Creek");
     expect(results).not.toContain("Chicago");
@@ -78,7 +83,7 @@ describe("Creek and C cities tests", () => {
   });
 });
 
-describe("The ABCs of tokens tests", () => {
+describe("Alpha Bravo tests", () => {
   let dataSource = createTestDataSource([
     "Alpha Bravo Charlie",
     "Alpha Bravo",
@@ -86,6 +91,7 @@ describe("The ABCs of tokens tests", () => {
     "Bravo Alpha",
     "Bravo",
     "Charlie Bravo Alpha",
+    "Alpha Bravo Alpha",
   ]);
 
   it("should return matches in the right order (query = 'alpha')", () => {
@@ -107,12 +113,22 @@ describe("The ABCs of tokens tests", () => {
       "Alpha Bravo Charlie",
     ]);
   });
+
+  it("should match multiple instances of the same token (query = 'alpha alpha')", () => {
+    let results = flatten(dataSource.getQueryResults("alpha alpha"));
+    expect(results).toEqual(["Alpha Bravo Alpha"]);
+  });
+
+  it("should match multiple instances of the same substring token (query = 'al al')", () => {
+    let results = flatten(dataSource.getQueryResults("al al"));
+    expect(results).toEqual(["Alpha Bravo Alpha"]);
+  });
 });
 
-describe("The titan tests", () => {
+describe("The Titan movie tests", () => {
   // Before 1c4dbef, this would fail because there were multiple 'The Titan'
   // entries in the 't' entryBucket, causing the count to be off. It took so
-  // much debugging to figure that crap out, sigh.
+  // much debugging to figure that out, sigh.
   let dataSource = createTestDataSource([
     "Titan",
     "The Titan",
@@ -120,17 +136,8 @@ describe("The titan tests", () => {
     "Attack on Titan II: The Roar of Awakening Some Long Thing",
   ]);
 
-  it("should return all of these entries for the query 'titan'", () => {
+  it("should return all matching entries for the query 'titan'", () => {
     let results = dataSource.getQueryResults("titan");
     expect(results).toHaveLength(4);
-  });
-});
-
-describe("Duplicated tokens don't match", () => {
-  let dataSource = createTestDataSource(["Alpha Bravo Alpha"]);
-
-  it("should match multiple instances of the same token", () => {
-    let results = dataSource.getQueryResults("alpha alpha");
-    expect(results).toHaveLength(1);
   });
 });
