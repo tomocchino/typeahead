@@ -30,8 +30,5 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# api keys
-*API_KEY.js
-
 # vercel
 .vercel

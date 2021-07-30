@@ -1,4 +1,4 @@
-import API_KEY from "../../../src/examples/movies/API_KEY.js";
+const API_KEY = process.env.API_KEY;
 
 function getSearchPath(query) {
   let params = new URLSearchParams({
