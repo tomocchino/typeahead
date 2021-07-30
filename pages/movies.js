@@ -24,7 +24,7 @@ function getSearchPath(query) {
   let server =
     process.env.NODE_ENV !== "production"
       ? "http://localhost:3000"
-      : "https://tomocchino.com/typeahead";
+      : "https://tomocchino-typeahead.vercel.app/movies";
   return `${server}/api/movies/search?query=${encodeURIComponent(query)}`;
 }
 
