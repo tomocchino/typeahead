@@ -24,7 +24,7 @@ function initEmojiDataSource(dataSource, data) {
         return new DataSourceEntry(
           entry.annotation.replace("flag: ", "").replace(/-/g, " "),
           fromCodepointToUnicode(fromHexcodeToCodepoint(entry.hexcode)),
-          { tags: entry.tags }
+          { keywords: entry.tags }
         );
       })
   );
@@ -36,8 +36,8 @@ function renderer(entry) {
       <span className={styles.Emoji_glyph}>{entry.getValue()}</span>
       <span className={styles.Emoji_meta}>
         <span className={styles.Emoji_text}>{entry.getText()}</span>
-        <span className={styles.Emoji_tags}>
-          keywords: {entry.getRawData().tags.join(", ")}
+        <span className={styles.Emoji_keywords}>
+          keywords: {entry.getKeywords().join(", ")}
         </span>
       </span>
     </span>
