@@ -13,9 +13,13 @@ function getSearchPath(query) {
 }
 
 export default async function handler(request, response) {
-  let url = new URL(request.url, `http://${request.headers.host}`);
+  let url = new URL(request.url, `https://${request.headers.host}`);
   let query = url.searchParams.get("query");
-  let data = await fetch(getSearchPath(query));
-  let json = await data.json();
-  response.status(200).json(json);
+  try {
+    let data = await fetch(getSearchPath(query));
+    let json = await data.json();
+    response.status(200).json(json);
+  } catch (error) {
+    response.status(500).send(error);
+  }
 }

@@ -15,17 +15,14 @@ function createDataSourceEntry(data) {
 }
 
 function getImagePath(path, sizeIndex) {
-  let baseURL = tmdbConfig.images.base_url;
+  let baseURL = tmdbConfig.images.secure_base_url;
   let size = tmdbConfig.images.poster_sizes[sizeIndex || 0];
   return baseURL + size + path;
 }
 
 function getSearchPath(query) {
-  let server =
-    process.env.NODE_ENV !== "production"
-      ? "http://localhost:3000"
-      : "https://tomocchino-typeahead.vercel.app/movies";
-  return `${server}/api/movies/search?query=${encodeURIComponent(query)}`;
+  let origin = window.location.origin;
+  return `${origin}/api/movies/search?query=${encodeURIComponent(query)}`;
 }
 
 async function searchForMovies(value) {
@@ -33,11 +30,14 @@ async function searchForMovies(value) {
   if (value.length < 2) {
     return;
   }
-  console.log("GOING TO THE NETWORK FOR", value);
-  let response = await fetch(getSearchPath(value));
-  let data = await response.json();
-  let movies = data.results;
-  dataSource.addEntries(movies.map(createDataSourceEntry));
+  try {
+    console.log("GOING TO THE NETWORK FOR", value);
+    let data = await fetch(getSearchPath(value));
+    let json = await data.json();
+    dataSource.addEntries(json.results.map(createDataSourceEntry));
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // Create DataSource
