@@ -1,5 +1,5 @@
-import { clean } from "diacritic";
+import latinize from "latinize";
 
 export default function parseTokens(text) {
-  return clean(text).toLocaleLowerCase().split(" ");
+  return latinize(text).toLocaleLowerCase().split(" ");
 }
