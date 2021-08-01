@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "diacritic": "0.0.2",
     "emojibase": "^5.2.0",
     "next": "^10.2.3",
     "react": "^17.0.2",
