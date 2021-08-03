@@ -15,6 +15,10 @@ export default function Typeahead(props) {
     setHighlightedIndex(0);
   };
 
+  let handleFocus = (event) => {
+    event.target.select();
+  };
+
   let handleInput = (event) => {
     let value = event.target.value;
     dataSource.query(value);
@@ -110,6 +114,7 @@ export default function Typeahead(props) {
         spellCheck="false"
         placeholder={props.placeholder || "Search"}
         className={styles.Typeahead_input}
+        onFocus={handleFocus}
         onInput={handleInput}
         onKeyDown={handleKeydown}
       />
