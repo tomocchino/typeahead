@@ -4,6 +4,7 @@ import styles from "./Typeahead.module.css";
 
 export default function Typeahead(props) {
   let [results, setResults] = useState([]);
+  let [selectedEntry, setSelectedEntry] = useState(null);
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const dataSource = props.dataSource;
@@ -22,7 +23,8 @@ export default function Typeahead(props) {
   let handleInput = (event) => {
     let value = event.target.value;
     dataSource.query(value);
-    if (value == "" && props.onReset) {
+    setSelectedEntry(null);
+    if (props.onReset) {
       props.onReset();
     }
   };
@@ -92,6 +94,7 @@ export default function Typeahead(props) {
     if (input.value === inputValue) {
       input.value = entry.getText();
     }
+    setSelectedEntry(entry);
     setResults([]);
   };
 
@@ -101,6 +104,11 @@ export default function Typeahead(props) {
       dataSource.setQueryCallback(null);
     };
   }, [dataSource]);
+
+  let inputClassName = styles.Typeahead_input;
+  if (selectedEntry !== null) {
+    inputClassName += ` ${styles.selected}`;
+  }
 
   return (
     <div className={styles.Typeahead_root}>
@@ -113,7 +121,7 @@ export default function Typeahead(props) {
         autoCapitalize="off"
         spellCheck="false"
         placeholder={props.placeholder || "Search"}
-        className={styles.Typeahead_input}
+        className={inputClassName}
         onFocus={handleFocus}
         onInput={handleInput}
         onKeyDown={handleKeydown}
@@ -125,12 +133,12 @@ export default function Typeahead(props) {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}>
           {results.map((entry, index) => {
-            let className = styles.Typeahead_result;
+            let entryClassName = styles.Typeahead_result;
             if (index === highlightedIndex) {
-              className += " " + styles.highlighted;
+              entryClassName += ` ${styles.highlighted}`;
             }
             return (
-              <li className={className} key={entry.getValue()}>
+              <li className={entryClassName} key={entry.getValue()}>
                 {props.renderer(entry)}
               </li>
             );

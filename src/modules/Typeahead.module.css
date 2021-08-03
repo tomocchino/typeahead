@@ -16,6 +16,7 @@
 
 /* Only show a normal text cursor when the input is empty or focused. If it has
  * a value, it will be selected on focus to more easily start a new search. */
+.Typeahead_input:focus,
 .Typeahead_input:placeholder-shown {
   cursor: text;
 }
@@ -23,12 +24,16 @@
 .Typeahead_input:focus {
   border-color: #39c;
   outline: none;
-  cursor: text;
 }
 
 .Typeahead_input:focus + .Typeahead_results {
   border-color: #39c;
   border-top-color: #ddd;
+}
+
+.Typeahead_input.selected {
+  border-color: #39c;
+  background-color: #def;
 }
 
 .Typeahead_results {
