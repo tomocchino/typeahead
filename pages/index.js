@@ -1,5 +1,2 @@
-import Template from "../src/examples/Template";
-
-export default function App() {
-  return <Template />;
-}
+import Example from "./[example]";
+export default Example;

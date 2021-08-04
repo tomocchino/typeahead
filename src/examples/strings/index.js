@@ -1,7 +1,6 @@
-import DataSource from "../src/modules/DataSource";
-import DataSourceEntry from "../src/modules/DataSourceEntry";
-import Template from "../src/examples/Template";
-import Typeahead from "../src/modules/Typeahead";
+import DataSource from "../../modules/DataSource";
+import DataSourceEntry from "../../modules/DataSourceEntry";
+import Typeahead from "../../modules/Typeahead";
 
 function makeString(length) {
   var string = "";
@@ -31,12 +30,10 @@ let renderer = (entry) => {
 export default function Strings() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
-    <Template title="Random String Search">
-      <Typeahead
-        placeholder={`${numEntries.toLocaleString()} random strings`}
-        dataSource={dataSource}
-        renderer={renderer}
-      />
-    </Template>
+    <Typeahead
+      placeholder={`${numEntries.toLocaleString()} random strings`}
+      dataSource={dataSource}
+      renderer={renderer}
+    />
   );
 }

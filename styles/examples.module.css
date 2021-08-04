@@ -1,4 +1,4 @@
-.App {
+.Main {
   align-items: center;
   margin: 0 auto;
   max-width: 600px;
@@ -26,6 +26,6 @@
   text-decoration: underline;
 }
 
-.Selected {
+.Nav a.selected {
   color: #000;
 }

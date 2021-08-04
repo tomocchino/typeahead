@@ -1,12 +1,11 @@
 import { useState } from "react";
-import DataSource from "../src/modules/DataSource";
-import DataSourceEntry from "../src/modules/DataSourceEntry";
-import Template from "../src/examples/Template";
-import Typeahead from "../src/modules/Typeahead";
+import DataSource from "../../modules/DataSource";
+import DataSourceEntry from "../../modules/DataSourceEntry";
+import Typeahead from "../../modules/Typeahead";
 
-import styles from "../src/examples/movies/styles.module.css";
-import topMovies from "../src/examples/movies/data";
-import tmdbConfig from "../src/examples/movies/config";
+import topMovies from "./data";
+import tmdbConfig from "./config";
+import styles from "./styles.module.css";
 
 // Utilities
 
@@ -110,7 +109,7 @@ export default function Movies() {
   };
 
   return (
-    <Template title="Movie Search">
+    <div>
       <Typeahead
         placeholder="Movie Search (TMDB)"
         dataSource={dataSource}
@@ -119,6 +118,6 @@ export default function Movies() {
         onReset={onReset}
       />
       <div>{movie ? <MovieDetails movie={movie} /> : null}</div>
-    </Template>
+    </div>
   );
 }

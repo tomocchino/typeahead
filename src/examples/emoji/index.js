@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import Template from "../src/examples/Template";
-import Typeahead from "../src/modules/Typeahead";
-import DataSource from "../src/modules/DataSource";
-import DataSourceEntry from "../src/modules/DataSourceEntry";
+import Typeahead from "../../modules/Typeahead";
+import DataSource from "../../modules/DataSource";
+import DataSourceEntry from "../../modules/DataSourceEntry";
 import {
   fetchFromCDN,
   flattenEmojiData,
@@ -10,7 +9,7 @@ import {
   fromCodepointToUnicode,
 } from "emojibase";
 
-import styles from "../src/examples/emoji/styles.module.css";
+import styles from "./styles.module.css";
 
 function initEmojiDataSource(dataSource, data) {
   dataSource.addEntries(
@@ -63,13 +62,11 @@ export default function Emoji() {
   }, []);
 
   return (
-    <Template title="Emoji Search">
-      <Typeahead
-        placeholder="Emoji Search (Emojibase)"
-        dataSource={dataSource}
-        renderer={renderer}
-        onSelect={onSelect}
-      />
-    </Template>
+    <Typeahead
+      placeholder="Emoji Search (Emojibase)"
+      dataSource={dataSource}
+      renderer={renderer}
+      onSelect={onSelect}
+    />
   );
 }
