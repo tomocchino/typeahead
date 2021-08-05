@@ -1,27 +1,5 @@
 import parseTokens from "./parseTokens.js";
 
-describe("Grab Bag of Behavioral Tests", () => {
-  // prettier-ignore
-  let tests = {
-    "Hello+": ["hello", "+"],
-    "$Hello": ["hello"],
-    "Hello!": ["hello"],
-    "Hello +": ["hello", "+"],
-    "He+llo": ["he", "+", "llo"],
-    "Hello+World": ["hello", "+", "world"],
-    "Hello&World": ["hello", "&", "world"],
-    "Hello<World>": ["hello", "world"],
-    "Hello(World)": ["hello", "world"],
-    "Hello'World'": ["helloworld"],
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should properly parseTokens (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
 describe("Capitalization", () => {
   // prettier-ignore
   let tests = {
@@ -37,60 +15,21 @@ describe("Capitalization", () => {
   });
 });
 
-describe("Word Dividers", () => {
-  // prettier-ignore
+describe("Flattening Diacritics", () => {
   let tests = {
-    "Hello World": ["hello", "world"],
-    "Hello-World": ["hello", "world"],
-    "Hello·World": ["hello", "world"],
-    "Hello•World": ["hello", "world"],
-    "Hello_World": ["hello", "world"],
-    "Hello…World": ["hello", "world"],
+    "Ḣéļḹö Ⱳôȑĺȡ": ["hello", "world"],
+    "Les Misérable": ["les", "miserable"],
+    "ỆᶍǍᶆṔƚÉ áéíóúýčďěňřšťžů": ["example", "aeiouycdenrstzu"],
   };
 
   Object.keys(tests).forEach((input) => {
-    it(`should split at word boundaries (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
-describe("Multiple Word Dividers", () => {
-  // prettier-ignore
-  let tests = {
-    "Hello  World": ["hello", "world"],
-    "Hello---World": ["hello", "world"],
-    "Hello.... World": ["hello", "world"],
-    "Hello…...^-_-^...…World": ["hello", "world"],
-    "Hello…...^-_-^...… World": ["hello", "world"],
-    "Hello…...^-There-^...…World": ["hello", "there", "world"],
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should split at word boundaries (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
-describe("Simplifying Contractions", () => {
-  // prettier-ignore
-  let tests = {
-    "Can't": ["cant"],
-    "Shouldn't": ["shouldnt"],
-    "The Smith's": ["the", "smiths"],
-    "This won't work": ["this", "wont", "work"],
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should flatten contractions (${input})`, () => {
+    it(`should strip diacritics (${input})`, () => {
       expect(parseTokens(input)).toEqual(tests[input]);
     });
   });
 });
 
 describe("Special Characters", () => {
-  // prettier-ignore
   let tests = {
     "Hello World!": ["hello", "world"],
     "Hello, World,": ["hello", "world"],
@@ -108,11 +47,55 @@ describe("Special Characters", () => {
   });
 });
 
-describe("Retaining 'and' Symbols", () => {
+describe("Word Dividers", () => {
   // prettier-ignore
   let tests = {
-    "Hello & World": ["hello", "&", "world"],
+    "Hello World": ["hello", "world"],
+    "Hello-World": ["hello", "world"],
+    "Hello·World": ["hello", "world"],
+    "Hello•World": ["hello", "world"],
+    "Hello_World": ["hello", "world"],
+    "Hello…World": ["hello", "world"],
+    "Hello(World)": ["hello", "world"],
+    "Hello<World>": ["hello", "world"],
+    "Hello  World": ["hello", "world"],
+    "Hello---World": ["hello", "world"],
+    "Hello.... World": ["hello", "world"],
+    "Hello…...^-World": ["hello", "world"],
+    "Hello…...^-There-^...…World": ["hello", "there", "world"],
+    "A$B$C$D$E$F$G$H": ["a", "b", "c", "d", "e", "f", "g", "h"],
+  };
+
+  Object.keys(tests).forEach((input) => {
+    it(`should split at word boundaries (${input})`, () => {
+      expect(parseTokens(input)).toEqual(tests[input]);
+    });
+  });
+});
+
+describe("Removing Apostrophes", () => {
+  let tests = {
+    "Can't": ["cant"],
+    "The Smith's": ["the", "smiths"],
+    "This won't work, will it?": ["this", "wont", "work", "will", "it"],
+    "Hello'World'": ["helloworld"],
+  };
+
+  Object.keys(tests).forEach((input) => {
+    it(`should flatten contractions (${input})`, () => {
+      expect(parseTokens(input)).toEqual(tests[input]);
+    });
+  });
+});
+
+describe("Retaining 'and' Symbols", () => {
+  let tests = {
+    "He+llo": ["he", "+", "llo"],
+    "Hello +": ["hello", "+"],
+    "Hello+World": ["hello", "+", "world"],
     "Hello + World": ["hello", "+", "world"],
+    "Hello&World": ["hello", "&", "world"],
+    "Hello & World": ["hello", "&", "world"],
   };
 
   Object.keys(tests).forEach((input) => {
@@ -122,32 +105,15 @@ describe("Retaining 'and' Symbols", () => {
   });
 });
 
-describe("Flattening Diacritics", () => {
-  // prettier-ignore
-  let tests = {
-    "Ḣéļḹö Ⱳôȑĺȡ": ["hello", "world"],
-    "Les Misérable": ["les", "miserable"],
-    "ỆᶍǍᶆṔƚÉ áéíóúýčďěňřšťžů": ["example", "aeiouycdenrstzu"]
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should strip diacritics (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
 // From Movie "Titles with Unusual Symbols"
 // https://www.imdb.com/list/ls098136839/
 
-describe("Movie Titles", () => {
+describe("Movie Titles with Unusual Symbols", () => {
   let movies = {
     "Æon Flux": ["aeon", "flux"],
     "Romeo & Juliet": ["romeo", "&", "juliet"],
     "8½": ["8"],
-    "M*A*S*H": ["m", "a", "s", "h"], // this is dumb, but reasonable
     "WALL·E": ["wall", "e"],
-    "What the #$*! Do We (K)now!?": ["what", "the", "do", "we", "k", "now"],
     "61*": ["61"],
     "Bigger Stronger Faster*": ["bigger", "stronger", "faster"],
     "Blood+": ["blood", "+"],
@@ -155,9 +121,13 @@ describe("Movie Titles", () => {
     "Patti Cake$": ["patti", "cake"],
     "*batteries not included": ["batteries", "not", "included"],
     "Bat*21": ["bat", "21"],
-    "Totally F***ed Up": ["totally", "f", "ed", "up"],
     "$5 a Day": ["5", "a", "day"],
     "9½ Weeks": ["9", "weeks"],
+    // The following examples could be better, but are reasonable.
+    // Since they're edge cases I won't sweat them too much for now.
+    "M*A*S*H": ["m", "a", "s", "h"],
+    "What the #$*! Do We (K)now!?": ["what", "the", "do", "we", "k", "now"],
+    "Totally F***ed Up": ["totally", "f", "ed", "up"],
   };
 
   Object.keys(movies).forEach((title) => {
