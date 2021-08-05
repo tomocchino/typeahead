@@ -9,6 +9,7 @@ export default function Typeahead(props) {
 
   const dataSource = props.dataSource;
   const textInput = useRef(null);
+  const resultsList = useRef(null);
 
   let handleResponse = (value, results) => {
     // results is a list of DataSourceEntry items
@@ -72,9 +73,14 @@ export default function Typeahead(props) {
   };
 
   let handleMouseMove = (event) => {
-    let node = event.target;
-    let index = Array.from(node.parentNode.childNodes).indexOf(node);
-    setHighlightedIndex(index);
+    let target = event.target;
+    if (target !== resultsList.current) {
+      let node = target.closest(`li.${styles.Typeahead_result}`);
+      let index = Array.from(resultsList.current.childNodes).indexOf(node);
+      if (index != highlightedIndex) {
+        setHighlightedIndex(index);
+      }
+    }
   };
 
   let handleMouseLeave = (event) => {
@@ -114,24 +120,25 @@ export default function Typeahead(props) {
     <div className={styles.Typeahead_root}>
       <input
         ref={textInput}
-        autoFocus
         type="text"
+        autoFocus
         autoCorrect="off"
         autoComplete="off"
         autoCapitalize="off"
         spellCheck="false"
         placeholder={props.placeholder || "Search"}
-        className={inputClassName}
         onFocus={handleFocus}
         onInput={handleInput}
         onKeyDown={handleKeydown}
+        className={inputClassName}
       />
       {results.length > 0 ? (
         <ul
-          className={styles.Typeahead_results}
+          ref={resultsList}
           onClick={handleClick}
           onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}>
+          onMouseLeave={handleMouseLeave}
+          className={styles.Typeahead_results}>
           {results.map((entry, index) => {
             let entryClassName = styles.Typeahead_result;
             if (index === highlightedIndex) {
