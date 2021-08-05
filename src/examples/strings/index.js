@@ -2,18 +2,26 @@ import DataSource from "../../modules/DataSource";
 import DataSourceEntry from "../../modules/DataSourceEntry";
 import Typeahead from "../../modules/Typeahead";
 
+import styles from "./styles.module.css";
+
+const CHARS =
+  "abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz aeiou" +
+  "abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz aeiou" +
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ AEIOU" +
+  "0123456789!~#$%&*_+-åéîøüç                                 ";
+
 function makeString(length) {
-  var string = "";
-  var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz     ";
-  for (var ii = 0; ii < length; ii++) {
-    string += letters.charAt(Math.floor(Math.random() * letters.length));
+  let string = "";
+  for (let ii = 0; ii < length; ii++) {
+    string += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
   }
   return string;
 }
 
 let entries = [];
 for (let ii = 0; ii < 100000; ii++) {
-  entries.push(makeString(10));
+  let length = Math.floor(8 + Math.random() * 12);
+  entries.push(makeString(length).trim());
 }
 
 let dataSource = new DataSource();
@@ -24,7 +32,14 @@ dataSource.addEntries(
 );
 
 let renderer = (entry) => {
-  return <span>{entry.getText()}</span>;
+  return (
+    <span>
+      <span className={styles.String}>{entry.getText()}</span>
+      <span className={styles.Tokens}>{`tokens: [${entry
+        .getTokens()
+        .join(", ")}]`}</span>
+    </span>
+  );
 };
 
 export default function Strings() {
