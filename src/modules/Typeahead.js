@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
+let defaultRenderer = (entry) => {
+  return <span>{entry.getText()}</span>;
+};
+
 export default function Typeahead(props) {
   let [results, setResults] = useState([]);
   let [selectedEntry, setSelectedEntry] = useState(null);
@@ -116,6 +120,8 @@ export default function Typeahead(props) {
     inputClassName += ` ${styles.selected}`;
   }
 
+  let renderer = props.renderer || defaultRenderer;
+
   return (
     <div className={styles.Typeahead_root}>
       <input
@@ -146,7 +152,7 @@ export default function Typeahead(props) {
             }
             return (
               <li className={entryClassName} key={entry.getValue()}>
-                {props.renderer(entry)}
+                {renderer(entry)}
               </li>
             );
           })}

@@ -8,17 +8,12 @@ let dataSource = new DataSource();
 dataSource.setMaxResults(15);
 dataSource.addEntries(cities.map((text) => new DataSourceEntry(text)));
 
-let renderer = (entry) => {
-  return <span>{entry.getText()}</span>;
-};
-
 export default function Cities() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead
       placeholder={`${numEntries.toLocaleString()} cities`}
       dataSource={dataSource}
-      renderer={renderer}
     />
   );
 }
