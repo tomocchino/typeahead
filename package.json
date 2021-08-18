@@ -2,7 +2,7 @@
   "name": "typeahead",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://tomocchino.com/typeahead",
+  "homepage": "http://tomocchino.vercel.app/typeahead",
   "main": "src/modules/_main.js",
   "scripts": {
     "test": "jest --watch",
