@@ -3,17 +3,15 @@ import DataSource from "./DataSource";
 import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
-const defaultDataSource = new DataSource();
-const defaultRenderer = (entry) => {
-  return <span>{entry.getText()}</span>;
-};
+const fallbackRenderer = (entry) => entry.getText();
+const fallbackDataSource = new DataSource();
 
 export default function Typeahead(props) {
   let [results, setResults] = useState([]);
   let [selectedEntry, setSelectedEntry] = useState(null);
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-  const dataSource = props.dataSource || defaultDataSource;
+  const dataSource = props.dataSource || fallbackDataSource;
   const textInput = useRef(null);
   const resultsList = useRef(null);
 
@@ -122,7 +120,7 @@ export default function Typeahead(props) {
     inputClassName += ` ${styles.selected}`;
   }
 
-  let renderer = props.renderer || defaultRenderer;
+  let renderer = props.renderer || fallbackRenderer;
 
   return (
     <div className={styles.Typeahead_root}>
