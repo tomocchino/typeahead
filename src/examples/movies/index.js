@@ -21,7 +21,7 @@ function getImagePath(path, sizeIndex) {
 
 function getSearchPath(query) {
   let origin = window.location.origin;
-  let path = "/typeahead/api/movies/search?query=";
+  let path = "/api/movies/search?query=";
   return origin + path + encodeURIComponent(query);
 }
 
