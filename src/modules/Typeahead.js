@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import DataSource from "./DataSource";
 import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
-let defaultRenderer = (entry) => {
+const defaultDataSource = new DataSource();
+const defaultRenderer = (entry) => {
   return <span>{entry.getText()}</span>;
 };
 
@@ -11,7 +13,7 @@ export default function Typeahead(props) {
   let [selectedEntry, setSelectedEntry] = useState(null);
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-  const dataSource = props.dataSource;
+  const dataSource = props.dataSource || defaultDataSource;
   const textInput = useRef(null);
   const resultsList = useRef(null);
 
