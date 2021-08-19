@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import Typeahead from "../../modules/Typeahead";
-import DataSource from "../../modules/DataSource";
-import DataSourceEntry from "../../modules/DataSourceEntry";
+import DataSource from "/src/DataSource";
+import DataSourceEntry from "/src/DataSourceEntry";
+import Typeahead from "/src/Typeahead";
 import {
   fetchFromCDN,
   flattenEmojiData,

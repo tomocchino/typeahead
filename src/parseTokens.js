@@ -1,8 +1,4 @@
-/**
- * replaceChars list was taken from https://github.com/dundalek/latinize
- */
-
-function parseTokens(input) {
+export default function parseTokens(input) {
   return input
     .toLocaleLowerCase() // this speeds execution up dramatically, wtf!?
     .replace(/[^a-z0-9 ]/g, (character) => {
@@ -27,6 +23,7 @@ const removeChars = new Set(['"', "'"]);
 const retainChars = new Set(["+", "&"]);
 
 // flatten each of these characters with diacritics
+// pulled from https://github.com/dundalek/latinize
 const replaceChars = {
   À: "a",
   Á: "a",
@@ -930,5 +927,3 @@ const replaceChars = {
   ﬄ: "ffl",
   ﬆ: "st",
 };
-
-export default parseTokens;

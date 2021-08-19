@@ -1,4 +1,4 @@
-import parseTokens from "../util/parseTokens";
+import parseTokens from "./parseTokens";
 
 export default class DataSource {
   constructor() {

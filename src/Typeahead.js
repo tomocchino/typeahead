@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import DataSource from "./DataSource";
-import Keys from "../util/Keys";
+import Keys from "./Keys";
 import styles from "./Typeahead.module.css";
 
 const fallbackRenderer = (entry) => entry.getText();

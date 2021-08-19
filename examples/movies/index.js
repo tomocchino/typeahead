@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DataSource from "../../modules/DataSource";
-import DataSourceEntry from "../../modules/DataSourceEntry";
-import Typeahead from "../../modules/Typeahead";
+import DataSource from "/src/DataSource";
+import DataSourceEntry from "/src/DataSourceEntry";
+import Typeahead from "/src/Typeahead";
 
 import topMovies from "./data";
 import tmdbConfig from "./config";
