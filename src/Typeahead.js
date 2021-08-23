@@ -11,14 +11,18 @@ export default function Typeahead(props) {
   let [selectedEntry, setSelectedEntry] = useState(null);
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
+  const renderer = props.renderer || fallbackRenderer;
   const dataSource = props.dataSource || fallbackDataSource;
   const textInput = useRef(null);
   const resultsList = useRef(null);
 
-  let handleResponse = (value, results) => {
-    // results is a list of DataSourceEntry items
-    setResults(results);
-    setHighlightedIndex(0);
+  let handleClick = () => {
+    let numResults = results.length;
+    if (numResults === 0) {
+      return;
+    }
+    let index = highlightedIndex;
+    handleSelection(results[index]);
   };
 
   let handleFocus = (event) => {
@@ -34,35 +38,22 @@ export default function Typeahead(props) {
     }
   };
 
-  let handleClick = (event) => {
-    let numResults = results.length;
-    if (numResults === 0) {
-      return;
-    }
-
-    let index = highlightedIndex;
-    handleSelection(results[index]);
-  };
-
   let handleKeydown = (event) => {
     let numResults = results.length;
     if (numResults === 0) {
       return;
     }
-
     let index = highlightedIndex;
     switch (event.keyCode) {
       case Keys.down:
-        index++;
-        if (index > numResults - 1) {
+        if (++index > numResults - 1) {
           index = 0;
         }
         setHighlightedIndex(index);
         event.preventDefault();
         break;
       case Keys.up:
-        index--;
-        if (index < 0) {
+        if (--index < 0) {
           index = numResults - 1;
         }
         setHighlightedIndex(index);
@@ -78,10 +69,14 @@ export default function Typeahead(props) {
     }
   };
 
+  let handleMouseLeave = () => {
+    setHighlightedIndex(-1);
+  };
+
   let handleMouseMove = (event) => {
     let target = event.target;
     if (target !== resultsList.current) {
-      let node = target.closest(`li.${styles.Typeahead_result}`);
+      let node = target.closest(`.${styles.Typeahead_result}`);
       let index = Array.from(resultsList.current.childNodes).indexOf(node);
       if (index != highlightedIndex) {
         setHighlightedIndex(index);
@@ -89,8 +84,10 @@ export default function Typeahead(props) {
     }
   };
 
-  let handleMouseLeave = (event) => {
-    setHighlightedIndex(-1);
+  let handleResponse = (value, results) => {
+    // results is a list of DataSourceEntry items
+    setResults(results);
+    setHighlightedIndex(0);
   };
 
   let handleSelection = (entry) => {
@@ -102,7 +99,7 @@ export default function Typeahead(props) {
     if (props.onSelect) {
       props.onSelect(entry, input);
     }
-    // allow onSelect to change the value of the input
+    // allow onSelect to change the value of the input as in the emoji example
     if (input.value === inputValue) {
       input.value = entry.getText();
     }
@@ -112,17 +109,13 @@ export default function Typeahead(props) {
 
   useEffect(() => {
     dataSource.setQueryCallback(handleResponse);
-    return function cleanup() {
-      dataSource.setQueryCallback(null);
-    };
+    return () => dataSource.setQueryCallback(null);
   }, [dataSource]);
 
   let inputClassName = styles.Typeahead_input;
   if (selectedEntry !== null) {
     inputClassName += ` ${styles.selected}`;
   }
-
-  let renderer = props.renderer || fallbackRenderer;
 
   return (
     <div className={styles.Typeahead_root}>
@@ -140,7 +133,7 @@ export default function Typeahead(props) {
         onKeyDown={handleKeydown}
         className={inputClassName}
       />
-      {results.length > 0 ? (
+      {results.length === 0 ? null : (
         <ul
           ref={resultsList}
           onClick={handleClick}
@@ -159,7 +152,7 @@ export default function Typeahead(props) {
             );
           })}
         </ul>
-      ) : null}
+      )}
     </div>
   );
 }
