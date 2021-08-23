@@ -68,8 +68,10 @@ export default function Typeahead(props) {
         setHighlightedIndex(index);
         event.preventDefault();
         break;
+      case Keys.tab:
       case Keys.enter:
         handleSelection(results[index]);
+        event.preventDefault();
         break;
       default:
         break;
