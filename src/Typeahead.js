@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import flatten from "./flatten";
 import DataSource from "./DataSource";
 import Keys from "./Keys";
 import styles from "./Typeahead.module.css";
@@ -117,8 +118,26 @@ export default function Typeahead(props) {
     inputClassName += ` ${styles.selected}`;
   }
 
+  let suggestedText = "";
+  let highlightedResult = results[highlightedIndex];
+  if (highlightedResult && textInput.current) {
+    let value = textInput.current.value;
+    let highlightedResultText = highlightedResult.getText();
+    if (flatten(highlightedResultText).startsWith(flatten(value))) {
+      suggestedText =
+        value.substring(0, value.length) +
+        highlightedResultText.substring(value.length);
+    }
+  }
+
   return (
     <div className={styles.Typeahead_root}>
+      <input
+        disabled
+        type="text"
+        placeholder={suggestedText}
+        className={styles.Typeahead_suggestedText}
+      />
       <input
         ref={textInput}
         type="text"

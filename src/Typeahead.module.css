@@ -3,7 +3,8 @@
   width: 100%;
 }
 
-.Typeahead_input {
+.Typeahead_input,
+.Typeahead_suggestedText {
   border: 1px solid #ccc;
   border-radius: 0;
   box-sizing: border-box;
@@ -12,6 +13,15 @@
   width: 100%;
   cursor: default;
   -webkit-appearance: none;
+}
+
+.Typeahead_suggestedText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: none;
+  pointer-events: none;
+  opacity: 50%;
 }
 
 /* Only show a normal text cursor when the input is empty or focused. If it has
