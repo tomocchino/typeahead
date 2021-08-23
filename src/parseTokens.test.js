@@ -1,53 +1,6 @@
 import parseTokens from "./parseTokens.js";
 
-describe("Capitalization", () => {
-  // prettier-ignore
-  let tests = {
-    "Hello": ["hello"],
-    "HELLO": ["hello"],
-    "HeLlO": ["hello"],
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should convert to lowercase (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
-describe("Flattening Diacritics", () => {
-  let tests = {
-    "Ḣéļḹö Ⱳôȑĺȡ": ["hello", "world"],
-    "Les Misérable": ["les", "miserable"],
-    "ỆᶍǍᶆṔƚÉ áéíóúýčďěňřšťžů": ["example", "aeiouycdenrstzu"],
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should strip diacritics (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
-describe("Special Characters", () => {
-  let tests = {
-    "Hello World!": ["hello", "world"],
-    "Hello, World,": ["hello", "world"],
-    "¡Hello World!": ["hello", "world"],
-    "Hello Worlds'": ["hello", "worlds"],
-    "Hello #1 World": ["hello", "1", "world"],
-    "Hello #@$%! World": ["hello", "world"],
-    "Hello: World II": ["hello", "world", "ii"],
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should strip most special characters (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
-describe("Word Dividers", () => {
+describe("Word Separators", () => {
   // prettier-ignore
   let tests = {
     "Hello World": ["hello", "world"],
@@ -59,30 +12,19 @@ describe("Word Dividers", () => {
     "Hello(World)": ["hello", "world"],
     "Hello<World>": ["hello", "world"],
     "Hello  World": ["hello", "world"],
+    "Hello   World": ["hello", "world"],
+    "Hello:  World": ["hello", "world"],
     "Hello---World": ["hello", "world"],
+    "¡Hello World!": ["hello", "world"],
+    "Hello #1 World": ["hello", "1", "world"],
     "Hello.... World": ["hello", "world"],
-    "Hello…...^-World": ["hello", "world"],
+    "Hello #@$%! World": ["hello", "world"],
     "Hello…...^-There-^...…World": ["hello", "there", "world"],
     "A$B$C$D$E$F$G$H": ["a", "b", "c", "d", "e", "f", "g", "h"],
   };
 
   Object.keys(tests).forEach((input) => {
     it(`should split at word boundaries (${input})`, () => {
-      expect(parseTokens(input)).toEqual(tests[input]);
-    });
-  });
-});
-
-describe("Removing Apostrophes", () => {
-  let tests = {
-    "Can't": ["cant"],
-    "The Smith's": ["the", "smiths"],
-    "This won't work, will it?": ["this", "wont", "work", "will", "it"],
-    "Hello'World'": ["helloworld"],
-  };
-
-  Object.keys(tests).forEach((input) => {
-    it(`should flatten contractions (${input})`, () => {
       expect(parseTokens(input)).toEqual(tests[input]);
     });
   });
@@ -99,7 +41,7 @@ describe("Retaining 'and' Symbols", () => {
   };
 
   Object.keys(tests).forEach((input) => {
-    it(`should retain 'and' symbols (${input})`, () => {
+    it(`should retain 'and' symbols as their own token (${input})`, () => {
       expect(parseTokens(input)).toEqual(tests[input]);
     });
   });
@@ -131,7 +73,7 @@ describe("Movie Titles with Unusual Symbols", () => {
   };
 
   Object.keys(movies).forEach((title) => {
-    it(`should properly parse movie titles with unusual symbols (${title})`, () => {
+    it(`should properly parse movie titles with symbols (${title})`, () => {
       expect(parseTokens(title)).toEqual(movies[title]);
     });
   });
