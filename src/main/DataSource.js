@@ -1,8 +1,11 @@
 import parseTokens from "../util/parseTokens";
 
+const QUERY_DELAY = 100; // Wait this many ms before invoking queryHandler
+
 export default class DataSource {
   constructor() {
     this._maxResults = 10;
+    this._pendingQuery = null;
     this._queryHandler = null;
     this._queryCallback = null;
     this._mostRecentQuery = "";
@@ -104,12 +107,19 @@ export default class DataSource {
     // If we have fewer than _maxResults, invoke the _queryHandler, if
     // one is set, enabling the caller to fetch more results if needed
     if (
+      value &&
       this._queryHandler &&
       results.length < this._maxResults &&
       !this._previousQueries.has(value)
     ) {
-      this._previousQueries.add(value);
-      this._queryHandler(value);
+      if (this._pendingQuery) {
+        clearTimeout(this._pendingQuery);
+      }
+      this._pendingQuery = setTimeout(() => {
+        this._previousQueries.add(value);
+        this._queryHandler(value);
+        this._pendingQuery = null;
+      }, QUERY_DELAY);
     }
   }
 

@@ -26,10 +26,6 @@ function getSearchPath(query) {
 }
 
 async function searchForMovies(value) {
-  // don't hammer the network on single character input, or should we?
-  if (value.length < 2) {
-    return;
-  }
   try {
     console.log("GOING TO THE NETWORK FOR", value);
     let data = await fetch(getSearchPath(value));
