@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://typeahead.tomocchino.vercel.app",
-  "main": "src/modules/_main.js",
+  "main": "src/main/index.js",
   "scripts": {
     "test": "jest --watch",
     "dev": "next dev",

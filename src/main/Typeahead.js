@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import flatten from "./util/flatten";
+import flatten from "../util/flatten";
 import DataSource from "./DataSource";
-import Keys from "./util/Keys";
+import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
 const fallbackRenderer = (entry) => entry.getText();

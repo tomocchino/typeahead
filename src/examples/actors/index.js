@@ -1,6 +1,6 @@
-import DataSource from "/src/DataSource";
-import DataSourceEntry from "/src/DataSourceEntry";
-import Typeahead from "/src/Typeahead";
+import DataSource from "/src/main/DataSource";
+import DataSourceEntry from "/src/main/DataSourceEntry";
+import Typeahead from "/src/main/Typeahead";
 
 import actors from "./data";
 import styles from "./styles.module.css";
