@@ -6,12 +6,12 @@ import { useRouter } from "next/router";
 import styles from "../styles/examples.module.css";
 
 const PATHS = {
-  states: dynamic(() => import("/examples/states")),
-  actors: dynamic(() => import("/examples/actors")),
-  cities: dynamic(() => import("/examples/cities")),
-  strings: dynamic(() => import("/examples/strings")),
-  emoji: dynamic(() => import("/examples/emoji")),
-  movies: dynamic(() => import("/examples/movies")),
+  states: dynamic(() => import("/src/examples/states")),
+  actors: dynamic(() => import("/src/examples/actors")),
+  cities: dynamic(() => import("/src/examples/cities")),
+  strings: dynamic(() => import("/src/examples/strings")),
+  emoji: dynamic(() => import("/src/examples/emoji")),
+  movies: dynamic(() => import("/src/examples/movies")),
 };
 
 export default function Index() {
