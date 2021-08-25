@@ -1,4 +1,4 @@
-import parseTokens from "./parseTokens";
+import parseTokens from "./util/parseTokens";
 
 export default class DataSourceEntry {
   constructor(text, value, rawData = {}) {
