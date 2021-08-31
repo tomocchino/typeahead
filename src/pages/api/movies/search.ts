@@ -1,8 +1,10 @@
-function getSearchPath(query) {
+import { NextApiRequest, NextApiResponse } from "next";
+
+function getSearchPath(query: string) {
   let params = new URLSearchParams({
-    page: 1,
+    page: "1",
     langauge: "un-US",
-    include_adult: false,
+    include_adult: "false",
     api_key: process.env.API_KEY,
     query: query,
   });
@@ -10,7 +12,10 @@ function getSearchPath(query) {
   return "https://api.themoviedb.org/3/search/movie?" + params.toString();
 }
 
-export default async function handler(request, response) {
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse
+) {
   let url = new URL(request.url, `https://${request.headers.host}`);
   let query = url.searchParams.get("query");
   try {
