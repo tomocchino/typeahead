@@ -7,37 +7,37 @@ type QueryCallback = (value: string, results: Array<DataSourceEntry>) => void;
 type QueryHandler = (value: string) => void;
 
 export default class DataSource {
-  private _maxResults: number;
-  private _pendingQuery: number; // window.setTimeout return value
-  private _queryHandler: QueryHandler;
-  private _queryCallback: QueryCallback;
-  private _mostRecentQuery: string;
-  private _entriesSet: Set<string>;
-  private _entryBuckets: Map<number, Set<DataSourceEntry>>;
-  private _previousQueries: Set<string>;
+  private maxResults: number;
+  private pendingQuery: number; // window.setTimeout return value
+  private queryHandler: QueryHandler;
+  private queryCallback: QueryCallback;
+  private mostRecentQuery: string;
+  private entriesSet: Set<string>;
+  private entryBuckets: Map<number, Set<DataSourceEntry>>;
+  private previousQueries: Set<string>;
 
   constructor() {
-    this._maxResults = 10;
-    this._pendingQuery = null;
-    this._queryHandler = null;
-    this._queryCallback = null;
-    this._mostRecentQuery = "";
-    this._entriesSet = new Set();
-    this._entryBuckets = new Map();
-    this._previousQueries = new Set();
+    this.maxResults = 10;
+    this.pendingQuery = null;
+    this.queryHandler = null;
+    this.queryCallback = null;
+    this.mostRecentQuery = "";
+    this.entriesSet = new Set();
+    this.entryBuckets = new Map();
+    this.previousQueries = new Set();
   }
 
   /**
    * The addEntries method matters more than anything else here. We have to
    * dedupe entries based on their value which must be unique, and the order
-   * they get inserted into `this._entryBuckets` depends on several factors:
+   * they get inserted into `this.entryBuckets` depends on several factors:
    * 1. The original sort order of `entries`,
    * 2. The number of tokens in the entry (`getTokens`),
    * 3. The first character (charCode) of the entry text (`getText`).
    *
    * We must preserve the initial `entries` sort order inside each bucket as
    * much as possible, but we can't just iterate over `entries` and push each
-   * result directly into its `this._entryBuckets.get(firstCharCode)` bucket.
+   * result directly into its `this.entryBuckets.get(firstCharCode)` bucket.
    * We have to insert based the number of tokens each entry has, to make sure
    * one-token matches always come before two-token matches, and so on.
    *   eg. {a: ["Alpha", "Arizona", "Alpha Bravo", ...}
@@ -56,8 +56,8 @@ export default class DataSource {
    *     ["Bravo Alpha", "Alpha Bravo"],
    *   ];
    *
-   * Which will in turn generate the following `this._entryBuckets`:
-   *   this._entryBuckets = {
+   * Which will in turn generate the following `this.entryBuckets`:
+   *   this.entryBuckets = {
    *     a: ["Alpha", "Arizona", "Alpha Bravo", "Bravo Alpha"],
    *     b: ["Bravo", "Bravo Alpha", "Alpha Bravo"],
    *   };
@@ -70,9 +70,9 @@ export default class DataSource {
     // as we build up the intermediateEntryBuckets data structure.
     entries.forEach((entry) => {
       let value = entry.getValue();
-      if (!this._entriesSet.has(value)) {
+      if (!this.entriesSet.has(value)) {
         uniqueEntries.push(entry);
-        this._entriesSet.add(value);
+        this.entriesSet.add(value);
         let index = entry.getTokens().length - 1;
         if (!intermediateEntryBuckets[index]) {
           intermediateEntryBuckets[index] = [];
@@ -82,7 +82,7 @@ export default class DataSource {
     });
 
     // Now that we've created our intermediate sorted data structure, we have
-    // to actually get all these entries inserted into this._entryBuckets.
+    // to actually get all these entries inserted into this.entryBuckets.
     intermediateEntryBuckets.forEach((entryBucket, index) => {
       for (let ii = 0; ii <= index; ii++) {
         for (let jj = 0; jj < entryBucket.length; jj++) {
@@ -105,33 +105,33 @@ export default class DataSource {
     });
 
     // Whenever entries are added, invoke query to append new results
-    this.query(this._mostRecentQuery);
+    this.query(this.mostRecentQuery);
   }
 
   query(value: string) {
-    if (!this._queryCallback) {
+    if (!this.queryCallback) {
       return;
     }
 
     // Respond synchronously with whatever we have in the cache already
     let results = this.getQueryResults(value);
-    this._queryCallback(value, results);
+    this.queryCallback(value, results);
 
-    // If we have fewer than _maxResults, invoke the _queryHandler, if
+    // If we have fewer than maxResults, invoke the queryHandler, if
     // one is set, enabling the caller to fetch more results if needed
     if (
       value &&
-      this._queryHandler &&
-      results.length < this._maxResults &&
-      !this._previousQueries.has(value)
+      this.queryHandler &&
+      results.length < this.maxResults &&
+      !this.previousQueries.has(value)
     ) {
-      if (this._pendingQuery) {
-        clearTimeout(this._pendingQuery);
+      if (this.pendingQuery) {
+        clearTimeout(this.pendingQuery);
       }
-      this._pendingQuery = window.setTimeout(() => {
-        this._previousQueries.add(value);
-        this._queryHandler(value);
-        this._pendingQuery = null;
+      this.pendingQuery = window.setTimeout(() => {
+        this.previousQueries.add(value);
+        this.queryHandler(value);
+        this.pendingQuery = null;
       }, QUERY_DELAY);
     }
   }
@@ -141,7 +141,7 @@ export default class DataSource {
     let resultsCount = 0;
     let queryTokens = parseTokens(value);
     let firstCharCode = queryTokens[0].charCodeAt(0);
-    let eligibleEntries = this._entryBuckets.get(firstCharCode) || new Set();
+    let eligibleEntries = this.entryBuckets.get(firstCharCode) || new Set();
 
     if (value !== "") {
       for (let entry of Array.from(eligibleEntries)) {
@@ -150,38 +150,38 @@ export default class DataSource {
           results.add(entry);
           resultsCount++;
         }
-        if (resultsCount === this._maxResults) {
+        if (resultsCount === this.maxResults) {
           break;
         }
       }
     }
 
-    this._mostRecentQuery = value;
+    this.mostRecentQuery = value;
     return Array.from(results);
   }
 
   setMaxResults(maxResults: number) {
-    this._maxResults = maxResults;
+    this.maxResults = maxResults;
   }
 
   setQueryCallback(callback: QueryCallback) {
-    this._queryCallback = callback;
+    this.queryCallback = callback;
   }
 
   setQueryHandler(callback: QueryHandler) {
-    this._queryHandler = callback;
+    this.queryHandler = callback;
   }
 
   getNumberOfEntries() {
-    return this._entriesSet.size;
+    return this.entriesSet.size;
   }
 
   private insertEntry(key: number, entry: DataSourceEntry) {
-    if (!this._entryBuckets.has(key)) {
-      this._entryBuckets.set(key, new Set());
+    if (!this.entryBuckets.has(key)) {
+      this.entryBuckets.set(key, new Set());
     }
-    if (!this._entryBuckets.get(key).has(entry)) {
-      this._entryBuckets.get(key).add(entry);
+    if (!this.entryBuckets.get(key).has(entry)) {
+      this.entryBuckets.get(key).add(entry);
     }
   }
 }
