@@ -1,13 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import flatten from "../util/flatten";
 import DataSource from "./DataSource";
+import DataSourceEntry from "./DataSourceEntry";
 import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
-const fallbackRenderer = (entry) => entry.getText();
+const fallbackRenderer = (entry: DataSourceEntry) => entry.getText();
 const fallbackDataSource = new DataSource();
 
-export default function Typeahead(props) {
+type TypeaheadProps = {
+  dataSource?: DataSource;
+  onReset?: () => void;
+  onSelect?: (entry: DataSourceEntry, input: HTMLInputElement) => void;
+  placeholder?: string;
+  renderer?: (entry: DataSourceEntry) => React.ComponentType;
+};
+
+export default function Typeahead(props: TypeaheadProps) {
   let [results, setResults] = useState([]);
   let [selectedEntry, setSelectedEntry] = useState(null);
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -26,11 +35,11 @@ export default function Typeahead(props) {
     handleSelection(results[index]);
   };
 
-  let handleFocus = (event) => {
+  let handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     event.target.select();
   };
 
-  let handleInput = (event) => {
+  let handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
     dataSource.query(value);
     setSelectedEntry(null);
@@ -39,7 +48,7 @@ export default function Typeahead(props) {
     }
   };
 
-  let handleKeydown = (event) => {
+  let handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     let numResults = results.length;
     if (numResults === 0) {
       return;
@@ -74,8 +83,8 @@ export default function Typeahead(props) {
     setHighlightedIndex(-1);
   };
 
-  let handleMouseMove = (event) => {
-    let target = event.target;
+  let handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
+    let target = event.target as HTMLElement;
     if (target !== resultsList.current) {
       let node = target.closest(`.${styles.Typeahead_result}`);
       let index = Array.from(resultsList.current.childNodes).indexOf(node);
@@ -85,13 +94,12 @@ export default function Typeahead(props) {
     }
   };
 
-  let handleResponse = (value, results) => {
-    // results is a list of DataSourceEntry items
+  let handleResponse = (value: string, results: Array<DataSourceEntry>) => {
     setResults(results);
     setHighlightedIndex(0);
   };
 
-  let handleSelection = (entry) => {
+  let handleSelection = (entry: DataSourceEntry) => {
     if (!entry) {
       return;
     }
