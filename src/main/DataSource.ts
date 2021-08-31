@@ -1,8 +1,21 @@
+import DataSourceEntry from "./DataSourceEntry";
 import parseTokens from "../util/parseTokens";
 
 const QUERY_DELAY = 100; // Wait this many ms before invoking queryHandler
 
+type QueryCallback = (value: string, results: Array<DataSourceEntry>) => void;
+type QueryHandler = (value: string) => void;
+
 export default class DataSource {
+  private _maxResults: number;
+  private _pendingQuery: number; // window.setTimeout return value
+  private _queryHandler: QueryHandler;
+  private _queryCallback: QueryCallback;
+  private _mostRecentQuery: string;
+  private _entriesSet: Set<string>;
+  private _entryBuckets: Map<number, Set<DataSourceEntry>>;
+  private _previousQueries: Set<string>;
+
   constructor() {
     this._maxResults = 10;
     this._pendingQuery = null;
@@ -49,7 +62,7 @@ export default class DataSource {
    *     b: ["Bravo", "Bravo Alpha", "Alpha Bravo"],
    *   };
    */
-  addEntries(entries) {
+  addEntries(entries: Array<DataSourceEntry>) {
     let uniqueEntries = [];
     let intermediateEntryBuckets = [];
 
@@ -75,7 +88,7 @@ export default class DataSource {
         for (let jj = 0; jj < entryBucket.length; jj++) {
           let entry = entryBucket[jj];
           let key = entry.getTokens()[ii].charCodeAt(0);
-          insertEntry(this._entryBuckets, key, entry);
+          this.insertEntry(key, entry);
         }
       }
     });
@@ -86,7 +99,7 @@ export default class DataSource {
       let keywords = entry.getKeywords();
       if (keywords.length > 0) {
         keywords.forEach((keyword) => {
-          insertEntry(this._entryBuckets, keyword.charCodeAt(0), entry);
+          this.insertEntry(keyword.charCodeAt(0), entry);
         });
       }
     });
@@ -95,7 +108,7 @@ export default class DataSource {
     this.query(this._mostRecentQuery);
   }
 
-  query(value) {
+  query(value: string) {
     if (!this._queryCallback) {
       return;
     }
@@ -115,7 +128,7 @@ export default class DataSource {
       if (this._pendingQuery) {
         clearTimeout(this._pendingQuery);
       }
-      this._pendingQuery = setTimeout(() => {
+      this._pendingQuery = window.setTimeout(() => {
         this._previousQueries.add(value);
         this._queryHandler(value);
         this._pendingQuery = null;
@@ -123,15 +136,15 @@ export default class DataSource {
     }
   }
 
-  getQueryResults(value) {
-    let results = new Set();
+  getQueryResults(value: string): Array<DataSourceEntry> {
+    let results: Set<DataSourceEntry> = new Set();
     let resultsCount = 0;
     let queryTokens = parseTokens(value);
     let firstCharCode = queryTokens[0].charCodeAt(0);
     let eligibleEntries = this._entryBuckets.get(firstCharCode) || new Set();
 
     if (value !== "") {
-      for (let entry of eligibleEntries) {
+      for (let entry of Array.from(eligibleEntries)) {
         let entryTokens = entry.getTokens().concat(entry.getKeywords());
         if (tokensMatch(queryTokens, entryTokens)) {
           results.add(entry);
@@ -147,33 +160,33 @@ export default class DataSource {
     return Array.from(results);
   }
 
-  setMaxResults(maxResults) {
+  setMaxResults(maxResults: number) {
     this._maxResults = maxResults;
   }
 
-  setQueryCallback(callback) {
+  setQueryCallback(callback: QueryCallback) {
     this._queryCallback = callback;
   }
 
-  setQueryHandler(callback) {
+  setQueryHandler(callback: QueryHandler) {
     this._queryHandler = callback;
   }
 
   getNumberOfEntries() {
     return this._entriesSet.size;
   }
+
+  private insertEntry(key: number, entry: DataSourceEntry) {
+    if (!this._entryBuckets.has(key)) {
+      this._entryBuckets.set(key, new Set());
+    }
+    if (!this._entryBuckets.get(key).has(entry)) {
+      this._entryBuckets.get(key).add(entry);
+    }
+  }
 }
 
-function insertEntry(entryBuckets, key, entry) {
-  if (!entryBuckets.has(key)) {
-    entryBuckets.set(key, new Set());
-  }
-  if (!entryBuckets.get(key).has(entry)) {
-    entryBuckets.get(key).add(entry);
-  }
-}
-
-function tokensMatch(queryTokens, entryTokens) {
+function tokensMatch(queryTokens: Array<string>, entryTokens: Array<string>) {
   let numQueryTokensMatched = 0;
   let numEntryTokensChecked = 0;
   let numQueryTokens = queryTokens.length;

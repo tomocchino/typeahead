@@ -1,4 +1,4 @@
-export default function flattenString(string) {
+export default function flattenString(string: string) {
   return string
     .toLocaleLowerCase() // this speeds execution up dramatically, wtf!?
     .replace(/[^a-z0-9 ]/g, (character) => {
