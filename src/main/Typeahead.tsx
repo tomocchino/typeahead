@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import flatten from "../util/flatten";
 import DataSource from "./DataSource";
 import DataSourceEntry from "./DataSourceEntry";
-import Keys from "../util/Keys";
 import styles from "./Typeahead.module.css";
 
 const fallbackRenderer = (entry: DataSourceEntry) => entry.getText();
@@ -54,23 +53,23 @@ export default function Typeahead(props: TypeaheadProps) {
       return;
     }
     let index = highlightedIndex;
-    switch (event.keyCode) {
-      case Keys.down:
+    switch (event.key) {
+      case "ArrowDown":
         if (++index > numResults - 1) {
           index = 0;
         }
         setHighlightedIndex(index);
         event.preventDefault();
         break;
-      case Keys.up:
+      case "ArrowUp":
         if (--index < 0) {
           index = numResults - 1;
         }
         setHighlightedIndex(index);
         event.preventDefault();
         break;
-      case Keys.tab:
-      case Keys.enter:
+      case "Tab":
+      case "Enter":
         handleSelection(results[index]);
         event.preventDefault();
         break;
