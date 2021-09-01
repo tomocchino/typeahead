@@ -22,7 +22,7 @@ let renderer = (entry: DataSourceEntry) => {
   );
 };
 
-export default function Actors() {
+export default function ActorsExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead

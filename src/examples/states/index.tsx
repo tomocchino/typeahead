@@ -15,7 +15,7 @@ let renderer = (entry: DataSourceEntry) => {
   return <span>{entry.getText()}</span>;
 };
 
-export default function States() {
+export default function StatesExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead

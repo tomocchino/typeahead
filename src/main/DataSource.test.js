@@ -5,10 +5,10 @@ function flatten(results) {
   return results.map((entry) => entry.getText());
 }
 
-function createTestDataSource(entries, maxResults) {
+function createTestDataSource(entries, maxResults = 4) {
   let dataSource = new DataSource();
   dataSource.addEntries(entries.map((text) => new DataSourceEntry(text)));
-  dataSource.setMaxResults(maxResults || 4);
+  dataSource.setMaxResults(maxResults);
   return dataSource;
 }
 

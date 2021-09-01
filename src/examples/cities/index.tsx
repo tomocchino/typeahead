@@ -8,7 +8,7 @@ let dataSource = new DataSource();
 dataSource.setMaxResults(15);
 dataSource.addEntries(cities.map((text) => new DataSourceEntry(text)));
 
-export default function Cities() {
+export default function CitiesExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead

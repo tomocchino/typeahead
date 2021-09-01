@@ -95,7 +95,7 @@ function MovieDetails(props: { movie: DataSourceEntry }) {
   );
 }
 
-export default function Movies() {
+export default function MoviesExample() {
   let [movie, setMovie] = useState(null);
 
   let onSelect = function (entry: DataSourceEntry) {

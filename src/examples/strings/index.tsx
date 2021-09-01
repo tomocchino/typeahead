@@ -35,14 +35,14 @@ let renderer = (entry: DataSourceEntry) => {
   return (
     <span>
       <span className={styles.String}>{entry.getText()}</span>
-      <span className={styles.Tokens}>{`tokens: [${entry
-        .getTokens()
-        .join(", ")}]`}</span>
+      <span className={styles.Tokens}>
+        {`tokens: [${entry.getTokens().join(", ")}]`}
+      </span>
     </span>
   );
 };
 
-export default function Strings() {
+export default function StringsExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead
