@@ -1,6 +1,6 @@
-import DataSource from "/src/main/DataSource";
-import DataSourceEntry from "/src/main/DataSourceEntry";
-import Typeahead from "/src/main/Typeahead";
+import DataSource from "../../main/DataSource";
+import DataSourceEntry from "../../main/DataSourceEntry";
+import Typeahead from "../../main/Typeahead";
 
 import actors from "./data";
 import styles from "./styles.module.css";
@@ -12,8 +12,8 @@ dataSource.addEntries(
   })
 );
 
-let renderer = (entry) => {
-  let data = entry.getRawData();
+let renderer = (entry: DataSourceEntry) => {
+  let data: typeof actors[0] = entry.getRawData();
   return (
     <span>
       <span className={styles.Name}>{data.name}</span>

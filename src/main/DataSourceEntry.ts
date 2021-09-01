@@ -3,7 +3,7 @@ import parseTokens from "../util/parseTokens";
 export default class DataSourceEntry {
   private text: string;
   private value: string;
-  private rawData: { keywords?: Array<string> };
+  private rawData: any;
   private tokens: Array<string>;
   private keywords: Array<string>;
 
