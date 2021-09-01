@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import DataSource from "/src/main/DataSource";
-import DataSourceEntry from "/src/main/DataSourceEntry";
-import Typeahead from "/src/main/Typeahead";
+import DataSource from "../../main/DataSource";
+import DataSourceEntry from "../../main/DataSourceEntry";
+import Typeahead from "../../main/Typeahead";
 import {
+  Emoji,
   fetchFromCDN,
   flattenEmojiData,
   fromHexcodeToCodepoint,
@@ -11,7 +12,7 @@ import {
 
 import styles from "./styles.module.css";
 
-function initEmojiDataSource(dataSource, data) {
+function initEmojiDataSource(dataSource: DataSource, data: Array<Emoji>) {
   dataSource.addEntries(
     flattenEmojiData(data)
       .sort((a, b) => {
@@ -29,7 +30,7 @@ function initEmojiDataSource(dataSource, data) {
   );
 }
 
-function renderer(entry) {
+function renderer(entry: DataSourceEntry) {
   return (
     <span className={styles.Emoji_row}>
       <span className={styles.Emoji_glyph}>{entry.getValue()}</span>
@@ -43,22 +44,24 @@ function renderer(entry) {
   );
 }
 
-function onSelect(entry, input) {
+function onSelect(entry: DataSourceEntry, input: HTMLInputElement) {
   input.value = entry.getValue();
   input.select();
   document.execCommand("copy");
   window.getSelection().collapseToEnd();
 }
 
-export default function Emoji() {
+export default function EmojiExample() {
   let dataSource = new DataSource();
   dataSource.setMaxResults(8);
 
   // wrapped in useEffect so Next doesn't execute on the server
   useEffect(() => {
-    fetchFromCDN("en/compact.json", "6.1.0").then((data) => {
-      initEmojiDataSource(dataSource, data);
-    });
+    fetchFromCDN("en/compact.json", { version: "6.2.0" }).then(
+      (data: Array<Emoji>) => {
+        initEmojiDataSource(dataSource, data);
+      }
+    );
   }, []);
 
   return (
