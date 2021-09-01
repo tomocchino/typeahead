@@ -12,7 +12,7 @@ type TypeaheadProps = {
   onReset?: () => void;
   onSelect?: (entry: DataSourceEntry, input: HTMLInputElement) => void;
   placeholder?: string;
-  renderer?: (entry: DataSourceEntry) => React.ComponentType;
+  renderer?: (entry: DataSourceEntry) => React.ReactNode;
 };
 
 export default function Typeahead(props: TypeaheadProps) {
