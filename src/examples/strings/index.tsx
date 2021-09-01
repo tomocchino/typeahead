@@ -1,6 +1,6 @@
-import DataSource from "/src/main/DataSource";
-import DataSourceEntry from "/src/main/DataSourceEntry";
-import Typeahead from "/src/main/Typeahead";
+import DataSource from "../../main/DataSource";
+import DataSourceEntry from "../../main/DataSourceEntry";
+import Typeahead from "../../main/Typeahead";
 
 import styles from "./styles.module.css";
 
@@ -10,7 +10,7 @@ const CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ AEIOU" +
   "0123456789!~#$%&*_+-åéîøüç                                 ";
 
-function makeString(length) {
+function makeString(length: number) {
   let string = "";
   for (let ii = 0; ii < length; ii++) {
     string += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
@@ -18,7 +18,7 @@ function makeString(length) {
   return string;
 }
 
-let entries = [];
+let entries: Array<string> = [];
 for (let ii = 0; ii < 100000; ii++) {
   let length = Math.floor(8 + Math.random() * 12);
   entries.push(makeString(length).trim());
@@ -31,7 +31,7 @@ dataSource.addEntries(
   })
 );
 
-let renderer = (entry) => {
+let renderer = (entry: DataSourceEntry) => {
   return (
     <span>
       <span className={styles.String}>{entry.getText()}</span>
