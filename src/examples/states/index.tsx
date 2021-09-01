@@ -1,6 +1,6 @@
-import DataSource from "/src/main/DataSource";
-import DataSourceEntry from "/src/main/DataSourceEntry";
-import Typeahead from "/src/main/Typeahead";
+import DataSource from "../../main/DataSource";
+import DataSourceEntry from "../../main/DataSourceEntry";
+import Typeahead from "../../main/Typeahead";
 
 import states from "./data";
 
@@ -11,7 +11,7 @@ dataSource.addEntries(
   })
 );
 
-let renderer = (entry) => {
+let renderer = (entry: DataSourceEntry) => {
   return <span>{entry.getText()}</span>;
 };
 

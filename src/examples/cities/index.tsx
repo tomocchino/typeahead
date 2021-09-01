@@ -1,6 +1,6 @@
-import DataSource from "/src/main/DataSource";
-import DataSourceEntry from "/src/main/DataSourceEntry";
-import Typeahead from "/src/main/Typeahead";
+import DataSource from "../../main/DataSource";
+import DataSourceEntry from "../../main/DataSourceEntry";
+import Typeahead from "../../main/Typeahead";
 
 import cities from "./data";
 
@@ -12,8 +12,8 @@ export default function Cities() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead
-      placeholder={`${numEntries.toLocaleString()} cities`}
       dataSource={dataSource}
+      placeholder={`${numEntries.toLocaleString()} cities`}
     />
   );
 }
