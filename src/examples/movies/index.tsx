@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DataSource from "/src/main/DataSource";
-import DataSourceEntry from "/src/main/DataSourceEntry";
-import Typeahead from "/src/main/Typeahead";
+import DataSource from "../../main/DataSource";
+import DataSourceEntry from "../../main/DataSourceEntry";
+import Typeahead from "../../main/Typeahead";
 
 import topMovies from "./data";
 import tmdbConfig from "./config";
@@ -9,23 +9,25 @@ import styles from "./styles.module.css";
 
 // Utilities
 
-function createDataSourceEntry(data) {
-  return new DataSourceEntry(data.title, data.id, data);
+type Movie = typeof topMovies[0];
+
+function createDataSourceEntry(data: Movie) {
+  return new DataSourceEntry(data.title, data.id + "", data);
 }
 
-function getImagePath(path, sizeIndex) {
+function getImagePath(path: string, sizeIndex: number = 0) {
   let baseURL = tmdbConfig.images.secure_base_url;
-  let size = tmdbConfig.images.poster_sizes[sizeIndex || 0];
+  let size = tmdbConfig.images.poster_sizes[sizeIndex];
   return baseURL + size + path;
 }
 
-function getSearchPath(query) {
+function getSearchPath(query: string) {
   let origin = window.location.origin;
   let path = "/api/movies/search?query=";
   return origin + path + encodeURIComponent(query);
 }
 
-async function searchForMovies(value) {
+async function searchForMovies(value: string) {
   try {
     console.log("GOING TO THE NETWORK FOR", value);
     let data = await fetch(getSearchPath(value));
@@ -45,8 +47,8 @@ dataSource.addEntries(topMovies.map(createDataSourceEntry));
 
 // Typeahead Entry Renderer
 
-let renderer = (movie) => {
-  let data = movie.getRawData();
+let renderer = (movie: DataSourceEntry) => {
+  let data: Movie = movie.getRawData();
   let date = data.release_date;
   let year = date ? new Date(date).getFullYear() : "unknown";
   let poster = data.poster_path ? (
@@ -64,10 +66,9 @@ let renderer = (movie) => {
 };
 
 // Movie Details Panel
-
-function MovieDetails(props) {
+function MovieDetails(props: { movie: DataSourceEntry }) {
   let movie = props.movie;
-  let data = movie.getRawData();
+  let data: Movie = movie.getRawData();
   let date = data.release_date;
   let year = date ? new Date(date).getFullYear() : "unknown";
   return (
@@ -97,7 +98,7 @@ function MovieDetails(props) {
 export default function Movies() {
   let [movie, setMovie] = useState(null);
 
-  let onSelect = function (entry) {
+  let onSelect = function (entry: DataSourceEntry) {
     setMovie(entry);
   };
 
