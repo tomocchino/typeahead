@@ -1,4 +1,4 @@
-import flatten from "./flatten.js";
+import flatten from "./flatten";
 
 describe("Capitalization", () => {
   // prettier-ignore

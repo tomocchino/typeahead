@@ -1,11 +1,11 @@
 import DataSource from "./DataSource";
 import DataSourceEntry from "./DataSourceEntry";
 
-function flatten(results) {
+function flatten(results: Array<DataSourceEntry>) {
   return results.map((entry) => entry.getText());
 }
 
-function createTestDataSource(entries, maxResults = 4) {
+function createTestDataSource(entries: Array<string>, maxResults: number = 4) {
   let dataSource = new DataSource();
   dataSource.addEntries(entries.map((text) => new DataSourceEntry(text)));
   dataSource.setMaxResults(maxResults);

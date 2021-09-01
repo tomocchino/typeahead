@@ -1,4 +1,4 @@
-import parseTokens from "./parseTokens.js";
+import parseTokens from "./parseTokens";
 
 describe("Word Separators", () => {
   // prettier-ignore
