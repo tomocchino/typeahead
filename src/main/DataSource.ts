@@ -63,8 +63,8 @@ export default class DataSource {
    *   };
    */
   addEntries(entries: Array<DataSourceEntry>) {
-    let uniqueEntries = [];
-    let intermediateEntryBuckets = [];
+    let uniqueEntries: Array<DataSourceEntry> = [];
+    let intermediateEntryBuckets: Array<Array<DataSourceEntry>> = [];
 
     // Dedupe entries based on their `value` field, which must be unique,
     // as we build up the intermediateEntryBuckets data structure.

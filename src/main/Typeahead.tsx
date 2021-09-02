@@ -16,8 +16,8 @@ type TypeaheadProps = {
 };
 
 export default function Typeahead(props: TypeaheadProps) {
-  let [results, setResults] = useState([]);
-  let [selectedEntry, setSelectedEntry] = useState(null);
+  let [results, setResults] = useState<Array<DataSourceEntry>>([]);
+  let [selectedEntry, setSelectedEntry] = useState<DataSourceEntry>(null);
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const renderer = props.renderer || fallbackRenderer;
