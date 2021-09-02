@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import flatten from "../util/flatten";
 import DataSource from "./DataSource";
 import DataSourceEntry from "./DataSourceEntry";
-import styles from "./Typeahead.module.css";
 
 const fallbackRenderer = (entry: DataSourceEntry) => entry.getText();
 const fallbackDataSource = new DataSource();
@@ -85,7 +84,7 @@ export default function Typeahead(props: TypeaheadProps) {
   let handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     let target = event.target as HTMLElement;
     if (target !== resultsList.current) {
-      let node = target.closest(`.${styles.Typeahead_result}`);
+      let node = target.closest(".Typeahead_result");
       let index = Array.from(resultsList.current.childNodes).indexOf(node);
       if (index != highlightedIndex) {
         setHighlightedIndex(index);
@@ -114,9 +113,9 @@ export default function Typeahead(props: TypeaheadProps) {
     return () => dataSource.setQueryCallback(null);
   }, [dataSource]);
 
-  let inputClassName = styles.Typeahead_input;
+  let inputClassName = "Typeahead_input";
   if (selectedEntry !== null) {
-    inputClassName += ` ${styles.selected}`;
+    inputClassName += " selected";
   }
 
   let suggestedText = "";
@@ -132,12 +131,12 @@ export default function Typeahead(props: TypeaheadProps) {
   }
 
   return (
-    <div className={styles.Typeahead_root}>
+    <div className="Typeahead_root">
       <input
         disabled
         type="text"
         placeholder={suggestedText}
-        className={styles.Typeahead_suggestedText}
+        className="Typeahead_suggestedText"
       />
       <input
         ref={textInput}
@@ -159,11 +158,11 @@ export default function Typeahead(props: TypeaheadProps) {
           onClick={handleClick}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className={styles.Typeahead_results}>
+          className="Typeahead_results">
           {results.map((entry, index) => {
-            let entryClassName = styles.Typeahead_result;
+            let entryClassName = "Typeahead_result";
             if (index === highlightedIndex) {
-              entryClassName += ` ${styles.highlighted}`;
+              entryClassName += " highlighted";
             }
             return (
               <li className={entryClassName} key={entry.getValue()}>
