@@ -1,3 +1,7 @@
+⚠️ **Note: This project is a hobby, and is still in early development. It should probably not be used by anyone, for anything, yet.**
+
+---
+
 A typeahead is a text input that displays suggestions as you type. It can be used for search, navigation, entity selection, and countless other things, and has become a ubiquitous part of modern user interfaces.
 
 I've spent a bunch of time throughout my career working on various implementations of this component and have developed some strong opinions about how they should work. This project aims to provide a simple reference typeahead implementation which codifies the following opinions:
@@ -12,7 +16,5 @@ I've spent a bunch of time throughout my career working on various implementatio
    If you've generated the results for a query in a particular typeahead session, you should never need to go to the server or even do expensive work on the client to generate them again. This means that as the user hits backspace, the exact same results they saw a keystroke ago show up again instantly.
 
 This typeahead implementation offers prefix token matching only (no mid-string matching), and abides by the rules above through some pre-processing when new entries are added to the DataSource. It is generally able to filter a couple hundred thousand entries in less than a single frame (16ms) on a low end device.
-
-Note: This project is still in early development and should probably not be used by anyone, for anything, yet.
 
 [1] The exception to the "one reflow per keystroke" is appending more results to the end of the list. It's okay to append more results to the end as long as you don't cause a reflow in anything that's already been rendered.
