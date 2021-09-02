@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://typeahead.tomocchino.com",
-  "main": "src/main/index.ts",
+  "main": "dist/main/index.js",
   "scripts": {
     "test": "jest --watch",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "dist": "rm -rf dist && tsc --project src/main && cp src/main/Typeahead.css dist/main"
   },
   "dependencies": {
     "emojibase": "^5.2.0",
