@@ -10,7 +10,7 @@ const fallbackDataSource = new DataSource();
 type TypeaheadProps = {
   dataSource?: DataSource;
   onReset?: () => void;
-  onSelect?: (entry: DataSourceEntry, input: HTMLInputElement) => void;
+  onSelect?: (entry: DataSourceEntry) => string | void;
   placeholder?: string;
   renderer?: (entry: DataSourceEntry) => React.ReactNode;
 };
@@ -102,15 +102,9 @@ export default function Typeahead(props: TypeaheadProps) {
     if (!entry) {
       return;
     }
-    let input = textInput.current;
-    let inputValue = input.value;
-    if (props.onSelect) {
-      props.onSelect(entry, input);
-    }
     // allow onSelect to change the value of the input as in the emoji example
-    if (input.value === inputValue) {
-      input.value = entry.getText();
-    }
+    let value = props.onSelect && props.onSelect(entry);
+    textInput.current.value = value || entry.getText();
     setSelectedEntry(entry);
     setResults([]);
   };

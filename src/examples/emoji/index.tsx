@@ -44,11 +44,10 @@ function renderer(entry: DataSourceEntry) {
   );
 }
 
-function onSelect(entry: DataSourceEntry, input: HTMLInputElement) {
-  input.value = entry.getValue();
-  input.select();
-  document.execCommand("copy");
-  window.getSelection().collapseToEnd();
+function onSelect(entry: DataSourceEntry) {
+  let value = entry.getValue();
+  navigator.clipboard.writeText(value);
+  return value;
 }
 
 export default function EmojiExample() {
