@@ -6,7 +6,9 @@
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "skipLibCheck": true,
-    "outDir": "../../dist",
+    "declaration": true,
+    "outDir": "../dist",
     "jsx": "react-jsx"
-  }
+  },
+  "exclude": ["**/*.test.*", "../dist/*"]
 }

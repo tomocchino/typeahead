@@ -1,7 +1,4 @@
-import DataSource from "../../main/DataSource";
-import DataSourceEntry from "../../main/DataSourceEntry";
-import Typeahead from "../../main/Typeahead";
-
+import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import styles from "./styles.module.css";
 
 const CHARS =

@@ -1,7 +1,4 @@
-import DataSource from "../../main/DataSource";
-import DataSourceEntry from "../../main/DataSourceEntry";
-import Typeahead from "../../main/Typeahead";
-
+import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import cities from "./data";
 
 let dataSource = new DataSource();

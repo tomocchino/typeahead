@@ -4,7 +4,7 @@ import Error from "next/error";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import styles from "/src/examples/examples.module.css";
+import styles from "../styles/examples.module.css";
 
 const PATHS = {
   states: dynamic(() => import("../examples/states")),

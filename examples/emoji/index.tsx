@@ -1,7 +1,5 @@
+import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import { useEffect } from "react";
-import DataSource from "../../main/DataSource";
-import DataSourceEntry from "../../main/DataSourceEntry";
-import Typeahead from "../../main/Typeahead";
 import {
   Emoji,
   fetchFromCDN,

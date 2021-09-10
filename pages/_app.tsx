@@ -1,7 +1,7 @@
 import Head from "next/head";
 
-import "/styles/globals.css";
-import "/src/main/Typeahead.css";
+import "../styles/globals.css";
+import "../src/css/styles.css";
 
 function MyApp({ Component, pageProps }) {
   return (
