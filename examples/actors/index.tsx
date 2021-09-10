@@ -10,11 +10,11 @@ dataSource.addEntries(
 );
 
 let renderer = (entry: DataSourceEntry) => {
-  let data: typeof actors[0] = entry.getRawData();
+  let data = entry.getRawData() ?? {};
   return (
     <span>
-      <span className={styles.Name}>{data.name}</span>
-      <span className={styles.Movie}>{data.movie}</span>
+      <span className={styles.Name}>{data.name ?? "<unknown>"}</span>
+      <span className={styles.Movie}>{data.movie ?? "<unknown>"}</span>
     </span>
   );
 };

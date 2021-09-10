@@ -3,9 +3,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 function getSearchPath(query: string) {
   let params = new URLSearchParams({
     page: "1",
-    langauge: "un-US",
+    language: "en-US",
     include_adult: "false",
-    api_key: process.env.API_KEY,
+    api_key: process.env.API_KEY || "",
     query: query,
   });
 
@@ -16,12 +16,14 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  let url = new URL(request.url, `https://${request.headers.host}`);
-  let query = url.searchParams.get("query");
-  try {
-    let data = await fetch(getSearchPath(query));
-    response.status(200).send(data.body);
-  } catch (error) {
-    response.status(500).send(error);
+  if (typeof request.url === "string") {
+    let url = new URL(request.url, `https://${request.headers.host}`);
+    let query = url.searchParams.get("query") ?? "";
+    try {
+      let data = await fetch(getSearchPath(query));
+      response.status(200).send(data.body);
+    } catch (error) {
+      response.status(500).send(error);
+    }
   }
 }

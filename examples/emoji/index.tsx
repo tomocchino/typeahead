@@ -54,11 +54,9 @@ export default function EmojiExample() {
 
   // wrapped in useEffect so Next doesn't execute on the server
   useEffect(() => {
-    fetchFromCDN("en/compact.json", { version: "6.2.0" }).then(
-      (data: Array<Emoji>) => {
-        initEmojiDataSource(dataSource, data);
-      }
-    );
+    fetchFromCDN("en/compact.json", { version: "6.2.0" }).then((data) => {
+      initEmojiDataSource(dataSource, data as Array<Emoji>);
+    });
   }, []);
 
   return (

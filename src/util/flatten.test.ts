@@ -2,7 +2,7 @@ import flatten from "./flatten";
 
 describe("Capitalization", () => {
   // prettier-ignore
-  let tests = {
+  let tests: { [input: string]: string } = {
     "Hello": "hello",
     "HELLO": "hello",
     "HeLlO": "hello",
@@ -16,7 +16,7 @@ describe("Capitalization", () => {
 });
 
 describe("Flattening Diacritics", () => {
-  let tests = {
+  let tests: { [input: string]: string } = {
     "Ḣéļḹö Ⱳôȑĺȡ": "hello world",
     "Les Misérable": "les miserable",
     "ỆᶍǍᶆṔƚÉ áéíóúýčďěňřšťžů": "example aeiouycdenrstzu",
@@ -30,7 +30,7 @@ describe("Flattening Diacritics", () => {
 });
 
 describe("Special Characters", () => {
-  let tests = {
+  let tests: { [input: string]: string } = {
     "Hello World!": "hello world",
     "Hello, World,": "hello  world",
     "¡Hello World!": "hello world",
@@ -48,7 +48,7 @@ describe("Special Characters", () => {
 });
 
 describe("Removing Apostrophes", () => {
-  let tests = {
+  let tests: { [input: string]: string } = {
     "Can't": "cant",
     "The Smith's": "the smiths",
     "This won't work, will it?": "this wont work  will it",

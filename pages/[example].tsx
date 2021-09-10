@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import styles from "../styles/examples.module.css";
 
-const PATHS = {
+const PATHS: { [key: string]: React.ComponentType } = {
   states: dynamic(() => import("../examples/states")),
   actors: dynamic(() => import("../examples/actors")),
   cities: dynamic(() => import("../examples/cities")),

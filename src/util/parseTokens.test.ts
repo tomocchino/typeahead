@@ -2,7 +2,7 @@ import parseTokens from "./parseTokens";
 
 describe("Word Separators", () => {
   // prettier-ignore
-  let tests = {
+  let tests: { [input: string]: Array<string> } = {
     "Hello World": ["hello", "world"],
     "Hello-World": ["hello", "world"],
     "Hello·World": ["hello", "world"],
@@ -31,7 +31,7 @@ describe("Word Separators", () => {
 });
 
 describe("Retaining 'and' Symbols", () => {
-  let tests = {
+  let tests: { [input: string]: Array<string> } = {
     "He+llo": ["he", "+", "llo"],
     "Hello +": ["hello", "+"],
     "Hello+World": ["hello", "+", "world"],
@@ -51,7 +51,7 @@ describe("Retaining 'and' Symbols", () => {
 // https://www.imdb.com/list/ls098136839/
 
 describe("Movie Titles with Unusual Symbols", () => {
-  let movies = {
+  let movies: { [input: string]: Array<string> } = {
     "Æon Flux": ["aeon", "flux"],
     "Romeo & Juliet": ["romeo", "&", "juliet"],
     "8½": ["8"],

@@ -1,18 +1,20 @@
 import parseTokens from "../util/parseTokens";
 
+type RawData = { [key: string]: any } | null;
+
 export default class DataSourceEntry {
   private text: string;
   private value: string;
-  private rawData: { [key: string]: any } | null;
+  private rawData: RawData;
   private tokens: Array<string>;
   private keywords: Array<string>;
 
-  constructor(text: string, value: string = text, rawData = { keywords: [] }) {
+  constructor(text: string, value: string = text, rawData?: RawData) {
     this.text = text;
     this.value = value;
-    this.rawData = rawData;
+    this.rawData = rawData ?? {};
     this.tokens = parseTokens(text);
-    this.keywords = rawData?.keywords || [];
+    this.keywords = this.rawData.keywords ?? [];
   }
   getText() {
     return this.text;

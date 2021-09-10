@@ -6,9 +6,7 @@ import styles from "./styles.module.css";
 
 // Utilities
 
-type Movie = typeof topMovies[0];
-
-function createDataSourceEntry(data: Movie) {
+function createDataSourceEntry(data: any) {
   return new DataSourceEntry(data.title, data.id + "", data);
 }
 
@@ -45,7 +43,7 @@ dataSource.addEntries(topMovies.map(createDataSourceEntry));
 // Typeahead Entry Renderer
 
 let renderer = (movie: DataSourceEntry) => {
-  let data: Movie = movie.getRawData();
+  let data = movie.getRawData() ?? {};
   let date = data.release_date;
   let year = date ? new Date(date).getFullYear() : "unknown";
   let poster = data.poster_path ? (
@@ -65,7 +63,7 @@ let renderer = (movie: DataSourceEntry) => {
 // Movie Details Panel
 function MovieDetails(props: { movie: DataSourceEntry }) {
   let movie = props.movie;
-  let data: Movie = movie.getRawData();
+  let data = movie.getRawData() ?? {};
   let date = data.release_date;
   let year = date ? new Date(date).getFullYear() : "unknown";
   return (
@@ -93,7 +91,7 @@ function MovieDetails(props: { movie: DataSourceEntry }) {
 }
 
 export default function MoviesExample() {
-  let [movie, setMovie] = useState(null);
+  let [movie, setMovie] = useState<DataSourceEntry | null>(null);
 
   let onSelect = function (entry: DataSourceEntry) {
     setMovie(entry);
