@@ -16,13 +16,15 @@ type TypeaheadProps = {
 
 export default function Typeahead(props: TypeaheadProps) {
   let [results, setResults] = useState<Array<DataSourceEntry>>([]);
-  let [selectedEntry, setSelectedEntry] = useState<DataSourceEntry>(null);
+  let [selectedEntry, setSelectedEntry] = useState<DataSourceEntry | null>(
+    null
+  );
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const renderer = props.renderer || fallbackRenderer;
   const dataSource = props.dataSource || fallbackDataSource;
-  const textInput = useRef(null);
-  const resultsList = useRef(null);
+  const textInput = useRef<HTMLInputElement>(null);
+  const resultsList = useRef<HTMLUListElement>(null);
 
   let handleClick = () => {
     let numResults = results.length;
@@ -83,11 +85,13 @@ export default function Typeahead(props: TypeaheadProps) {
 
   let handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     let target = event.target as HTMLElement;
-    if (target !== resultsList.current) {
+    if (resultsList.current && target !== resultsList.current) {
       let node = target.closest(".Typeahead_result");
-      let index = Array.from(resultsList.current.childNodes).indexOf(node);
-      if (index != highlightedIndex) {
-        setHighlightedIndex(index);
+      if (node) {
+        let index = Array.from(resultsList.current.childNodes).indexOf(node);
+        if (index != highlightedIndex) {
+          setHighlightedIndex(index);
+        }
       }
     }
   };
@@ -102,10 +106,12 @@ export default function Typeahead(props: TypeaheadProps) {
       return;
     }
     // allow onSelect to change the value of the input as in the emoji example
-    let value = props.onSelect && props.onSelect(entry);
-    textInput.current.value = value || entry.getText();
-    setSelectedEntry(entry);
-    setResults([]);
+    if (textInput.current) {
+      let value = props.onSelect && props.onSelect(entry);
+      textInput.current.value = value || entry.getText();
+      setSelectedEntry(entry);
+      setResults([]);
+    }
   };
 
   useEffect(() => {

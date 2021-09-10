@@ -23,7 +23,7 @@ const retainChars = new Set(["+", "&"]);
 
 // flatten each of these characters with diacritics
 // pulled from https://github.com/dundalek/latinize
-const replaceChars = {
+const replaceChars: { [char: string]: string } = {
   À: "a",
   Á: "a",
   Â: "a",

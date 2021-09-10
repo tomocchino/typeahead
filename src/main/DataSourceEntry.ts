@@ -3,11 +3,11 @@ import parseTokens from "../util/parseTokens";
 export default class DataSourceEntry {
   private text: string;
   private value: string;
-  private rawData: any;
+  private rawData: { [key: string]: any } | null;
   private tokens: Array<string>;
   private keywords: Array<string>;
 
-  constructor(text: string, value: string = text, rawData = null) {
+  constructor(text: string, value: string = text, rawData = { keywords: [] }) {
     this.text = text;
     this.value = value;
     this.rawData = rawData;

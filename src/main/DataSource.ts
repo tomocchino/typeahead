@@ -8,9 +8,9 @@ type QueryHandler = (value: string) => void;
 
 export default class DataSource {
   private maxResults: number;
-  private pendingQuery: number; // window.setTimeout return value
-  private queryHandler: QueryHandler;
-  private queryCallback: QueryCallback;
+  private pendingQuery: number | null; // window.setTimeout return value
+  private queryHandler: QueryHandler | null;
+  private queryCallback: QueryCallback | null;
   private mostRecentQuery: string;
   private entriesSet: Set<string>;
   private entryBuckets: Map<number, Set<DataSourceEntry>>;
@@ -130,7 +130,7 @@ export default class DataSource {
       }
       this.pendingQuery = window.setTimeout(() => {
         this.previousQueries.add(value);
-        this.queryHandler(value);
+        this.queryHandler && this.queryHandler(value);
         this.pendingQuery = null;
       }, QUERY_DELAY);
     }
@@ -141,7 +141,7 @@ export default class DataSource {
     let resultsCount = 0;
     let queryTokens = parseTokens(value);
     let firstCharCode = queryTokens[0].charCodeAt(0);
-    let eligibleEntries = this.entryBuckets.get(firstCharCode) || new Set();
+    let eligibleEntries = this.entryBuckets.get(firstCharCode) ?? new Set();
 
     if (value !== "") {
       for (let entry of Array.from(eligibleEntries)) {
@@ -164,11 +164,11 @@ export default class DataSource {
     this.maxResults = maxResults;
   }
 
-  setQueryCallback(callback: QueryCallback) {
+  setQueryCallback(callback: QueryCallback | null) {
     this.queryCallback = callback;
   }
 
-  setQueryHandler(callback: QueryHandler) {
+  setQueryHandler(callback: QueryHandler | null) {
     this.queryHandler = callback;
   }
 
@@ -177,11 +177,12 @@ export default class DataSource {
   }
 
   private insertEntry(key: number, entry: DataSourceEntry) {
+    let bucket: Set<DataSourceEntry> = this.entryBuckets.get(key) ?? new Set();
     if (!this.entryBuckets.has(key)) {
-      this.entryBuckets.set(key, new Set());
+      this.entryBuckets.set(key, bucket);
     }
-    if (!this.entryBuckets.get(key).has(entry)) {
-      this.entryBuckets.get(key).add(entry);
+    if (!bucket.has(entry)) {
+      bucket.add(entry);
     }
   }
 }
