@@ -1,20 +1,17 @@
 {
-  "name": "typeahead",
+  "name": "typeahead-examples",
   "version": "0.1.0",
   "private": true,
   "homepage": "http://typeahead.tomocchino.com",
-  "main": "dist/index.js",
-  "files": [
-    "src",
-    "dist"
-  ],
   "scripts": {
     "test": "jest --watch",
     "dev": "next dev",
     "lint": "next lint",
     "build": "next build",
     "start": "next start",
-    "dist": "tsc --project src && cp -R src/css dist && yarn pack && rm -rf dist"
+    "predist": "mkdir -p build package && cp -R {release/*,src} package",
+    "dist": "cd package && tsc && cp -R src/css dist && npm pack --pack-destination ../build",
+    "postdist": "rm -rf package"
   },
   "dependencies": {
     "emojibase": "^5.2.0",
