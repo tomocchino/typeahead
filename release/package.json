@@ -1,5 +1,5 @@
 {
-  "name": "typeahead",
+  "name": "@tomocchino/typeahead",
   "version": "0.1.0",
   "homepage": "http://typeahead.tomocchino.com",
   "main": "dist/index.js",
