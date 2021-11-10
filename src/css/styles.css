@@ -1,10 +1,10 @@
-.Typeahead_root {
+.Typeahead_wrapper {
   position: relative;
   width: 100%;
 }
 
-.Typeahead_input,
-.Typeahead_hintText {
+.Typeahead_hintText,
+.Typeahead_textInput {
   border: 1px solid #ccc;
   border-radius: 0;
   box-sizing: border-box;
@@ -26,27 +26,27 @@
 
 /* Only show a normal text cursor when the input is empty or focused. If it has
  * a value, it will be selected on focus to more easily start a new search. */
-.Typeahead_input:focus,
-.Typeahead_input:placeholder-shown {
+.Typeahead_textInput:focus,
+.Typeahead_textInput:placeholder-shown {
   cursor: text;
 }
 
-.Typeahead_input:focus {
+.Typeahead_textInput:focus {
   border-color: #39c;
   outline: none;
 }
 
-.Typeahead_input:focus + .Typeahead_results {
+.Typeahead_textInput:focus + .Typeahead_resultList {
   border-color: #39c;
   border-top-color: #ddd;
 }
 
-.Typeahead_input.selected {
+.Typeahead_textInput.selected {
   border-color: #39c;
   background-color: #def;
 }
 
-.Typeahead_results {
+.Typeahead_resultList {
   border: 1px solid #ccc;
   border-top-color: #ddd;
   background: #fff;
