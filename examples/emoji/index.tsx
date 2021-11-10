@@ -61,9 +61,10 @@ export default function EmojiExample() {
 
   return (
     <Typeahead
-      placeholder="Emoji Search (Emojibase)"
-      dataSource={dataSource}
       renderer={renderer}
+      dataSource={dataSource}
+      placeholder="Emoji Search (Emojibase)"
+      showHintText={true}
       onSelect={onSelect}
     />
   );

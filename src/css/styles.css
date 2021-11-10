@@ -4,7 +4,7 @@
 }
 
 .Typeahead_input,
-.Typeahead_suggestedText {
+.Typeahead_hintText {
   border: 1px solid #ccc;
   border-radius: 0;
   box-sizing: border-box;
@@ -15,7 +15,7 @@
   -webkit-appearance: none;
 }
 
-.Typeahead_suggestedText {
+.Typeahead_hintText {
   position: absolute;
   top: 0;
   left: 0;

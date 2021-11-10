@@ -16,6 +16,7 @@ export default function StatesExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead
+      showHintText={true}
       placeholder={`${numEntries.toLocaleString()} states`}
       dataSource={dataSource}
       renderer={renderer}

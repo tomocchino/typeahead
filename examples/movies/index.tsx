@@ -104,9 +104,10 @@ export default function MoviesExample() {
   return (
     <div>
       <Typeahead
-        placeholder="Movie Search (TMDB)"
-        dataSource={dataSource}
         renderer={renderer}
+        dataSource={dataSource}
+        placeholder="Movie Search (TMDB)"
+        showHintText={true}
         onSelect={onSelect}
         onReset={onReset}
       />

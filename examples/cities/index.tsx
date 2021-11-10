@@ -11,6 +11,7 @@ export default function CitiesExample() {
     <Typeahead
       dataSource={dataSource}
       placeholder={`${numEntries.toLocaleString()} cities`}
+      showHintText={true}
     />
   );
 }

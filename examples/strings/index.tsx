@@ -43,9 +43,10 @@ export default function StringsExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead
-      placeholder={`${numEntries.toLocaleString()} random strings`}
-      dataSource={dataSource}
       renderer={renderer}
+      dataSource={dataSource}
+      placeholder={`${numEntries.toLocaleString()} random strings`}
+      showHintText={true}
     />
   );
 }

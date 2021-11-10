@@ -23,9 +23,10 @@ export default function ActorsExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead
-      placeholder={`${numEntries.toLocaleString()} actors`}
-      dataSource={dataSource}
       renderer={renderer}
+      dataSource={dataSource}
+      placeholder={`${numEntries.toLocaleString()} actors`}
+      showHintText={true}
     />
   );
 }

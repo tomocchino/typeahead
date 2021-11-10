@@ -10,6 +10,7 @@ type TypeaheadProps = {
   dataSource?: DataSource;
   onReset?: () => void;
   onSelect?: (entry: DataSourceEntry) => string | void;
+  showHintText?: boolean;
   placeholder?: string;
   renderer?: (entry: DataSourceEntry) => React.ReactNode;
 };
@@ -22,6 +23,7 @@ export default function Typeahead(props: TypeaheadProps) {
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const renderer = props.renderer || fallbackRenderer;
+  const showHintText = props.showHintText || false;
   const dataSource = props.dataSource || fallbackDataSource;
   const textInput = useRef<HTMLInputElement>(null);
   const resultsList = useRef<HTMLUListElement>(null);
@@ -124,26 +126,30 @@ export default function Typeahead(props: TypeaheadProps) {
     inputClassName += " selected";
   }
 
-  let suggestedText = "";
-  let highlightedResult = results[highlightedIndex];
-  if (highlightedResult && textInput.current) {
-    let value = textInput.current.value;
-    let highlightedResultText = highlightedResult.getText();
-    if (flatten(highlightedResultText).startsWith(flatten(value))) {
-      suggestedText =
-        value.substring(0, value.length) +
-        highlightedResultText.substring(value.length);
+  let hintText = "";
+  if (showHintText) {
+    let highlightedResult = results[highlightedIndex];
+    if (highlightedResult && textInput.current) {
+      let value = textInput.current.value;
+      let highlightedResultText = highlightedResult.getText();
+      if (flatten(highlightedResultText).startsWith(flatten(value))) {
+        hintText =
+          value.substring(0, value.length) +
+          highlightedResultText.substring(value.length);
+      }
     }
   }
 
   return (
     <div className="Typeahead_root">
-      <input
-        disabled
-        type="text"
-        placeholder={suggestedText}
-        className="Typeahead_suggestedText"
-      />
+      {showHintText ? (
+        <input
+          disabled
+          type="text"
+          placeholder={hintText}
+          className="Typeahead_hintText"
+        />
+      ) : null}
       <input
         ref={textInput}
         type="text"
