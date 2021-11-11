@@ -3,34 +3,38 @@ import flatten from "../util/flatten";
 import DataSource from "./DataSource";
 import DataSourceEntry from "./DataSourceEntry";
 
-const fallbackRenderer = (entry: DataSourceEntry) => entry.getText();
+const fallbackRenderer = (result: DataSourceEntry) => result.getText();
 const fallbackDataSource = new DataSource();
 
 type TypeaheadProps = {
   dataSource?: DataSource;
   placeholder?: string;
   showHintText?: boolean;
-  wrapperClassName?: string;
-  hintTextClassName?: string;
-  textInputClassName?: string;
-  resultListClassName?: string;
+  classNames?: {
+    input?: string;
+    result?: string;
+    wrapper?: string;
+    hintText?: string;
+    resultList?: string;
+    inputSelected?: string;
+    resultHighlighted?: string;
+  };
   onReset?: () => void;
-  onSelect?: (entry: DataSourceEntry) => string | void;
-  renderer?: (entry: DataSourceEntry) => React.ReactNode;
+  onSelect?: (result: DataSourceEntry) => string | void;
+  renderer?: (result: DataSourceEntry) => React.ReactNode;
 };
 
 export default function Typeahead(props: TypeaheadProps) {
   let [results, setResults] = useState<Array<DataSourceEntry>>([]);
-  let [selectedEntry, setSelectedEntry] = useState<DataSourceEntry | null>(
-    null
-  );
+  let [selected, setSelected] = useState<DataSourceEntry | null>(null);
   let [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const renderer = props.renderer || fallbackRenderer;
+  const classNames = props.classNames || {};
   const showHintText = props.showHintText || false;
   const dataSource = props.dataSource || fallbackDataSource;
-  const textInput = useRef<HTMLInputElement>(null);
-  const resultsList = useRef<HTMLUListElement>(null);
+  const resultList = useRef<HTMLUListElement>(null);
+  const input = useRef<HTMLInputElement>(null);
 
   let handleClick = () => {
     let numResults = results.length;
@@ -48,7 +52,7 @@ export default function Typeahead(props: TypeaheadProps) {
   let handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
     dataSource.query(value);
-    setSelectedEntry(null);
+    setSelected(null);
     if (props.onReset) {
       props.onReset();
     }
@@ -91,10 +95,10 @@ export default function Typeahead(props: TypeaheadProps) {
 
   let handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     let target = event.target as HTMLElement;
-    if (resultsList.current && target !== resultsList.current) {
+    if (resultList.current && target !== resultList.current) {
       let node = target.closest(".Typeahead_result");
       if (node) {
-        let index = Array.from(resultsList.current.childNodes).indexOf(node);
+        let index = Array.from(resultList.current.childNodes).indexOf(node);
         if (index != highlightedIndex) {
           setHighlightedIndex(index);
         }
@@ -107,15 +111,15 @@ export default function Typeahead(props: TypeaheadProps) {
     setHighlightedIndex(0);
   };
 
-  let handleSelection = (entry: DataSourceEntry) => {
-    if (!entry) {
+  let handleSelection = (result: DataSourceEntry) => {
+    if (!result) {
       return;
     }
     // allow onSelect to change the value of the input as in the emoji example
-    if (textInput.current) {
-      let value = props.onSelect && props.onSelect(entry);
-      textInput.current.value = value || entry.getText();
-      setSelectedEntry(entry);
+    if (input.current) {
+      let value = props.onSelect && props.onSelect(result);
+      input.current.value = value || result.getText();
+      setSelected(result);
       setResults([]);
     }
   };
@@ -125,35 +129,20 @@ export default function Typeahead(props: TypeaheadProps) {
     return () => dataSource.setQueryCallback(null);
   }, [dataSource]);
 
-  let wrapperClassName = "Typeahead_wrapper";
-  if (props.wrapperClassName) {
-    wrapperClassName += " " + props.wrapperClassName;
-  }
+  let inputClassName = cx("Typeahead_input", classNames.input);
+  let wrapperClassName = cx("Typeahead_wrapper", classNames.wrapper);
+  let hintTextClassName = cx("Typeahead_hintText", classNames.hintText);
+  let resultListClassName = cx("Typeahead_resultList", classNames.resultList);
 
-  let hintTextClassName = "Typeahead_hintText";
-  if (props.hintTextClassName) {
-    hintTextClassName += " " + props.hintTextClassName;
-  }
-
-  let textInputClassName = "Typeahead_textInput";
-  if (props.textInputClassName) {
-    textInputClassName += " " + props.textInputClassName;
-  }
-
-  let resultListClassName = "Typeahead_resultList";
-  if (props.resultListClassName) {
-    resultListClassName += " " + props.resultListClassName;
-  }
-
-  if (selectedEntry !== null) {
-    textInputClassName += " selected";
+  if (selected !== null) {
+    inputClassName += cx(" selected", classNames.inputSelected);
   }
 
   let hintText = "";
   if (showHintText) {
     let highlightedResult = results[highlightedIndex];
-    if (highlightedResult && textInput.current) {
-      let value = textInput.current.value;
+    if (highlightedResult && input.current) {
+      let value = input.current.value;
       let highlightedResultText = highlightedResult.getText();
       if (flatten(highlightedResultText).startsWith(flatten(value))) {
         hintText =
@@ -169,12 +158,12 @@ export default function Typeahead(props: TypeaheadProps) {
         <input
           disabled
           type="text"
-          placeholder={hintText}
           className={hintTextClassName}
+          placeholder={hintText}
         />
       ) : null}
       <input
-        ref={textInput}
+        ref={input}
         type="text"
         autoFocus
         autoCorrect="off"
@@ -185,23 +174,26 @@ export default function Typeahead(props: TypeaheadProps) {
         onFocus={handleFocus}
         onInput={handleInput}
         onKeyDown={handleKeydown}
-        className={textInputClassName}
+        className={inputClassName}
       />
       {results.length === 0 ? null : (
         <ul
-          ref={resultsList}
+          ref={resultList}
           onClick={handleClick}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={resultListClassName}>
-          {results.map((entry, index) => {
-            let entryClassName = "Typeahead_result";
+          {results.map((result, index) => {
+            let resultClassName = cx("Typeahead_result", classNames.result);
             if (index === highlightedIndex) {
-              entryClassName += " highlighted";
+              resultClassName += cx(
+                " highlighted",
+                classNames.resultHighlighted
+              );
             }
             return (
-              <li className={entryClassName} key={entry.getValue()}>
-                {renderer(entry)}
+              <li className={resultClassName} key={result.getValue()}>
+                {renderer(result)}
               </li>
             );
           })}
@@ -209,4 +201,15 @@ export default function Typeahead(props: TypeaheadProps) {
       )}
     </div>
   );
+}
+
+// Helper function to make the following pattern more concise
+// ```
+// let exampleClassName = "Typeahead_example";
+// if (classNames.example) {
+//   exampleClassName += " " + classNames.example;
+// }
+// ```
+function cx(a?: string, b?: string) {
+  return (a || "") + (b ? " " + b : "");
 }
