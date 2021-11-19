@@ -107,6 +107,9 @@ export default function Typeahead(props: TypeaheadProps) {
   };
 
   let handleResponse = (value: string, results: Array<DataSourceEntry>) => {
+    if (!input.current || input.current.value === "") {
+      return;
+    }
     setResults(results);
     setHighlightedIndex(0);
   };
@@ -116,10 +119,16 @@ export default function Typeahead(props: TypeaheadProps) {
       return;
     }
     // allow onSelect to change the value of the input as in the emoji example
+    // if empty string is returned, the input should be cleared
     if (input.current) {
       let value = props.onSelect && props.onSelect(result);
-      input.current.value = value || result.getText();
-      setSelected(result);
+      if (value === "") {
+        input.current.value = "";
+        setSelected(null);
+      } else {
+        input.current.value = value || result.getText();
+        setSelected(result);
+      }
       setResults([]);
     }
   };
