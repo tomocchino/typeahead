@@ -13,6 +13,7 @@ const PATHS: { [key: string]: React.ComponentType } = {
   strings: dynamic(() => import("../examples/strings")),
   emoji: dynamic(() => import("../examples/emoji")),
   movies: dynamic(() => import("../examples/movies")),
+  movielist: dynamic(() => import("../examples/movies/list")),
 };
 
 function Empty() {

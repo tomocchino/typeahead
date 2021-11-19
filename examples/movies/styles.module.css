@@ -58,3 +58,44 @@
   font-weight: normal;
   color: gray;
 }
+
+/* MoviesList */
+
+.List {
+  list-style: none;
+}
+
+.List_item {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.List_poster {
+  height: 48px;
+  width: 32px;
+  box-shadow: 0px 1px 4px #999;
+  background-color: #ccc;
+}
+
+.List_poster img {
+  height: 48px;
+  width: 32px;
+}
+
+.List_info {
+  margin-left: 1rem;
+}
+
+.List_title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.List_year {
+  font-weight: normal;
+  color: gray;
+}
+
+.List_score {
+  margin: 0;
+}
