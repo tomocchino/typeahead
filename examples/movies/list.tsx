@@ -107,16 +107,30 @@ export default function MoviesExample() {
     return "";
   };
 
+  let clearMovies = function () {
+    setMovies([]);
+  };
+
   return (
     <div>
-      <Typeahead
-        renderer={renderer}
-        dataSource={dataSource}
-        placeholder="Movie Search (TMDB)"
-        showHintText={true}
-        onSelect={onSelect}
-      />
       <div>{movies.length ? <MoviesList movies={movies} /> : null}</div>
+      <div className={styles.Container}>
+        <Typeahead
+          renderer={renderer}
+          dataSource={dataSource}
+          placeholder="Movie Search (TMDB)"
+          showHintText={true}
+          onSelect={onSelect}
+        />
+        {movies.length ? (
+          <input
+            type="button"
+            value="clear"
+            className={styles.List_clear}
+            onClick={clearMovies}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -99,3 +99,20 @@
 .List_score {
   margin: 0;
 }
+
+.List_clear {
+  border: 1px solid #ccc;
+  padding: 15px;
+  cursor: pointer;
+  margin-left: -1px;
+}
+
+.List_clear:focus {
+  border-color: #39c;
+  outline: none;
+  position: relative;
+}
+
+.Container {
+  display: flex;
+}
