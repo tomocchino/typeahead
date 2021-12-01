@@ -107,7 +107,7 @@ export default function Typeahead(props: TypeaheadProps) {
   };
 
   let handleResponse = (value: string, results: Array<DataSourceEntry>) => {
-    if (!input.current || input.current.value === "") {
+    if (!input.current || (input.current.value === "" && results.length > 0)) {
       return;
     }
     setResults(results);
