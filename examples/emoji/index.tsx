@@ -14,13 +14,13 @@ function initEmojiDataSource(dataSource: DataSource, data: Array<Emoji>) {
   dataSource.addEntries(
     flattenEmojiData(data)
       .sort((a, b) => {
-        let aName = a.annotation.toLowerCase();
-        let bName = b.annotation.toLowerCase();
+        let aName = a.label.toLowerCase();
+        let bName = b.label.toLowerCase();
         return aName < bName ? -1 : aName > bName ? 1 : 0;
       })
       .map((entry) => {
         return new DataSourceEntry(
-          entry.annotation.replace("flag: ", "").replace(/-/g, " "),
+          entry.label.replace("flag: ", "").replace(/-/g, " "),
           fromCodepointToUnicode(fromHexcodeToCodepoint(entry.hexcode)),
           { keywords: entry.tags }
         );
@@ -54,7 +54,7 @@ export default function EmojiExample() {
 
   // wrapped in useEffect so Next doesn't execute on the server
   useEffect(() => {
-    fetchFromCDN("en/compact.json", { version: "6.2.0" }).then((data) => {
+    fetchFromCDN("en/compact.json", { version: "7.0.1" }).then((data) => {
       initEmojiDataSource(dataSource, data as Array<Emoji>);
     });
   }, []);
