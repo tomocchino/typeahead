@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "predist": "mkdir -p build package && cp -R {release/*,src} package",
-    "dist": "cd package && tsc -p ../ && cp -R src/css dist && npm pack --pack-destination ../build",
+    "dist": "cd package && tsc && cp -R src/css dist && npm pack --pack-destination ../build",
     "postdist": "rm -rf package"
   },
   "dependencies": {
