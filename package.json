@@ -1,6 +1,6 @@
 {
   "name": "typeahead-examples",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "homepage": "http://typeahead.tomocchino.com",
   "scripts": {
@@ -15,19 +15,19 @@
   },
   "dependencies": {
     "emojibase": "^6.1.0",
-    "next": "^12.2.2",
+    "next": "^12.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/jest": "^28.1.6",
-    "@types/react": "^18.0.15",
+    "@types/jest": "^28.1.7",
+    "@types/react": "^18.0.17",
     "babel-jest": "^28.1.3",
-    "eslint": "^8.20.0",
-    "eslint-config-next": "^12.2.2",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.22.0",
+    "eslint-config-next": "^12.2.5",
+    "eslint-config-prettier": "^8.5.0",
     "jest": "^28.1.3",
-    "typescript": "^4.4.2"
+    "typescript": "^4.7.4"
   },
   "babel": {
     "presets": [
