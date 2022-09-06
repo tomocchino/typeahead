@@ -144,7 +144,7 @@ export default function Typeahead(props: TypeaheadProps) {
   let resultListClassName = cx("Typeahead_resultList", classNames.resultList);
 
   if (selected !== null) {
-    inputClassName += cx(" selected", classNames.inputSelected);
+    inputClassName += ` ${classNames.inputSelected}`;
   }
 
   let hintText = "";
@@ -195,10 +195,7 @@ export default function Typeahead(props: TypeaheadProps) {
           {results.map((result, index) => {
             let resultClassName = cx("Typeahead_result", classNames.result);
             if (index === highlightedIndex) {
-              resultClassName += cx(
-                " highlighted",
-                classNames.resultHighlighted
-              );
+              resultClassName += ` ${classNames.resultHighlighted}`;
             }
             return (
               <li className={resultClassName} key={result.getValue()}>

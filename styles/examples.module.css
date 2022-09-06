@@ -29,3 +29,42 @@
 .Nav a.selected {
   color: #000;
 }
+
+/* --- */
+
+.Typeahead_input,
+.Typeahead_hintText {
+  border: 1px solid #ccc;
+  font-size: 1.5rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+.Typeahead_input:focus {
+  border-color: #39c;
+  outline: none;
+}
+
+.Typeahead_input:focus + .Typeahead_resultList {
+  border-color: #39c;
+  border-top-color: #ddd;
+}
+
+.Typeahead_input_selected {
+  border-color: #39c;
+  background-color: #def;
+}
+
+.Typeahead_resultList {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top-color: #ddd;
+}
+
+.Typeahead_result {
+  padding: 0.5rem 1rem;
+}
+
+.Typeahead_result_highlighted {
+  background-color: #eee;
+}

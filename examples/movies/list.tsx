@@ -3,6 +3,7 @@ import { useState } from "react";
 import topMovies from "./data";
 import tmdbConfig from "./config";
 import styles from "./styles.module.css";
+import examplesClassNames from "../../styles/examplesClassNames";
 
 // Utilities
 
@@ -118,6 +119,7 @@ export default function MoviesExample() {
         <Typeahead
           renderer={renderer}
           dataSource={dataSource}
+          classNames={examplesClassNames}
           placeholder="Movie Search (TMDB)"
           showHintText={true}
           onSelect={onSelect}

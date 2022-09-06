@@ -1,5 +1,6 @@
 import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import cities from "./data";
+import examplesClassNames from "../../styles/examplesClassNames";
 
 let dataSource = new DataSource();
 dataSource.setMaxResults(15);
@@ -10,6 +11,7 @@ export default function CitiesExample() {
   return (
     <Typeahead
       dataSource={dataSource}
+      classNames={examplesClassNames}
       placeholder={`${numEntries.toLocaleString()} cities`}
       showHintText={true}
     />

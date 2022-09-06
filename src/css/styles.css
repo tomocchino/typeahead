@@ -1,27 +1,25 @@
 .Typeahead_wrapper {
   position: relative;
-  width: 100%;
 }
 
 .Typeahead_input,
 .Typeahead_hintText {
-  border: 1px solid #ccc;
-  border-radius: 0;
+  border-width: 1px;
   box-sizing: border-box;
-  font-size: 1.5rem;
-  padding: 1rem;
-  width: 100%;
   cursor: default;
+  font-size: inherit;
+  margin: 0;
+  width: inherit;
   -webkit-appearance: none;
 }
 
 .Typeahead_hintText {
+  background: none;
+  left: 0;
+  opacity: 50%;
+  pointer-events: none;
   position: absolute;
   top: 0;
-  left: 0;
-  background: none;
-  pointer-events: none;
-  opacity: 50%;
 }
 
 /* Only show a normal text cursor when the input is empty or focused. If it has
@@ -31,25 +29,7 @@
   cursor: text;
 }
 
-.Typeahead_input:focus {
-  border-color: #39c;
-  outline: none;
-}
-
-.Typeahead_input:focus + .Typeahead_resultList {
-  border-color: #39c;
-  border-top-color: #ddd;
-}
-
-.Typeahead_input.selected {
-  border-color: #39c;
-  background-color: #def;
-}
-
 .Typeahead_resultList {
-  border: 1px solid #ccc;
-  border-top-color: #ddd;
-  background: #fff;
   left: 0;
   list-style: none;
   margin: 0;
@@ -62,9 +42,4 @@
 
 .Typeahead_result {
   cursor: default;
-  padding: 0.5rem 1rem;
-}
-
-.Typeahead_result.highlighted {
-  background-color: #eee;
 }

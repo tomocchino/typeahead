@@ -1,6 +1,7 @@
 import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import actors from "./data";
 import styles from "./styles.module.css";
+import examplesClassNames from "../../styles/examplesClassNames";
 
 let dataSource = new DataSource();
 dataSource.addEntries(
@@ -25,6 +26,7 @@ export default function ActorsExample() {
     <Typeahead
       renderer={renderer}
       dataSource={dataSource}
+      classNames={examplesClassNames}
       placeholder={`${numEntries.toLocaleString()} actors`}
       showHintText={true}
     />

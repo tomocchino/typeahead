@@ -1,5 +1,6 @@
 import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import states from "./data";
+import examplesClassNames from "../../styles/examplesClassNames";
 
 let dataSource = new DataSource();
 dataSource.addEntries(
@@ -16,10 +17,11 @@ export default function StatesExample() {
   let numEntries = dataSource.getNumberOfEntries();
   return (
     <Typeahead
+      renderer={renderer}
+      dataSource={dataSource}
+      classNames={examplesClassNames}
       showHintText={true}
       placeholder={`${numEntries.toLocaleString()} states`}
-      dataSource={dataSource}
-      renderer={renderer}
     />
   );
 }

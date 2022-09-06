@@ -101,18 +101,14 @@
 }
 
 .List_clear {
-  border: 1px solid #ccc;
-  padding: 15px;
-  cursor: pointer;
-  margin-left: -1px;
-}
-
-.List_clear:focus {
-  border-color: #39c;
-  outline: none;
-  position: relative;
+  padding: 5px 10px;
+  position: absolute;
+  margin: auto;
+  right: 10px;
+  top: 20%;
+  bottom: 20%;
 }
 
 .Container {
-  display: flex;
+  position: relative;
 }

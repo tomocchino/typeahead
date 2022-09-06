@@ -7,8 +7,8 @@ import {
   fromHexcodeToCodepoint,
   fromCodepointToUnicode,
 } from "emojibase";
-
 import styles from "./styles.module.css";
+import examplesClassNames from "../../styles/examplesClassNames";
 
 function initEmojiDataSource(dataSource: DataSource, data: Array<Emoji>) {
   dataSource.addEntries(
@@ -63,6 +63,7 @@ export default function EmojiExample() {
     <Typeahead
       renderer={renderer}
       dataSource={dataSource}
+      classNames={examplesClassNames}
       placeholder="Emoji Search (Emojibase)"
       showHintText={true}
       onSelect={onSelect}

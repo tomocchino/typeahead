@@ -1,5 +1,6 @@
 import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import styles from "./styles.module.css";
+import examplesClassNames from "../../styles/examplesClassNames";
 
 const CHARS =
   "abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz aeiou" +
@@ -45,6 +46,7 @@ export default function StringsExample() {
     <Typeahead
       renderer={renderer}
       dataSource={dataSource}
+      classNames={examplesClassNames}
       placeholder={`${numEntries.toLocaleString()} random strings`}
       showHintText={true}
     />
