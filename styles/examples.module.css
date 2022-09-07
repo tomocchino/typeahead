@@ -30,24 +30,37 @@
   color: #000;
 }
 
-/* --- */
+/* - - Custom Example Typeahead Styling - - */
 
-.Typeahead_input,
-.Typeahead_hintText {
+.Typeahead_input {
   border: 1px solid #ccc;
+  cursor: default;
   font-size: 1.5rem;
+  margin: 0;
   padding: 1rem;
-  width: 100%;
+}
+
+.Typeahead_hintText {
+  border: 1px solid transparent;
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 1rem;
 }
 
 .Typeahead_input:focus {
   border-color: #39c;
+  cursor: text;
   outline: none;
+}
+
+/* Only show a normal text cursor when the input is empty or focused. If it has
+ * a value, it will be selected on focus to more easily start a new search. */
+.Typeahead_input:placeholder-shown {
+  cursor: text;
 }
 
 .Typeahead_input:focus + .Typeahead_resultList {
   border-color: #39c;
-  border-top-color: #ddd;
 }
 
 .Typeahead_input_selected {
@@ -56,12 +69,22 @@
 }
 
 .Typeahead_resultList {
-  background-color: #fff;
+  background-color: #ddd;
   border: 1px solid #ccc;
-  border-top-color: #ddd;
+  border-top: none;
+  list-style: none;
+  margin: 0;
+  margin-top: -1px;
+  padding: 0;
+}
+
+.Typeahead_result:first-child {
+  margin-top: 1px;
 }
 
 .Typeahead_result {
+  background-color: #fff;
+  cursor: default;
   padding: 0.5rem 1rem;
 }
 

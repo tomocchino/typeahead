@@ -1,45 +1,29 @@
 .Typeahead_wrapper {
   position: relative;
+  width: 100%;
 }
 
-.Typeahead_input,
-.Typeahead_hintText {
-  border-width: 1px;
-  box-sizing: border-box;
-  cursor: default;
+.Typeahead_input {
   font-size: inherit;
-  margin: 0;
-  width: inherit;
+  width: 100%;
   -webkit-appearance: none;
 }
 
 .Typeahead_hintText {
-  background: none;
+  background: transparent;
+  border-color: transparent;
+  font-size: inherit;
   left: 0;
-  opacity: 50%;
   pointer-events: none;
   position: absolute;
   top: 0;
-}
-
-/* Only show a normal text cursor when the input is empty or focused. If it has
- * a value, it will be selected on focus to more easily start a new search. */
-.Typeahead_input:focus,
-.Typeahead_input:placeholder-shown {
-  cursor: text;
+  width: 100%;
+  -webkit-appearance: none;
 }
 
 .Typeahead_resultList {
   left: 0;
-  list-style: none;
-  margin: 0;
-  margin-top: -1px;
-  padding: 0;
   position: absolute;
   right: 0;
   top: 100%;
-}
-
-.Typeahead_result {
-  cursor: default;
 }
