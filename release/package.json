@@ -1,6 +1,6 @@
 {
   "name": "@tomocchino/typeahead",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "homepage": "http://typeahead.tomocchino.com",
   "main": "dist/index.js",
   "files": [
