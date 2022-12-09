@@ -26,6 +26,7 @@ export default function ActorsExample() {
     <Typeahead
       renderer={renderer}
       dataSource={dataSource}
+      classNames={examplesClassNames}
       placeholder={`${numEntries.toLocaleString()} actors`}
       showHintText={true}
     />
