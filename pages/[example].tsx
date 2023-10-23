@@ -35,8 +35,8 @@ export default function Index() {
     let className = example === path ? styles.selected : "";
     return (
       <li key={path}>
-        <Link href={"/" + path}>
-          <a className={className}>{path}</a>
+        <Link className={className} href={"/" + path}>
+          {path}
         </Link>
       </li>
     );
