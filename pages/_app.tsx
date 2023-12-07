@@ -1,4 +1,5 @@
 import { AppProps } from "next/app";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Head from "next/head";
 
 import "../styles/globals.css";
@@ -11,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Typeahead</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <SpeedInsights />
       <Component {...pageProps} />
     </>
   );
