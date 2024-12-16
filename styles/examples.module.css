@@ -1,37 +1,3 @@
-.Main {
-  align-items: center;
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 1rem;
-}
-
-.Nav {
-  color: #999;
-  background: #eee;
-}
-
-.Nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  justify-content: center;
-}
-
-.Nav li {
-  padding: 1rem 0.5rem;
-}
-
-.Nav a:hover {
-  text-decoration: underline;
-}
-
-.Nav a.selected {
-  color: #000;
-}
-
-/* - - Custom Example Typeahead Styling - - */
-
 .Typeahead_input {
   border: 1px solid #ccc;
   cursor: default;
@@ -64,8 +30,8 @@
 }
 
 .Typeahead_input_selected {
-  border-color: #39c;
   background-color: #def;
+  border-color: #39c;
 }
 
 .Typeahead_resultList {

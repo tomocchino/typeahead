@@ -4,12 +4,13 @@
 }
 
 .Typeahead_input {
+  -webkit-appearance: none;
   font-size: inherit;
   width: 100%;
-  -webkit-appearance: none;
 }
 
 .Typeahead_hintText {
+  -webkit-appearance: none;
   background: transparent;
   border-color: transparent;
   font-size: inherit;
@@ -18,7 +19,6 @@
   position: absolute;
   top: 0;
   width: 100%;
-  -webkit-appearance: none;
 }
 
 .Typeahead_resultList {

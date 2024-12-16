@@ -1,39 +1,13 @@
-import Link from "next/link";
+"use client";
+
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import "../styles/globals.css";
-import "../src/css/styles.css";
+import "@/styles/globals.css";
+import "@/src/css/styles.css";
 
-import styles from "../styles/examples.module.css";
-
-const PATHS: { [key: string]: string } = {
-  states: "states",
-  actors: "actors",
-  cities: "cities",
-  strings: "strings",
-  emoji: "emoji",
-  movies: "movies",
-  movielist: "movies/list",
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  let links = Object.keys(PATHS).map((path) => {
-    // let className = example === path ? styles.selected : "";
-    let value = PATHS[path];
-    let className = "";
-    return (
-      <li key={path}>
-        <Link className={className} href={"/" + value}>
-          {path}
-        </Link>
-      </li>
-    );
-  });
-
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -41,10 +15,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <nav className={styles.Nav}>
-          <ul>{links}</ul>
-        </nav>
-        <div className={styles.Main}>{children}</div>
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="p-4 mx-auto w-full max-w-xl items-center">
+            {children}
+          </main>
+        </SidebarProvider>
         <SpeedInsights />
       </body>
     </html>
