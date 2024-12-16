@@ -3486,7 +3486,7 @@ let page10 = {
   total_results: 9293,
 };
 
-export default [
+const TOP_MOVIES = [
   ...page1.results,
   ...page2.results,
   ...page3.results,
@@ -3498,3 +3498,5 @@ export default [
   ...page9.results,
   ...page10.results,
 ];
+
+export default TOP_MOVIES;

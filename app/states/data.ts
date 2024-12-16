@@ -1,4 +1,4 @@
-export default [
+const STATES = [
   { value: "AL", text: "Alabama" },
   { value: "AK", text: "Alaska" },
   { value: "AZ", text: "Arizona" },
@@ -50,3 +50,5 @@ export default [
   { value: "WI", text: "Wisconsin" },
   { value: "WY", text: "Wyoming" },
 ];
+
+export default STATES;

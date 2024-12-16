@@ -1,7 +1,7 @@
 // Static config copy that should actually be fetched / cached every few days.
 // https://developers.themoviedb.org/3/configuration/get-api-configuration
 
-export default {
+const TMDB_CONFIG = {
   images: {
     base_url: "http://image.tmdb.org/t/p/",
     secure_base_url: "https://image.tmdb.org/t/p/",
@@ -67,3 +67,5 @@ export default {
     "videos",
   ],
 };
+
+export default TMDB_CONFIG;

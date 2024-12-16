@@ -1,4 +1,4 @@
-export default [
+const CITIES = [
   "Aaronsburg",
   "Abbeville",
   "Abbot",
@@ -18581,3 +18581,5 @@ export default [
   "Zwingle",
   "Zwolle",
 ];
+
+export default CITIES;

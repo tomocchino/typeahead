@@ -1,5 +1,5 @@
 // prettier-ignore
-export default [
+const ACTORS = [
   {id: "nm0000134", name: "Robert De Niro", movie: "Cape Fear"},
   {id: "nm0000197", name: "Jack Nicholson", movie: "Chinatown"},
   {id: "nm0000158", name: "Tom Hanks", movie: "Cast Away"},
@@ -998,3 +998,5 @@ export default [
   {id: "nm0001806", name: "John Turturro", movie: "Barton Fink"},
   {id: "nm0001471", name: "Jerry Lewis", movie: "The Nutty Professor"},
 ];
+
+export default ACTORS;
