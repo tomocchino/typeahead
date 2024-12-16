@@ -1,3 +1,5 @@
+"use client";
+
 import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import { useState } from "react";
 import topMovies from "./data";

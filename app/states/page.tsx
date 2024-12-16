@@ -1,3 +1,5 @@
+"use client";
+
 import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import states from "./data";
 import examplesClassNames from "../../styles/examplesClassNames";

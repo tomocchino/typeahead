@@ -1,9 +1,11 @@
-import { DataSource, DataSourceEntry, Typeahead } from "../../src";
+"use client";
+
+import { DataSource, DataSourceEntry, Typeahead } from "../../../src";
 import { useState } from "react";
-import topMovies from "./data";
-import tmdbConfig from "./config";
-import styles from "./styles.module.css";
-import examplesClassNames from "../../styles/examplesClassNames";
+import topMovies from "../data";
+import tmdbConfig from "../config";
+import styles from "../styles.module.css";
+import examplesClassNames from "../../../styles/examplesClassNames";
 
 // Utilities
 

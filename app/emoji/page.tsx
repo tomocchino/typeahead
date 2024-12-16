@@ -1,3 +1,5 @@
+"use client";
+
 import { DataSource, DataSourceEntry, Typeahead } from "../../src";
 import { useEffect } from "react";
 import {
