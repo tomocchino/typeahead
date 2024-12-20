@@ -19,46 +19,17 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-// Menu items.
 const items = [
-  {
-    title: "States",
-    url: "/states",
-    icon: MapPinned,
-  },
-  {
-    title: "Cities",
-    url: "/cities",
-    icon: MapPin,
-  },
-  {
-    title: "Actors",
-    url: "/actors",
-    icon: UserRound,
-  },
-  {
-    title: "Strings",
-    url: "/strings",
-    icon: WholeWord,
-  },
-  {
-    title: "Emoji",
-    url: "/emoji",
-    icon: Smile,
-  },
-  {
-    title: "Movies",
-    url: "/movies",
-    icon: Clapperboard,
-  },
-  {
-    title: "Movie List",
-    url: "/movies/list",
-    icon: Rows3,
-  },
+  { title: "States", url: "/states", icon: MapPinned },
+  { title: "Cities", url: "/cities", icon: MapPin },
+  { title: "Actors", url: "/actors", icon: UserRound },
+  { title: "Strings", url: "/strings", icon: WholeWord },
+  { title: "Emoji", url: "/emoji", icon: Smile },
+  { title: "Movies", url: "/movies", icon: Clapperboard },
+  { title: "Movie List", url: "/movies/list", icon: Rows3 },
 ];
 
-export function AppSidebar() {
+export function Navigation() {
   return (
     <Sidebar>
       <SidebarContent>
