@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -17,7 +17,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <SidebarProvider>
           <AppSidebar />
-          <main className="p-4 mx-auto w-full max-w-xl items-center">
+          <SidebarTrigger className="m-1" />
+          <main className="w-full p-4 mx-auto max-w-xl items-center">
             {children}
           </main>
         </SidebarProvider>
