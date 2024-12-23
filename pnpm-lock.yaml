@@ -22,7 +22,7 @@ importers:
         specifier: 5.5.4
         version: 5.5.4
 
-  apps/web:
+  apps/examples:
     dependencies:
       '@radix-ui/react-dialog':
         specifier: ^1.1.3
