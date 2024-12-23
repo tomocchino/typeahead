@@ -42,7 +42,7 @@ export default function Typeahead(props: TypeaheadProps) {
       return;
     }
     let index = highlightedIndex;
-    handleSelection(results[index]);
+    handleSelection(results[index] as DataSourceEntry);
   };
 
   let handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -81,7 +81,7 @@ export default function Typeahead(props: TypeaheadProps) {
         break;
       case "Tab":
       case "Enter":
-        handleSelection(results[index]);
+        handleSelection(results[index] as DataSourceEntry);
         event.preventDefault();
         break;
       default:

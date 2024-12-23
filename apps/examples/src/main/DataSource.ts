@@ -87,8 +87,10 @@ export default class DataSource {
       for (let ii = 0; ii <= index; ii++) {
         for (let jj = 0; jj < entryBucket.length; jj++) {
           let entry = entryBucket[jj];
-          let key = entry.getTokens()[ii].charCodeAt(0);
-          this.insertEntry(key, entry);
+          if (entry && entry.getTokens) {
+            let key = (entry.getTokens()[ii] || "").charCodeAt(0);
+            this.insertEntry(key, entry);
+          }
         }
       }
     });
@@ -140,7 +142,7 @@ export default class DataSource {
     let results: Set<DataSourceEntry> = new Set();
     let resultsCount = 0;
     let queryTokens = parseTokens(value);
-    let firstCharCode = queryTokens[0].charCodeAt(0);
+    let firstCharCode = (queryTokens[0] || "").charCodeAt(0);
     let eligibleEntries = this.entryBuckets.get(firstCharCode) ?? new Set();
 
     if (value !== "") {
@@ -197,8 +199,8 @@ function tokensMatch(queryTokens: Array<string>, entryTokens: Array<string>) {
     numQueryTokensMatched < numQueryTokens &&
     numEntryTokensChecked < numEntryTokens
   ) {
-    let queryToken = queryTokens[numQueryTokensMatched];
-    let entryToken = entryTokens[numEntryTokensChecked];
+    let queryToken = queryTokens[numQueryTokensMatched] || "";
+    let entryToken = entryTokens[numEntryTokensChecked] || "";
     // If the entry token starts with the query token, it's a match. Increment
     // matched query token count and return true if we have the number we need.
     if (

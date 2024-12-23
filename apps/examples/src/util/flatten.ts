@@ -7,7 +7,7 @@ export default function flattenString(string: string) {
       } else if (retainChars.has(character)) {
         return ` ${character} `;
       } else if (character in replaceChars) {
-        return replaceChars[character];
+        return replaceChars[character] || " ";
       } else {
         return " ";
       }
