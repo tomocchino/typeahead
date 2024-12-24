@@ -2,16 +2,16 @@
   "name": "@tomocchino/typeahead",
   "version": "0.6.0",
   "homepage": "http://typeahead.tomocchino.com",
-  "main": "dist/index.js",
-  "files": [
-    "src",
-    "dist"
-  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/css/styles.css"
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@repo/config": "workspace:*",
     "@types/jest": "^28.1.8",
     "@types/react": "^18.0.18",
     "babel-jest": "^28.1.3",

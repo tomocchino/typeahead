@@ -1,6 +1,6 @@
 "use client";
 
-import { DataSource, DataSourceEntry, Typeahead } from "../../src";
+import { DataSource, DataSourceEntry, Typeahead } from "@tomocchino/typeahead";
 import cities from "./data";
 import examplesClassNames from "../../styles/examplesClassNames";
 

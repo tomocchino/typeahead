@@ -1,8 +1,8 @@
 "use client";
 
-import { DataSource, DataSourceEntry, Typeahead } from "../../src";
+import { DataSource, DataSourceEntry, Typeahead } from "@tomocchino/typeahead";
 import styles from "./styles.module.css";
-import examplesClassNames from "../../styles/examplesClassNames";
+import examplesClassNames from "@/styles/examplesClassNames";
 
 const CHARS =
   "abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz aeiou" +

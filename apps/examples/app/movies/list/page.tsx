@@ -1,11 +1,11 @@
 "use client";
 
-import { DataSource, DataSourceEntry, Typeahead } from "../../../src";
+import { DataSource, DataSourceEntry, Typeahead } from "@tomocchino/typeahead";
 import { useState } from "react";
 import topMovies from "../data";
 import tmdbConfig from "../config";
 import styles from "../styles.module.css";
-import examplesClassNames from "../../../styles/examplesClassNames";
+import examplesClassNames from "@/styles/examplesClassNames";
 
 // Utilities
 

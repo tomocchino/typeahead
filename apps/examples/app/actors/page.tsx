@@ -1,6 +1,6 @@
 "use client";
 
-import { DataSource, DataSourceEntry, Typeahead } from "../../src";
+import { DataSource, DataSourceEntry, Typeahead } from "@tomocchino/typeahead";
 import actors from "./data";
 import styles from "./styles.module.css";
 import examplesClassNames from "../../styles/examplesClassNames";

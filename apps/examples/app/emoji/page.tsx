@@ -1,6 +1,6 @@
 "use client";
 
-import { DataSource, DataSourceEntry, Typeahead } from "../../src";
+import { DataSource, DataSourceEntry, Typeahead } from "@tomocchino/typeahead";
 import { useEffect } from "react";
 import {
   Emoji,
@@ -10,7 +10,7 @@ import {
   fromCodepointToUnicode,
 } from "emojibase";
 import styles from "./styles.module.css";
-import examplesClassNames from "../../styles/examplesClassNames";
+import examplesClassNames from "@/styles/examplesClassNames";
 
 function initEmojiDataSource(dataSource: DataSource, data: Array<Emoji>) {
   dataSource.addEntries(

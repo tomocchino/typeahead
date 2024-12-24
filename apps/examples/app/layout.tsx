@@ -5,7 +5,7 @@ import { Navigation } from "@/app/navigation";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "@/styles/globals.css";
-import "@/src/css/styles.css";
+import "@tomocchino/typeahead/styles";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
