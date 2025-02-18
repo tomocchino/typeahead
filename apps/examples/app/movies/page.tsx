@@ -21,13 +21,13 @@ function getImagePath(path: string, sizeIndex: number = 0) {
 
 function getSearchPath(query: string) {
   let origin = window.location.origin;
-  let path = "/api/movies/search?query=";
+  let path = "/movies/search?query=";
   return origin + path + encodeURIComponent(query);
 }
 
 async function searchForMovies(value: string) {
   try {
-    console.log("GOING TO THE NETWORK FOR", value);
+    console.log("TMBD SEARCH: ", value);
     let data = await fetch(getSearchPath(value));
     let json = await data.json();
     dataSource.addEntries(json.results.map(createDataSourceEntry));
