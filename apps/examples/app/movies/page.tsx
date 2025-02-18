@@ -50,7 +50,7 @@ let renderer = (movie: DataSourceEntry) => {
   let date = data.release_date;
   let year = date ? new Date(date).getFullYear() : "unknown";
   let poster = data.poster_path ? (
-    <img src={getImagePath(data.poster_path)} />
+    <img src={getImagePath(data.poster_path)} alt={data.title} />
   ) : null;
   return (
     <span className={styles.Entry}>
@@ -74,7 +74,7 @@ function MovieDetails(props: { movie: DataSourceEntry }) {
       <div>
         <div className={styles.Details_poster}>
           {data.poster_path ? (
-            <img src={getImagePath(data.poster_path, 2)} />
+            <img src={getImagePath(data.poster_path, 2)} alt={data.title} />
           ) : null}
         </div>
       </div>

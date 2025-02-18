@@ -1,7 +1,7 @@
 "use client";
 
 import { DataSource, DataSourceEntry, Typeahead } from "@tomocchino/typeahead";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   Emoji,
   fetchFromCDN,
@@ -51,15 +51,18 @@ function onSelect(entry: DataSourceEntry) {
 }
 
 export default function EmojiExample() {
-  let dataSource = new DataSource();
-  dataSource.setMaxResults(8);
+  let dataSource = useMemo(() => {
+    let dataSource = new DataSource();
+    dataSource.setMaxResults(8);
+    return dataSource;
+  }, []);
 
   // wrapped in useEffect so Next doesn't execute on the server
   useEffect(() => {
     fetchFromCDN("en/compact.json").then((data) => {
       initEmojiDataSource(dataSource, data as Array<Emoji>);
     });
-  }, []);
+  }, [dataSource]);
 
   return (
     <Typeahead
