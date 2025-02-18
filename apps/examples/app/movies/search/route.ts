@@ -1,3 +1,5 @@
+import { type NextRequest } from "next/server";
+
 function getSearchPath(query: string) {
   let params = new URLSearchParams({
     page: "1",
@@ -20,10 +22,10 @@ function getOptions() {
   return options;
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   if (typeof request.url === "string") {
-    let url = new URL(request.url, `https://${request.headers.host}`);
-    let query = url.searchParams.get("query") ?? "";
+    let searchParams = request.nextUrl.searchParams;
+    let query = searchParams.get("query") || "";
     try {
       let data = await fetch(getSearchPath(query), getOptions());
       return new Response(data.body, { status: 200 });
