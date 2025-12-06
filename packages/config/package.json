@@ -11,18 +11,18 @@
     "./typescript-react": "./typescript-react.json"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.4.6",
-    "@typescript-eslint/eslint-plugin": "^8.39.0",
-    "@typescript-eslint/parser": "^8.39.0",
-    "eslint": "^9.32.0",
+    "@next/eslint-plugin-next": "^16.0.7",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
+    "@typescript-eslint/parser": "^8.48.1",
+    "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-turbo": "^2.5.5",
-    "globals": "^16.3.0",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.39.0"
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-turbo": "^2.6.3",
+    "globals": "^16.5.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1"
   },
   "publishConfig": {
     "access": "public"
