@@ -14,6 +14,7 @@ This is a React typeahead component library that implements a high-performance p
 
 **Monorepo Structure**:
 - `packages/typeahead/`: Core typeahead library (`@tomocchino/typeahead`)
+- `packages/config/`: Shared ESLint and TypeScript configurations
 - `apps/examples/`: Next.js demo application with various typeahead implementations
 - Uses pnpm workspaces with Turbo for build orchestration
 
@@ -27,6 +28,7 @@ This is a React typeahead component library that implements a high-performance p
 - Entries are bucketed by first character code for O(1) lookup
 - Results are cached to enable instant backspace functionality
 - Supports custom renderers and async data loading via queryHandler
+- Complex entry insertion algorithm maintains order by token count and preserves initial sort order within buckets
 
 ## Commands
 
@@ -40,11 +42,12 @@ pnpm format           # Format code with Prettier
 
 **Testing**:
 ```bash
-# Examples app
-cd apps/examples && pnpm test        # Run Jest tests in watch mode
+# Run tests in watch mode (examples app)
+cd apps/examples && pnpm test
 
-# Typeahead package  
-cd packages/typeahead && pnpm test   # Run Jest tests (implied from package.json)
+# Run a single test file
+cd packages/typeahead && npx jest src/main/DataSource.test.ts
+cd packages/typeahead && npx jest src/util/parseTokens.test.ts
 ```
 
 **Type checking**:
@@ -54,11 +57,11 @@ cd apps/examples && pnpm check-types  # TypeScript type checking
 
 ## Development Notes
 
-- Uses React 19 and Next.js 15 with Turbopack
+- Uses React 19 and Next.js 16 with Turbopack
 - TypeScript configuration supports modern React features
 - Jest testing framework with Babel transpilation
 - Examples include movies (TMDB API), actors, cities, states, emoji, and strings
-- Styling uses Tailwind CSS with Radix UI components
+- Styling uses Tailwind CSS v3 with Radix UI components
 - Performance-critical: filter hundreds of thousands of entries in <16ms
 
 ## Package Dependencies
