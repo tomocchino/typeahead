@@ -6,11 +6,17 @@
     ".": "./src/index.ts",
     "./styles": "./src/css/styles.css"
   },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
   "dependencies": {
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@repo/config": "workspace:*",
     "@types/jest": "^30.0.0",
     "@types/react": "19.2.7",
