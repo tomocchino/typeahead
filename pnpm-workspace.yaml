@@ -1,3 +1,11 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+
+# next bundles its own postcss internally; force it to a patched release.
+overrides:
+  "postcss@<8.5.10": "^8.5.10"

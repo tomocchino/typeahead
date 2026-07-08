@@ -11,6 +11,7 @@
     "./typescript-react": "./typescript-react.json"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
     "@next/eslint-plugin-next": "^16.2.10",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
