@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --watch",
     "dev": "next dev --turbopack",
-    "lint": "next lint",
+    "lint": "eslint .",
     "build": "next build",
     "start": "next start",
     "predist": "mkdir -p build package && cp -R {release/*,src} package",
