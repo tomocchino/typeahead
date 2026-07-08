@@ -14,6 +14,12 @@ export default function flattenString(string: string) {
     Ɐ: "a",
     ǝ: "e",
     ȡ: "d",
+    // Ligatures with no Unicode decomposition
+    Æ: "ae",
+    æ: "ae",
+    Œ: "oe",
+    œ: "oe",
+    ß: "ss",
   };
 
   // First replace special characters that don't decompose
