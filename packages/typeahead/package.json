@@ -12,20 +12,18 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
     "@repo/config": "workspace:*",
     "@types/jest": "^30.0.0",
     "@types/react": "19.2.7",
-    "babel-jest": "^30.2.0",
-    "eslint": "^9.39.2",
-    "eslint-config-next": "^16.1.1",
-    "eslint-config-prettier": "^10.1.8",
-    "jest": "^30.2.0",
+    "babel-jest": "^30.4.1",
+    "eslint": "^9.39.4",
+    "jest": "^30.4.2",
     "typescript": "^5.9.3"
   }
 }
