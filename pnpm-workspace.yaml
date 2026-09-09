@@ -8,4 +8,6 @@ allowBuilds:
 
 # next bundles its own postcss internally; force it to a patched release.
 overrides:
-  "postcss@<8.5.10": "^8.5.10"
+  "postcss@<8.5.28": "^8.5.28"
+  "browserslist@<4.28.7": "^4.28.9"
+  "baseline-browser-mapping@>=2.0.0 <2.11.0": "^2.11.21"
