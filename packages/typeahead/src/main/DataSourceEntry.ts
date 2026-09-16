@@ -14,7 +14,7 @@ export default class DataSourceEntry {
     this.value = value;
     this.rawData = rawData ?? {};
     this.tokens = parseTokens(text);
-    this.keywords = this.rawData.keywords ?? [];
+    this.keywords = (this.rawData.keywords ?? []).flatMap(parseTokens);
   }
   getText() {
     return this.text;
