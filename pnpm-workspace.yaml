@@ -11,3 +11,8 @@ overrides:
   "postcss@<8.5.28": "^8.5.28"
   "browserslist@<4.28.7": "^4.28.9"
   "baseline-browser-mapping@>=2.0.0 <2.11.0": "^2.11.21"
+  # brace-expansion has a quadratic-time `{a},b}` expansion (CVE-2026-102277); force patched releases.
+  "brace-expansion@<1.1.21": "^1.1.21"
+  "brace-expansion@>=2.0.0 <2.1.7": "^2.1.7"
+  "brace-expansion@>=3.0.0 <3.0.9": "^3.0.9"
+  "brace-expansion@>=4.0.0 <5.0.12": "^5.0.12"
