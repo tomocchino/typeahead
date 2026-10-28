@@ -74,6 +74,9 @@ export default class DataSource {
         uniqueEntries.push(entry);
         this.entriesSet.add(value);
         let index = entry.getTokens().length - 1;
+        if (index < 0) {
+          return;
+        }
         if (!intermediateEntryBuckets[index]) {
           intermediateEntryBuckets[index] = [];
         }
@@ -119,6 +122,14 @@ export default class DataSource {
     let results = this.getQueryResults(value);
     this.queryCallback(value, results);
 
+    if (parseTokens(value).length === 0) {
+      if (this.pendingQuery !== null) {
+        clearTimeout(this.pendingQuery);
+        this.pendingQuery = null;
+      }
+      return;
+    }
+
     // If we have fewer than maxResults, invoke the queryHandler, if
     // one is set, enabling the caller to fetch more results if needed
     if (
@@ -142,6 +153,10 @@ export default class DataSource {
     let results: Set<DataSourceEntry> = new Set();
     let resultsCount = 0;
     let queryTokens = parseTokens(value);
+    this.mostRecentQuery = value;
+    if (queryTokens.length === 0) {
+      return [];
+    }
     let firstCharCode = (queryTokens[0] || "").charCodeAt(0);
     let eligibleEntries = this.entryBuckets.get(firstCharCode) ?? new Set();
 
@@ -158,7 +173,6 @@ export default class DataSource {
       }
     }
 
-    this.mostRecentQuery = value;
     return Array.from(results);
   }
 
