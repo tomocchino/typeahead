@@ -8,6 +8,8 @@ allowBuilds:
 
 # next bundles its own postcss internally; force it to a patched release.
 overrides:
+  # Jest still requires vulnerable glob releases; keep its traversal dependency patched.
+  "glob@>=9.0.0 <=14.0.1": "^14.0.2"
   "postcss@<8.5.28": "^8.5.28"
   "browserslist@<4.28.7": "^4.28.9"
   "baseline-browser-mapping@>=2.0.0 <2.11.0": "^2.11.21"
